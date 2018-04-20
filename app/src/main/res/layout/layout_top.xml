@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.hankkin.library.GradationScrollView
+    android:id="@+id/scrollview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.youth.banner.Banner
+            android:id="@+id/banner"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@color/black"
+            />
+
+        <LinearLayout
+            android:id="@+id/ll_offset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing_smaller">
+
+            <TextView
+                android:id="@+id/tv_itemshopname"
+                style="@style/blackTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="日本卡乐比Calbee Jagabee 薯条三兄弟 淡盐味" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/tv_itemshopprice"
+                    style="@style/colorPrimaryTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/red"
+                    android:text="48元" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp">
+
+                    <TextView
+                        android:id="@+id/tv_itemshopoldprice"
+                        style="@style/greyTextStyleSmaller"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/spacing_tinyer"
+                        android:paddingRight="@dimen/spacing_tinyer"
+                        android:text="159" />
+
+                    <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="0.5dp"
+                        android:layout_alignLeft="@+id/tv_itemshopoldprice"
+                        android:layout_alignRight="@+id/tv_itemshopoldprice"
+                        android:layout_centerVertical="true"
+                        android:background="@color/deep_transparent" />
+                </RelativeLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_smaller"
+            android:background="@color/grey_line_bg" />
+
+        <include layout="@layout/layout_line" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_smaller"
+            android:background="@color/grey_line_bg" />
+
+        <TextView
+            android:textColor="@color/black"
+            android:background="@drawable/list_gray_item"
+            android:id="@+id/tv_shoptypecolor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/rightarrow"
+            android:padding="@dimen/spacing_small"
+            android:text="选择  产品分类" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_smaller"
+            android:background="@color/grey_line_bg" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_smaller"
+            android:background="@color/grey_line_bg" />
+        <TextView
+            android:textColor="@color/black"
+            android:background="@drawable/list_gray_item"
+            android:id="@+id/tv_shopcanshu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/rightarrow"
+            android:padding="@dimen/spacing_small"
+            android:text="查看  产品参数" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/spacing_smaller"
+            android:background="@color/grey_line_bg" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey_normal_bg"
+            android:padding="@dimen/spacing_smallest">
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/spacing_normal"
+                android:layout_toLeftOf="@+id/tv_good_detail_tuodong"
+                android:background="@color/deep_transparent" />
+
+            <TextView
+                android:id="@+id/tv_good_detail_tuodong"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="继续拖动,查看图文详情"
+                android:textSize="@dimen/font_small" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="0.5dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/spacing_normal"
+                android:layout_toRightOf="@+id/tv_good_detail_tuodong"
+                android:background="@color/deep_transparent" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</com.hankkin.library.GradationScrollView>

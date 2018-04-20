@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFFFFF</color>
+    <color name="green">#45C01A</color>
+    <color name="gray">#999999</color>
+    <color name="line">#999999</color>
+    <color name="organ">#ff5001</color>
+    <color name="hint_color">#66ffffff</color>
+    <color name="text_blue">#3E79FF</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="bg_toolbar">#32A082</color>
+    <color name="bg_Gray">#CCCCCC</color>
+    <color name="tv_Black">#000000</color>
+    <color name="bg_Gray_light">#EEEEEE</color>
+    <color name="priorgan">#ffa000</color>
+    <color name="red">#ea2000</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="trantracent">#22000000</color>
+    <color name="trantracent_wode">#55000000</color>
+    <color name="deep_transparent">#bb000000</color>
+    <color name="grey_text_color_normal">#8A8A8A</color>
+    <color name="grey_line_bg">#E4E4E4</color>
+    <color name="original_border_color">#F18459</color>
+    <color name="grey_normal_bg">#EEEEEE</color>
+    <color name="orange">#fd7903</color>
+    <color name="orangered">#ff4500</color>
+    <color name="crimson">#dc143c</color>
+    <color name="wt_time">#686868</color>
+    <color name="page_backgroup">#f2f2f2</color>
+    <color name="grey_color1">#333333</color>
+    <color name="orange_color">#de6838</color>
+</resources>

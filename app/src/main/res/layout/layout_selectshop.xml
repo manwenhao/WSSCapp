@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lybeat="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/shape_shop">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="20sp"
+            android:text="颜色:"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <com.lybeat.multiselector.MultiSelector
+            android:id="@+id/color_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            lybeat:optionBackground="@drawable/bg_item_option_pressed"
+            lybeat:selectorBackground="@color/bg_Gray"
+            android:background="@color/bg_Gray"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="20sp"
+            android:text="尺寸:"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <com.lybeat.multiselector.MultiSelector
+            android:id="@+id/size_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            lybeat:optionBackground="@drawable/bg_item_option_pressed"
+            lybeat:selectorBackground="@color/bg_Gray"
+            android:background="@color/bg_Gray"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textSize="20sp"
+            android:text="数量:"
+            android:textColor="@color/black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:background="@color/bg_Gray"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <RelativeLayout
+                android:id="@+id/ll_change_num"
+                android:layout_width="wrap_content"
+                android:layout_height="26dip"
+                android:layout_gravity="center"
+                android:layout_below="@id/tv_intro"
+                android:layout_toRightOf="@id/tv_color_size"
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/bt_reduce"
+                    android:layout_width="26dip"
+                    android:layout_height="26dip"
+                    android:clickable="false"
+                    android:focusableInTouchMode="false"
+                    android:background="@drawable/cart_minus_selector"/>
+                <TextView
+                    android:id="@+id/tv_num"
+                    android:layout_toRightOf="@id/bt_reduce"
+                    android:layout_width="40dip"
+                    android:layout_height="26dip"
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:textColor="#000"
+                    android:background="@drawable/icon_cart_count"
+                    style="@style/textStyle.Normal.black" />
+
+                <Button
+                    android:id="@+id/bt_add"
+                    android:layout_toRightOf="@id/tv_num"
+                    android:layout_width="26dip"
+                    android:layout_height="26dip"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:background="@drawable/cart_plus_selector"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <Button
+            android:id="@+id/bt_addcar"
+            android:layout_gravity="center"
+            android:text="加入购物车"
+            android:background="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <View
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/white"
+            android:layout_width="1dp"
+            android:layout_height="wrap_content"/>
+        <Button
+            android:id="@+id/bt_shopbuy"
+            android:layout_gravity="center"
+            android:text="立即购买"
+            android:background="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

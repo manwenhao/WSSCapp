@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.chen.wsscapp.fragment.WeiTaoFragment"
+    >
+    <com.example.chen.wsscapp.Util.CustomToolBar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:left_tv_visible="false"
+        app:right_btn_visible="false"
+        app:right_tv_visible="false"
+        app:title_visible="true"
+        app:title_text="动态"
+        >
+        <com.jcodecraeer.xrecyclerview.XRecyclerView
+            android:id="@+id/weitao_recyc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:descendantFocusability="blocksDescendants"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </com.jcodecraeer.xrecyclerview.XRecyclerView>
+    </com.example.chen.wsscapp.Util.CustomToolBar>
+</RelativeLayout>

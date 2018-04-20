@@ -1,0 +1,65 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/primary_dark_material_light">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Shopping"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"/>
+    </RelativeLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:background="#f0f0f0"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_chat"
+            android:checked="true"
+            android:text="@string/chat"
+            android:drawableTop="@drawable/rb_menu_selector"
+            style="@style/style_RadioButton"/>
+
+        <RadioButton
+            android:id="@+id/rb_weitao"
+            android:text="动态"
+            android:drawableTop="@drawable/rb_weitao_selector"
+            style="@style/style_RadioButton"
+            />
+
+        <RadioButton
+            android:id="@+id/rb_contacts"
+            android:text="@string/contacts"
+            android:drawableTop="@drawable/rb_chat_selector"
+            style="@style/style_RadioButton"/>
+
+        <RadioButton
+            android:id="@+id/rb_discovery"
+            android:text="@string/shoppingcar"
+            android:drawableTop="@drawable/rb_shoppingcar_selector"
+            style="@style/style_RadioButton"/>
+
+        <RadioButton
+            android:id="@+id/rb_me"
+            android:text="@string/me"
+            android:drawableTop="@drawable/rb_me_selector"
+            style="@style/style_RadioButton"/>
+    </RadioGroup>
+
+   <com.example.chen.wsscapp.Util.CustomViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/radioGroup" />
+</RelativeLayout>
+

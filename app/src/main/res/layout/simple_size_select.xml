@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:lybeat="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/create_user_dialog_view"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:minWidth="200dp"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:paddingBottom="30dp"
+    android:paddingTop="30dp">
+    <com.lybeat.multiselector.MultiSelector
+        android:id="@+id/size_selector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        lybeat:optionBackground="@drawable/bg_item_option_pressed"
+        lybeat:selectorBackground="#ffffff"
+        android:background="@color/bg_Gray"
+        />
+</RelativeLayout>
