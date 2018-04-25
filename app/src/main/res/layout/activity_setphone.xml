@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.example.chen.wsscapp.Util.CustomToolBar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:left_tv_visible="false"
+    app:right_btn_visible="true"
+    app:right_tv_visible="true"
+    app:title_visible="true"
+    app:title_text="修改手机号码"
+    >
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/ed_oldphone"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="107dp"
+        android:ems="10"
+        android:hint="请输入手机号"
+        android:inputType="phone" />
+
+
+    <EditText
+        android:id="@+id/ed_code"
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ed_oldphone"
+        android:layout_below="@+id/ed_oldphone"
+        android:layout_marginTop="44dp"
+        android:hint="请输入验证码"
+        android:inputType="textPassword" >
+    </EditText>
+
+    <Button
+        android:id="@+id/bt_next"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ed_code"
+        android:layout_below="@+id/ed_code"
+        android:layout_marginTop="44dp"
+        android:text="下一步" />
+
+    <Button
+        android:id="@+id/bt_sendcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="获取验证码"
+        android:layout_alignTop="@+id/ed_code"
+        android:layout_alignEnd="@+id/bt_next" />
+
+</RelativeLayout>
+</com.example.chen.wsscapp.Util.CustomToolBar>

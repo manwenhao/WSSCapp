@@ -1,22 +1,18 @@
 package com.example.chen.wsscapp.activity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.ACache;
 import com.example.chen.wsscapp.Util.BaseActivity;
 import com.example.chen.wsscapp.Util.MyApplication;
-
-import qiu.niorgai.StatusBarCompat;
 
 
 /**
@@ -87,6 +83,9 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
                 break;
             case R.id.ll_phone:
                 showToast("电话设置");
+                Intent intent3 = new Intent(this,SetPhoneActivity.class);
+                startActivity(intent3);
+                finish();
                 break;
             case R.id.ll_birth:
                 Intent intent4 = new Intent(this,SetBirthActivity.class);

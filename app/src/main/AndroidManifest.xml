@@ -49,6 +49,8 @@
         <activity android:name=".activity.ShowshopInfoActivity"/>
         <activity android:name=".activity.KeySearchShopActivity"/>
         <activity android:name=".activity.WeiTaoDetail"/>
+        <activity android:name=".activity.SetPhoneActivity" />
+        <activity android:name=".activity.SetNewphoneActivity"/>
 
     </application>
 
