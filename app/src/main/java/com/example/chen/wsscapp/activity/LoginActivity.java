@@ -30,6 +30,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 /**
  * Created by chen on 2018/3/10.
@@ -164,9 +166,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                                     intent.putExtra("user_json",msg);
                                     startActivity(intent);
-
-
-
+                                    MyApplication.setUser_id(account);
+                                    JPushInterface.setAlias(getApplicationContext(),1,account);
                                     //存储到本地文件中同时给他默认的头像路径并不上传至服务端
                                     SharedPreferences.Editor editor = getSharedPreferences("user_data",MODE_PRIVATE).edit();
                                     editor.putString("phone",account);
