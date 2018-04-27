@@ -1,24 +1,48 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <com.example.chen.wsscapp.Util.CustomToolBar
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <RadioGroup
+        android:id="@+id/tongzhi_rg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:left_tv_visible="false"
-        app:right_btn_visible="false"
-        app:right_tv_visible="false"
-        app:title_visible="true"
-        app:title_text="消息"
-        >
-        <LinearLayout
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </LinearLayout>
-    </com.example.chen.wsscapp.Util.CustomToolBar>
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:background="@color/priorgan">
+        <RadioButton
+            android:id="@+id/msg_rbt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="消息"
+            android:gravity="center"
+            android:checked="true"
+            android:textSize="14dp"
+            android:textColor="@drawable/first_rbt_text_bg"
+            android:background="@drawable/first_rbt_bg"
+            />
+        <RadioButton
+            android:id="@+id/push_rbt"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:text="通知"
+            android:gravity="center"
+            android:textSize="14dp"
+            android:textColor="@drawable/first_rbt_text_bg"
+            android:background="@drawable/first_rbt_bg"
+            />
+    </RadioGroup>
+    <com.example.chen.wsscapp.Util.CustomViewPager
+        android:id="@+id/chat_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</RelativeLayout>
+    </com.example.chen.wsscapp.Util.CustomViewPager>
+
+
+
+</LinearLayout>

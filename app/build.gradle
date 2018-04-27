@@ -12,13 +12,13 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //选择要添加的对应cpu类型的.so库。
-            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a','x86'
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
         manifestPlaceholders = [
-                JPUSH_PKGNAME : applicationId,
+                JPUSH_PKGNAME: applicationId,
                 JPUSH_APPKEY : "4c5a8759049d1b7c1bc396d1", //JPush上注册的包名对应的appkey.
-                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+                JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
     buildTypes {
@@ -28,9 +28,6 @@ android {
         }
     }
 }
-
-
-
 
 // 添加插件
 apply plugin: 'com.mob.sdk'
@@ -78,7 +75,7 @@ dependencies {
 }
 
 dependencies {
-    compile ('com.github.niorgai:StatusBarCompat:2.1.4', {
+    compile('com.github.niorgai:StatusBarCompat:2.1.4', {
         exclude group: 'com.android.support'
     })
 
@@ -89,6 +86,15 @@ dependencies {
     compile 'com.github.gittjy:LoadingDialog:1.0.2'
 }
 
+dependencies {
+    compile 'com.android.support.constraint:constraint-layout:+'
+}
+dependencies {
+    compile 'com.android.support:support-v4:26.+'
+}
+dependencies {
+    compile 'com.android.support:support-v4:26.+'
+}
 dependencies {
     compile 'com.android.support.constraint:constraint-layout:+'
 }

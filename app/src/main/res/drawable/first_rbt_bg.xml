@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true">
+        <layer-list>
+            <!--底层使用下划线的颜色填充-->
+            <item android:left="7dp" android:right="7dp" android:height="3dp"
+                android:top="45dp">
+                <shape>
+                    <solid android:color="#419488"/>
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+
+
+    <item
+        android:drawable="@android:color/transparent">
+    </item>
+
+</selector>

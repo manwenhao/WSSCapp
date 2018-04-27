@@ -1,0 +1,27 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.chen.wsscapp.fragment.PushFragment"
+    android:background="@color/white">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/push_nopush"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="暂无消息"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            />
+        <com.baoyz.swipemenulistview.SwipeMenuListView
+            android:id="@+id/push_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible"></com.baoyz.swipemenulistview.SwipeMenuListView>
+    </FrameLayout>
+
+
+</RelativeLayout>
