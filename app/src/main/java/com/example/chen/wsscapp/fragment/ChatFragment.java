@@ -26,7 +26,7 @@ public class ChatFragment extends Fragment {
     private RadioGroup radioGroup;
     private RadioButton msg,push;
     private CustomViewPager viewPager;
-    MsgFragment msgFragment=new MsgFragment();
+    ConversationListFragment conversationListFragment =new ConversationListFragment();
     PushFragment pushFragment=new PushFragment();
 
 
@@ -64,7 +64,7 @@ public class ChatFragment extends Fragment {
         });
         viewPager.setScanScroll(false);
         final List<Fragment> allfragment=new ArrayList<Fragment>();
-        allfragment.add(msgFragment);
+        allfragment.add(conversationListFragment);
         allfragment.add(pushFragment);
         final MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getChildFragmentManager(), allfragment);
         viewPager.setAdapter(adapter);
@@ -94,10 +94,6 @@ public class ChatFragment extends Fragment {
 
             }
         });
-        int i=getActivity().getIntent().getIntExtra("id",99);
-        if (i==1){
-            viewPager.setCurrentItem(1,false);
-        }
 
 
     }

@@ -27,6 +27,10 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        mavenCentral()
+        maven {
+            url "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
         maven {
             url  "http://dl.bintray.com/nuptboyzhb/maven"
         }

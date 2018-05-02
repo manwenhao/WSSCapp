@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "com.example.chen.wsscapp"
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -21,12 +21,25 @@ android {
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
     }
+    defaultConfig {
+        multiDexEnabled true
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    signingConfigs {
+
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
 }
 
 // 添加插件
@@ -72,6 +85,19 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'cn.jiguang.sdk:jpush:3.1.1'  // 此处以JPush 3.1.1 版本为例。
     compile 'cn.jiguang.sdk:jcore:1.1.9'  // 此处以JCore 1.1.9 版本为例。
+    compile 'cn.jiguang.sdk:jmessage:2.5.0'  // 此处以JMessage 2.5.0 版本为例。
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.github.bumptech.glide:glide:3.6.1'
+    compile 'com.github.w446108264:AndroidEmoji:1.0.0'
+    compile 'com.github.chrisbanes.photoview:library:1.2.4'
+    compile 'com.facebook.fresco:fresco:0.8.1'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile project(':reclib-qq')
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+    compile 'com.android.support:multidex:1.0.1'
+    compile project(':reclib-testemoticons')
+    compile 'com.contrarywind:Android-PickerView:3.2.4'
 }
 
 dependencies {

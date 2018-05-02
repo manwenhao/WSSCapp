@@ -6,26 +6,26 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
+import com.example.chen.wsscapp.Bean.PushMsg;
 import com.example.chen.wsscapp.R;
 
 public class PushInfo extends AppCompatActivity {
+    private TextView time ,title,cont;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_push_info);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        time=(TextView)findViewById(R.id.push_time);
+        title=(TextView)findViewById(R.id.push_title);
+        cont=(TextView)findViewById(R.id.push_content);
+        PushMsg e=(PushMsg)getIntent().getSerializableExtra("bean");
+        time.setText("时间："+e.getTime());
+        title.setText("主题："+e.getTitle());
+        cont.setText("内容："+e.getContent());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
     }
 
 }

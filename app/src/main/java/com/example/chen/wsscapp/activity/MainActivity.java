@@ -54,10 +54,7 @@ public class MainActivity extends FragmentActivity {
         bundle.putString("data",jsondata);
         meFragment.setArguments(bundle);
         initView();
-        int i=getIntent().getIntExtra("id",99);
-        if (i==1){
-            viewPager.setCurrentItem(0,false);
-        }
+
 
 
     }

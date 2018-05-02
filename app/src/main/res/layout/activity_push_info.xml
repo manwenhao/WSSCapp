@@ -1,33 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.chen.wsscapp.activity.PushInfo">
-
-    <android.support.design.widget.AppBarLayout
+    android:orientation="vertical"
+    tools:context="com.example.chen.wsscapp.activity.PushInfo"
+    android:background="@color/white">
+    <com.example.chen.wsscapp.Util.CustomToolBar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:left_tv_visible="false"
+        app:right_btn_visible="false"
+        app:right_tv_visible="false"
+        app:title_visible="true"
+        app:title_text="通知详情"
+        >
+        <TextView
+            android:id="@+id/push_time"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/PopupOverlay" />
+            android:layout_height="wrap_content"
+            android:text="时间：2222-22-22 33:33:33"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:textSize="15dp"
+            android:paddingBottom="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/gray"></LinearLayout>
+        <TextView
+            android:id="@+id/push_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="时间：2222-22-22 33:33:33"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/gray"></LinearLayout>
+        <TextView
+            android:id="@+id/push_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="时间：2222-22-22 33:33:33"
+            android:textSize="15dp"
+            android:textColor="@color/black"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/gray"></LinearLayout>
 
-    </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_push_info" />
+    </com.example.chen.wsscapp.Util.CustomToolBar>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
 
-</android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>

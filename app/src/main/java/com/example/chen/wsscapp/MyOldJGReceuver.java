@@ -15,6 +15,7 @@ import com.example.chen.wsscapp.Bean.PushMsg;
 import com.example.chen.wsscapp.Util.ACache;
 import com.example.chen.wsscapp.Util.MyApplication;
 import com.example.chen.wsscapp.activity.MainActivity;
+import com.example.chen.wsscapp.activity.PushInfo;
 import com.example.chen.wsscapp.fragment.PushFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -40,27 +41,28 @@ import static java.util.logging.Logger.*;
  */
 
 public class MyOldJGReceuver extends BroadcastReceiver {
-    private static final String TAG = "MyJPushReceiver";
     public static String title;
     public static String cont;
     public static String extra;
+    public static String datastring;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         try {
-            Bundle bundle=intent.getExtras();
-            title=bundle.getString(JPushInterface.EXTRA_TITLE);
-            cont=bundle.getString(JPushInterface.EXTRA_MESSAGE);
-            extra=bundle.getString(JPushInterface.EXTRA_EXTRA);
+
             if (intent.getAction().equals(JPushInterface.ACTION_MESSAGE_RECEIVED)){
+                Bundle bundle=intent.getExtras();
+                title=bundle.getString(JPushInterface.EXTRA_TITLE);
+                cont=bundle.getString(JPushInterface.EXTRA_MESSAGE);
+                extra=bundle.getString(JPushInterface.EXTRA_EXTRA);
+                SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                datastring=sf.format(new Date());
                 JPushLocalNotification ln = new JPushLocalNotification();
                 ln.setBuilderId(0);
                 ln.setTitle(title);
                 ln.setContent(cont);
                 ln.setNotificationId(11111111) ;
                 JPushInterface.addLocalNotification(context, ln);
-                SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                String datastring=sf.format(new Date());
                 ACache aCache=ACache.get(MyApplication.getContext(),MyApplication.getUser_id());
                 String pushdate=aCache.getAsString("pushinfo");
                 Type type=new TypeToken<List<PushMsg>>(){}.getType();
@@ -75,19 +77,29 @@ public class MyOldJGReceuver extends BroadcastReceiver {
                 e.setContent(cont);
                 e.setTime(datastring);
                 e.setStatus("0");
+                Log.d(" notification","title:"+title);
+                Log.d(" notification","content:"+cont);
+                Log.d(" notification",e.toString());
                 list.add(0,e);
                 aCache.put("pushinfo",new Gson().toJson(list));
                 if (PushFragment.flag==1){
                     Intent intent1=new Intent("newpush");
                     MyApplication.getContext().sendBroadcast(intent1);
                 }
-            }else if (intent.getAction().equals(JPushInterface.ACTION_NOTIFICATION_OPENED)){
-                if (PushFragment.flag==0){
-                    Intent intent1=new Intent(MyApplication.getContext(),MainActivity.class);
-                    intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent1.putExtra("id",1);
-                    context.startActivity(intent1);
-                }
+            }
+            if (intent.getAction().equals(JPushInterface.ACTION_NOTIFICATION_OPENED)){
+                PushMsg e=new PushMsg();
+                e.setTitle(title);
+                e.setContent(cont);
+                e.setTime(datastring);
+                e.setStatus("0");
+                Log.d("open notification","title:"+title);
+                Log.d("open notification","content:"+cont);
+                Log.d("open notification",e.toString());
+                Intent intent1=new Intent(MyApplication.getContext(), PushInfo.class);
+                intent1.putExtra("bean",e);
+                intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent1);
             }
         }catch (Exception e){
             e.printStackTrace();

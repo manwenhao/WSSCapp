@@ -212,6 +212,10 @@ public class PushFragment extends Fragment {
     class MyPushReceiver extends BroadcastReceiver{
         @Override
         public void onReceive(Context context, Intent intent) {
+            if (nopush.getVisibility()==View.VISIBLE){
+                nopush.setVisibility(View.INVISIBLE);
+                listView.setVisibility(View.VISIBLE);
+            }
             ACache aCache=ACache.get(MyApplication.getContext(),MyApplication.user_id);
             String datastring=aCache.getAsString("pushinfo");
             Type type=new TypeToken<List<PushMsg>>(){}.getType();
