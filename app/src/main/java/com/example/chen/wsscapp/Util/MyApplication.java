@@ -132,8 +132,9 @@ public class MyApplication extends Application {
         mActivityLifecycleCallbacksImpl=new ActivityLifecycleCallbacksImpl();
 
         this.registerActivityLifecycleCallbacks(mActivityLifecycleCallbacksImpl);
-        JMessageClient.init(getApplicationContext(), true);
         JMessageClient.setDebugMode(true);
+        JMessageClient.init(getApplicationContext(), true);
+
         SharePreferenceManager.init(getApplicationContext(), JCHAT_CONFIGS);
 
         //设置Notification的模式
