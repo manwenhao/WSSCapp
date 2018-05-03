@@ -11,7 +11,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class FileUtils {
-
     public static final String DEF_FILEPATH = "/XhsEmoticonsKeyboard/Emoticons/";
 
     public static String getFolderPath(String folder) {

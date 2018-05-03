@@ -113,7 +113,7 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
     private boolean mIsSingle = true;
     private Conversation mConv;
     private String mTargetId;
-    private String mTargetAppKey;
+    //private String mTargetAppKey;
     private Activity mContext;
     private ChattingListAdapter mChatAdapter;
     int maxImgCount = 9;
@@ -144,11 +144,11 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
-
         setContentView(R.layout.activity_chat);
-        lvChat=(DropDownListView)findViewById(R.id.lv_chat);
-        ekBar=(XhsEmoticonsKeyBoard)findViewById(R.id.ek_bar);
         mChatView = (ChatView) findViewById(R.id.chat_view);
+        ekBar=(XhsEmoticonsKeyBoard)findViewById(R.id.ek_bar);
+        lvChat=(DropDownListView)findViewById(R.id.lv_chat);
+
         mChatView.initModule(mDensity, mDensityDpi);
 
         this.mWindow = getWindow();
@@ -166,16 +166,16 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
         SimpleCommonUtils.initEmoticonsEditText(ekBar.getEtChat());
         Intent intent = getIntent();
         mTargetId = intent.getStringExtra(TARGET_ID);
-        mTargetAppKey = intent.getStringExtra(TARGET_APP_KEY);
+       // mTargetAppKey = intent.getStringExtra(TARGET_APP_KEY);
         mTitle = intent.getStringExtra(MyApplication.CONV_TITLE);
         mMyInfo = JMessageClient.getMyInfo();
         if (!TextUtils.isEmpty(mTargetId)) {
             //单聊
             mIsSingle = true;
             mChatView.setChatTitle(mTitle);
-            mConv = JMessageClient.getSingleConversation(mTargetId, mTargetAppKey);
+            mConv = JMessageClient.getSingleConversation(mTargetId, MyApplication.getkey());
             if (mConv == null) {
-                mConv = Conversation.createSingleConversation(mTargetId, mTargetAppKey);
+                mConv = Conversation.createSingleConversation(mTargetId, MyApplication.getkey());
             }
             mChatAdapter = new ChattingListAdapter(mContext, mConv, longClickListener);
         } else {
@@ -610,7 +610,7 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
                     UserInfo userInfo = (UserInfo) message.getTargetInfo();
                     String targetId = userInfo.getUserName();
                     String appKey = userInfo.getAppKey();
-                    if (mIsSingle && targetId.equals(mTargetId) && appKey.equals(mTargetAppKey)) {
+                    if (mIsSingle && targetId.equals(mTargetId) && appKey.equals(MyApplication.getkey())) {
                         Message lastMsg = mChatAdapter.getLastMsg();
                         if (lastMsg == null || message.getId() != lastMsg.getId()) {
                             mChatAdapter.addMsgToList(message);
@@ -647,7 +647,7 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
             UserInfo userInfo = (UserInfo) conv.getTargetInfo();
             String targetId = userInfo.getUserName();
             String appKey = userInfo.getAppKey();
-            if (mIsSingle && targetId.equals(mTargetId) && appKey.equals(mTargetAppKey)) {
+            if (mIsSingle && targetId.equals(mTargetId) && appKey.equals(MyApplication.getkey())) {
                 List<Message> singleOfflineMsgList = event.getOfflineMessageList();
                 if (singleOfflineMsgList != null && singleOfflineMsgList.size() > 0) {
                     mChatView.setToBottom();
@@ -935,7 +935,7 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
                 } else {
                     intent = new Intent(mContext, SendFileActivity.class);
                     intent.putExtra(MyApplication.TARGET_ID, mTargetId);
-                    intent.putExtra(MyApplication.TARGET_APP_KEY, mTargetAppKey);
+                    intent.putExtra(MyApplication.TARGET_APP_KEY, MyApplication.getkey());
                     intent.putExtra(MyApplication.GROUP_ID, mGroupId);
                     startActivityForResult(intent, MyApplication.REQUEST_CODE_SEND_FILE);
                 }

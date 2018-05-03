@@ -11,6 +11,8 @@ import com.example.chen.wsscapp.Bean.UserEntry;
 import com.example.chen.wsscapp.Util.imagepicker.GlideImageloader;
 import com.example.chen.wsscapp.Util.imagepicker.ImagePicker;
 import com.example.chen.wsscapp.Util.imagepicker.view.CropImageView;
+import com.example.chen.wsscapp.pickerimage.utils.StorageUtil;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -123,9 +125,12 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
+        StorageUtil.init(context, null);
+        Fresco.initialize(getApplicationContext());
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         mActivityLifecycleCallbacksImpl=new ActivityLifecycleCallbacksImpl();
+
         this.registerActivityLifecycleCallbacks(mActivityLifecycleCallbacksImpl);
         JMessageClient.init(getApplicationContext(), true);
         JMessageClient.setDebugMode(true);
@@ -157,7 +162,9 @@ public class MyApplication extends Application {
             PICTURE_DIR = "sdcard/JChatDemo/pictures/" + appKey + "/";
         }
     }
-
+    public static String getkey(){
+        return "4c5a8759049d1b7c1bc396d1";
+    }
     public static UserEntry getUserEntry() {
         return UserEntry.getUser(JMessageClient.getMyInfo().getUserName(), JMessageClient.getMyInfo().getAppKey());
     }

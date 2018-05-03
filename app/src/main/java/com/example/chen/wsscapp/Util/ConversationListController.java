@@ -120,7 +120,7 @@ public class ConversationListController implements View.OnClickListener,
             } else {
                 String targetId = ((UserInfo) conv.getTargetInfo()).getUserName();
                 intent.putExtra(MyApplication.TARGET_ID, targetId);
-                intent.putExtra(MyApplication.TARGET_APP_KEY, conv.getTargetAppKey());
+                intent.putExtra(MyApplication.TARGET_APP_KEY, MyApplication.getkey());
                 intent.putExtra(MyApplication.DRAFT, getAdapter().getDraft(conv.getId()));
             }
             intent.setClass(mContext.getActivity(), ChatActivity.class);
@@ -135,7 +135,7 @@ public class ConversationListController implements View.OnClickListener,
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-        final Conversation conv = mDatas.get(position - 3);
+        final Conversation conv = mDatas.get(position - 2);
         if (conv != null) {
             View.OnClickListener listener = new View.OnClickListener() {
                 @Override
@@ -159,7 +159,7 @@ public class ConversationListController implements View.OnClickListener,
                             } else {
                                 JMessageClient.deleteSingleConversation(((UserInfo) conv.getTargetInfo()).getUserName());
                             }
-                            mDatas.remove(position - 3);
+                            mDatas.remove(position - 2);
                             if (mDatas.size() > 0) {
                                 mConvListView.setNullConversation(true);
                             } else {

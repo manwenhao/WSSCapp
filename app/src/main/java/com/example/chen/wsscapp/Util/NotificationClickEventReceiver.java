@@ -33,7 +33,7 @@ public class NotificationClickEventReceiver {
         Message msg = notificationClickEvent.getMessage();
         if (msg != null) {
             String targetId = msg.getTargetID();
-            String appKey = msg.getFromAppKey();
+            String appKey = MyApplication.getkey();
             ConversationType type = msg.getTargetType();
             Conversation conv;
             Intent notificationIntent = new Intent(mContext, ChatActivity.class);

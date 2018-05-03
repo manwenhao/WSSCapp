@@ -148,7 +148,7 @@ public class PushFragment extends Fragment {
             String datastring=aCache.getAsString("pushinfo");
             Type type=new TypeToken<List<PushMsg>>(){}.getType();
             list=new Gson().fromJson(datastring,type);
-            adapter.setDate(list);
+            if (list!=null)
             adapter.notifyDataSetChanged();
         }
 

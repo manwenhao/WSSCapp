@@ -50,6 +50,9 @@ import com.zhy.http.okhttp.callback.StringCallback;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
+
 
 /**
  * Created by chen on 2018/4/18.
@@ -214,8 +217,12 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
                 //showToast("商品参数");
                 break;
             case R.id.iv_chat:
-                showToast("跳转商家聊天");
-
+                Log.d("跳转商家聊天","1111");
+                Intent intent=new Intent(MyApplication.getContext(),ChatActivity.class);
+                intent.putExtra(MyApplication.TARGET_ID,MyApplication.getBoss_id());
+                UserInfo userInfo=JMessageClient.getMyInfo();
+                intent.putExtra(MyApplication.CONV_TITLE,MyApplication.getBoss_id());
+                startActivity(intent);
                 break;
         }
 

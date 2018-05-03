@@ -2,16 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.chen.wsscapp">
-    <meta-data
-        android:name="AA_DB_NAME"
-        android:value="jchat.db"/>
-    <meta-data
-        android:name="AA_MODELS"
-        android:value="jiguang.chat.database.UserEntry, jiguang.chat.database.FriendEntry,
-            com.example.chen.wsscapp.Bean.FriendRecommendEntry, com.example.chen.wsscapp.Bean.ConversationEntry"/>
-    <meta-data
-        android:name="AA_DB_VERSION"
-        android:value="4"/>
+
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
@@ -63,6 +54,7 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
 
+
     <application
         android:name=".Util.MyApplication"
         android:allowBackup="true"
@@ -71,6 +63,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:replace="android:icon,android:name,android:theme ">
+        <meta-data
+            android:name="AA_DB_NAME"
+            android:value="jchat.db"/>
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="com.example.chen.wsscapp.Bean.UserEntry, com.example.chen.wsscapp.Bean.FriendEntry,
+            com.example.chen.wsscapp.Bean.FriendRecommendEntry, com.example.chen.wsscapp.Bean.ConversationEntry"/>
+        <meta-data
+            android:name="AA_DB_VERSION"
+            android:value="4"/>
         <activity
             android:name=".activity.LoginActivity"
             android:label="@string/app_name">
