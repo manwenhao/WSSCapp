@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:background="@color/bg_Gray_light"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/bt_sendshop"
+            android:textSize="14sp"
+            android:backgroundTint="@color/green"
+            android:text="发 货"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/shape_shop"
+            android:layout_width="80dp"
+            android:layout_height="36dp"
+            />
+        <Button
+            android:id="@+id/bt_seeaddr"
+            android:textSize="14sp"
+            android:backgroundTint="@color/organ"
+            android:text="收货地址"
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/shape_shop"
+            android:layout_width="80dp"
+            android:layout_height="36dp"
+            />
+        <TextView
+            android:text="总计：￥12323"
+            android:gravity="center"
+            android:id="@+id/tv_summoney"
+            android:textColor="@color/black"
+            android:layout_marginLeft="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp" />
+    </LinearLayout>
+    <View
+        android:layout_marginTop="4dp"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+
+</LinearLayout>

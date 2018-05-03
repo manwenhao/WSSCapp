@@ -32,6 +32,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
@@ -132,7 +134,7 @@ public class SetTouxiangActivity extends BaseActivity implements View.OnClickLis
             public void run() {
 
                 OkHttpClient mOkHttpClent = new OkHttpClient();
-                File file = new File(path);
+                final File file = new File(path);
                 MultipartBody.Builder builder = new MultipartBody.Builder()
                         .setType(MultipartBody.FORM)
                         .addFormDataPart("user_id",idphone)
@@ -166,6 +168,14 @@ public class SetTouxiangActivity extends BaseActivity implements View.OnClickLis
                     public void onResponse(Call call, final Response response) throws IOException {
                         final String respdata = response.body().string();
                         Log.e(TAG,respdata);
+                        if (respdata.equals("ok")){
+                            JMessageClient.updateUserAvatar(file, new BasicCallback() {
+                                @Override
+                                public void gotResult(int i, String s) {
+                                    Log.d("修改头像",s);
+                                }
+                            });
+                        }
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

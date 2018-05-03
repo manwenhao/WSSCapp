@@ -9,14 +9,34 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
         <com.hankkin.library.NoScrollListView
             android:divider="@color/grey_normal_bg"
             android:dividerHeight="@dimen/spacing_tiny"
             android:id="@+id/nlv_good_detial_imgs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+        <FrameLayout
+            android:id="@+id/parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ff000000" />
+            <com.github.chrisbanes.photoview.PhotoView
+                android:id="@+id/img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+            </FrameLayout>
 
+        </FrameLayout>
         <TextView
             android:background="@drawable/list_gray_item"
             android:padding="@dimen/spacing_small"
@@ -28,7 +48,9 @@
             android:padding="@dimen/spacing_small"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <include layout="@layout/layout_line"/>
+
 
 
 
@@ -62,6 +84,7 @@
                 android:layout_toRightOf="@+id/tv_good_detail_daodi"
                 android:background="@color/deep_transparent" />
         </RelativeLayout>
+
     </LinearLayout>
 
 </ScrollView>

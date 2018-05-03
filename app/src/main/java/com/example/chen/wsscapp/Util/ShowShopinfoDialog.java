@@ -2,7 +2,6 @@ package com.example.chen.wsscapp.Util;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.Window;

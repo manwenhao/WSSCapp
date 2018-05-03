@@ -15,6 +15,9 @@ import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
+
 public class SetNewphoneActivity extends AppCompatActivity {
 
     private static final String TAG = "activity_setnewphone";
@@ -83,6 +86,12 @@ public class SetNewphoneActivity extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             toast("手机号码修改成功");
+                                            JMessageClient.register(new_number, new_number, new BasicCallback() {
+                                                @Override
+                                                public void gotResult(int i, String s) {
+                                                    Log.d("重新注册jmsg",s);
+                                                }
+                                            });
                                             pref.getString("phone",new_number);
                                             Intent intent = new Intent(SetNewphoneActivity.this,LoginActivity.class);
                                             startActivity(intent);

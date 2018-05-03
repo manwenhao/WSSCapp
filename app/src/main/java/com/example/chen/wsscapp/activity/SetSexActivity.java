@@ -18,6 +18,10 @@ import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.api.BasicCallback;
+
 /**
  * Created by chen on 2018/3/18.
  */
@@ -97,6 +101,18 @@ public class SetSexActivity extends BaseActivity implements View.OnClickListener
                             public void onResponse(String response) {
                                 if(response.equals("ok")){
                                     toast("更改性别成功");
+                                    UserInfo userInfo= JMessageClient.getMyInfo();
+                                   if (selectText.equals("男")){
+                                       userInfo.setGender(UserInfo.Gender.male);
+                                   }else {
+                                       userInfo.setGender(UserInfo.Gender.female);
+                                   }
+                                   JMessageClient.updateMyInfo(UserInfo.Field.gender, userInfo, new BasicCallback() {
+                                       @Override
+                                       public void gotResult(int i, String s) {
+                                           Log.d("修改性别",s);
+                                       }
+                                   });
                                     mAcache.put("user_sex",selectText);
                                     Intent intent = new Intent(SetSexActivity.this,SetUserInfoActivity.class);
                                     startActivity(intent);

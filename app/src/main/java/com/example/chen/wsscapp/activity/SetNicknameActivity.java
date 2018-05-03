@@ -21,6 +21,10 @@ import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.api.BasicCallback;
+
 import static android.R.attr.id;
 
 /**
@@ -87,6 +91,14 @@ public class SetNicknameActivity extends BaseActivity implements View.OnClickLis
                                 public void onResponse(String response) {
                                     if(response.toString().equals("ok")){
                                         toast("更改昵称成功");
+                                        UserInfo userInfo=JMessageClient.getMyInfo();
+                                        userInfo.setNickname(user_name);
+                                        JMessageClient.updateMyInfo(UserInfo.Field.nickname, userInfo, new BasicCallback() {
+                                            @Override
+                                            public void gotResult(int i, String s) {
+                                                Log.d("修改nickname",s);
+                                            }
+                                        });
                                         mAcahe.put("user_name",user_name);
                                         Intent intent = new Intent(SetNicknameActivity.this,SetUserInfoActivity.class);
                                         startActivity(intent);

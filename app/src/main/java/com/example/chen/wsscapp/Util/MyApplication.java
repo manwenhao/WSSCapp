@@ -32,6 +32,7 @@ import cn.jpush.im.android.api.model.UserInfo;
 public class MyApplication extends Application {
 
     public static String user_id;
+    public static String boss_id;
     public static int count=0;
     private ActivityLifecycleCallbacksImpl mActivityLifecycleCallbacksImpl;
     //jmeg
@@ -129,6 +130,7 @@ public class MyApplication extends Application {
         JMessageClient.init(getApplicationContext(), true);
         JMessageClient.setDebugMode(true);
         SharePreferenceManager.init(getApplicationContext(), JCHAT_CONFIGS);
+
         //设置Notification的模式
         JMessageClient.setNotificationFlag(JMessageClient.FLAG_NOTIFY_WITH_SOUND | JMessageClient.FLAG_NOTIFY_WITH_LED | JMessageClient.FLAG_NOTIFY_WITH_VIBRATE);
         //注册Notification点击的接收器
@@ -170,6 +172,12 @@ public class MyApplication extends Application {
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+    public static void setBoss_id(String id){
+        boss_id=id;
+    }
+    public static String getBoss_id(){
+        return boss_id;
+    }
     public static void setUser_id(String id){
         user_id=id;
     }
@@ -204,4 +212,5 @@ public class MyApplication extends Application {
         public void onActivityDestroyed(Activity activity) {
         }
     }
+
 }

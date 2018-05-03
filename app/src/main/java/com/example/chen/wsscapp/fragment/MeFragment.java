@@ -32,10 +32,12 @@ import com.example.chen.wsscapp.Bean.User;
 import com.example.chen.wsscapp.Util.ACache;
 import com.example.chen.wsscapp.Util.MyApplication;
 import com.example.chen.wsscapp.activity.BecomeShopActivity;
+import com.example.chen.wsscapp.activity.OrderActivity;
 import com.example.chen.wsscapp.activity.SetBirthActivity;
 import com.example.chen.wsscapp.activity.SetNicknameActivity;
 import com.example.chen.wsscapp.activity.SetTouxiangActivity;
 import com.example.chen.wsscapp.activity.SetUserInfoActivity;
+import com.example.chen.wsscapp.activity.ShopManagerActivity;
 import com.example.chen.wsscapp.adapter.GridViewAdapter;
 import com.example.chen.wsscapp.Bean.Items;
 import com.example.chen.wsscapp.R;
@@ -107,13 +109,13 @@ public class MeFragment extends Fragment {
                     public void onRefresh() {
                         tv_nickname.setText(aCache.getAsString("user_name"));
                         if(TextUtils.isEmpty(userdata.getUser_touxiang())){
-                            iv_touxiang.setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(),R.mipmap.defalutuser));
+                            iv_touxiang.setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(),R.drawable.defalutuser));
                         }else{
                             SharedPreferences p = getActivity().getSharedPreferences("time",MODE_PRIVATE);
                             Glide.with(getContext())
                                     .load(url+userdata.getUser_touxiang())
                                     .signature(new StringSignature(p.getString("icontime","").toString()))
-                                    .error(R.mipmap.defalutuser)
+                                    .error(R.drawable.defalutuser)
                                     .into(iv_touxiang);
                         }
 
@@ -156,13 +158,13 @@ public class MeFragment extends Fragment {
         //初始化控件数据
 
         if(TextUtils.isEmpty(userdata.getUser_touxiang())){
-            iv_touxiang.setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(),R.mipmap.defalutuser));
+            iv_touxiang.setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(),R.drawable.defalutuser));
         }else{
             SharedPreferences p = getActivity().getSharedPreferences("time",MODE_PRIVATE);
             Glide.with(this)
                     .load(url+userdata.getUser_touxiang())
                     .signature(new StringSignature(p.getString("icontime","").toString()))
-                    .error(R.mipmap.defalutuser)
+                    .error(R.drawable.defalutuser)
                     .into(iv_touxiang);
         }
         Log.e(TAG,userdata.getUser_touxiang()+"");
@@ -207,8 +209,8 @@ public class MeFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                int index=position+1;//id是从0开始的，所以需要+1
-                Toast.makeText(getActivity(), "你按下了选项："+index, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(), OrderActivity.class);
+                getActivity().startActivity(intent);
             }
         });
 
@@ -258,7 +260,7 @@ public class MeFragment extends Fragment {
                                     @Override
                                     public void run() {
                                         Looper.prepare();
-                                        Toast.makeText(getActivity(), "无权限上架", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getActivity(), "无商家权限", Toast.LENGTH_SHORT).show();
                                         Looper.loop();
                                     }
                                 }).start();
@@ -268,14 +270,14 @@ public class MeFragment extends Fragment {
                             public void onResponse(String response) {
                                 Log.e(TAG,response.toString());
                                 if(response.toString().equals("1")){
-                                    Intent intent = new Intent(getActivity(), BecomeShopActivity.class);
+                                    Intent intent = new Intent(getActivity(), ShopManagerActivity.class);
                                     startActivity(intent);
                                 }else{
                                     new Thread(new Runnable() {
                                         @Override
                                         public void run() {
                                             Looper.prepare();
-                                            Toast.makeText(getActivity(), "无权限上架", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getActivity(), "无商家权限", Toast.LENGTH_SHORT).show();
                                             Looper.loop();
                                         }
                                     }).start();
@@ -294,7 +296,7 @@ public class MeFragment extends Fragment {
 
     //我的工具自定义界面
     private void initDataUtil() {
-        Items item1 = new Items("商品上架",R.mipmap.becomeshop);
+        Items item1 = new Items("商家管理",R.mipmap.becomeshop);
         item.add(item1);
 
     }
@@ -361,7 +363,7 @@ public class MeFragment extends Fragment {
         public void onReceive(Context context, Intent intent) {
             refreshIcon();
         }
-        
+
 
 
 
@@ -385,13 +387,13 @@ public class MeFragment extends Fragment {
 
     private void refreshIcon() {
         if(TextUtils.isEmpty(userdata.getUser_touxiang())){
-            iv_touxiang.setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(),R.mipmap.defalutuser));
+            iv_touxiang.setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(),R.drawable.defalutuser));
         }else{
             SharedPreferences p = getActivity().getSharedPreferences("time",MODE_PRIVATE);
             Glide.with(this)
                     .load(url+userdata.getUser_touxiang())
                     .signature(new StringSignature(p.getString("icontime","").toString()))
-                    .error(R.mipmap.defalutuser)
+                    .error(R.drawable.defalutuser)
                     .into(iv_touxiang);
         }
 

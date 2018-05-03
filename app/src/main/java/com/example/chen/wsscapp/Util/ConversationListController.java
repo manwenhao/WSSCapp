@@ -99,7 +99,7 @@ public class ConversationListController implements View.OnClickListener,
         Intent intent = new Intent();
         if (position > 0) {
             //这里-3是减掉添加的三个headView
-            Conversation conv = mDatas.get(position - 3);
+            Conversation conv = mDatas.get(position - 2);
             intent.putExtra(MyApplication.CONV_TITLE, conv.getTitle());
             //群聊
             if (conv.getType() == ConversationType.group) {

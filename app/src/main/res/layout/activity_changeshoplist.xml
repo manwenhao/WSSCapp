@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@drawable/shape_gradient"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <LinearLayout
+            android:id="@+id/ll_search"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:orientation="horizontal"
+            android:background="@drawable/shape_shop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            >
+            <ImageView
+                android:layout_gravity="left|center_vertical"
+                android:id="@+id/iv_search"
+                android:scaleType="fitXY"
+                android:src="@mipmap/icon_search_small"
+                android:layout_width="30dp"
+                android:layout_height="18dp" />
+            <EditText
+                android:backgroundTint="@color/white"
+                android:background="@drawable/topbar_background"
+                android:layout_gravity="center"
+                android:id="@+id/et_searchshop"
+                android:textColor="@color/tv_Black"
+                android:layout_width="200dp"
+                android:layout_height="38dp"
+                android:hint="输入商品名称"
+                android:textAlignment="gravity"
+                android:textSize="16sp"
+                android:singleLine="true"
+                android:textColorHint="@color/bg_Gray"
+                android:imeOptions="actionSearch"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:id="@+id/exListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:childIndicator="@null"
+        android:groupIndicator="@null" >
+    </com.baoyz.swipemenulistview.SwipeMenuListView>
+
+</LinearLayout>

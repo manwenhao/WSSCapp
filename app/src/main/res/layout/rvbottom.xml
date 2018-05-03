@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+        <View
+            android:background="@color/bg_Gray_light"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="总计：￥12323"
+            android:gravity="center"
+            android:id="@+id/tv_summoney"
+            android:textColor="@color/black"
+            android:layout_marginLeft="220dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp" />
+    </LinearLayout>
+    <View
+        android:layout_marginTop="4dp"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
+
+</LinearLayout>

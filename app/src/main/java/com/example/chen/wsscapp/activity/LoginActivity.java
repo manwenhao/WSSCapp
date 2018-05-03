@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 
 
 /**
@@ -162,6 +164,31 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                                 }
                                 else{
+                                    JMessageClient.login(account, account, new BasicCallback() {
+                                        @Override
+                                        public void gotResult(int i, String s) {
+                                            Log.d("登陆jmsg","s");
+                                        }
+                                    });
+//                                    new Thread(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            OkHttpUtils.get()
+//                                                    .url("")
+//                                                    .build()
+//                                                    .execute(new StringCallback() {
+//                                                        @Override
+//                                                        public void onError(Request request, Exception e) {
+//                                                            e.printStackTrace();
+//                                                        }
+//
+//                                                        @Override
+//                                                        public void onResponse(String response) {
+//                                                            MyApplication.setBoss_id(response);
+//                                                        }
+//                                                    });
+//                                        }
+//                                    }).start();
                                     //解析json过去mainActivity中 或 直接传过去  intend
                                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                                     intent.putExtra("user_json",msg);

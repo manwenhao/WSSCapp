@@ -2,9 +2,7 @@ package com.example.chen.wsscapp.Util;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Display;
@@ -69,8 +67,8 @@ public class SelectColorSizeDialog extends Dialog {
     }
 
 
-    public SelectColorSizeDialog(Activity context, int themeResId,MultiSelector.OnSelectListener ccolor,MultiSelector.OnSelectListener csize,
-                                 View.OnClickListener addcarListener,View.OnClickListener shopbuyListener,TextWatcher numListener,String[] colors,String[] sizes) {
+    public SelectColorSizeDialog(Activity context, int themeResId, MultiSelector.OnSelectListener ccolor, MultiSelector.OnSelectListener csize,
+                                 View.OnClickListener addcarListener, View.OnClickListener shopbuyListener, TextWatcher numListener, String[] colors, String[] sizes) {
         super(context);
         this.context = context;
         this.mcolorListener = ccolor;

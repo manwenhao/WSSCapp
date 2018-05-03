@@ -3,6 +3,7 @@ package com.example.chen.wsscapp.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,10 @@ import com.example.chen.wsscapp.Util.MyApplication;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.android.api.model.UserInfo;
+import cn.jpush.im.api.BasicCallback;
 
 /**
  * Created by chen on 2018/3/26.
@@ -76,6 +81,14 @@ public class SetAddrActivity extends BaseActivity implements View.OnClickListene
                             public void onResponse(String response) {
                                 if(response.toString().equals("ok")){
                                     toast("地址修改成功");
+                                    UserInfo userInfo= JMessageClient.getMyInfo();
+                                    userInfo.setAddress(addr);
+                                    JMessageClient.updateMyInfo(UserInfo.Field.address, userInfo, new BasicCallback() {
+                                        @Override
+                                        public void gotResult(int i, String s) {
+                                            Log.d("修改地址",s);
+                                        }
+                                    });
                                     mAcahe.put("user_addr",addr);
                                     Intent intent = new Intent(SetAddrActivity.this,SetUserInfoActivity.class);
                                     startActivity(intent);

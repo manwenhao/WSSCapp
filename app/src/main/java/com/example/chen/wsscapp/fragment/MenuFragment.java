@@ -8,6 +8,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -50,6 +52,7 @@ public class MenuFragment extends Fragment {
     private DrawerLayout dl_menu;
     private Button bt_listshow;
     private EditText et_searchshop;
+    private LinearLayout ll_search;
     private ListView ll_shoplist;
     private List<String> typedata =  null;
     private String[] imgIds1 ;
@@ -94,14 +97,16 @@ public class MenuFragment extends Fragment {
         dl_menu = (DrawerLayout) view.findViewById(R.id.dl_menu);
         bt_listshow = (Button) view.findViewById(R.id.bt_listshow);
         et_searchshop = (EditText) view.findViewById(R.id.et_searchshop);
+        ll_search = (LinearLayout) view.findViewById(R.id.ll_search);
         typeadapter = new ArrayAdapter(getContext(),android.R.layout.simple_list_item_1,getTypedata());
         ll_shoplist = (ListView) view.findViewById(R.id.ll_shoplist);
         ll_shoplist.setAdapter(typeadapter);
         et_searchshop.setCursorVisible(false);
+        et_searchshop.setInputType(InputType.TYPE_NULL);
         mRecyclerView = (XRecyclerView)view.findViewById(R.id.recyclerview);
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager( 2,
                 StaggeredGridLayoutManager.VERTICAL);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        // layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setRefreshProgressStyle(ProgressStyle.BallSpinFadeLoader);
         mRecyclerView.setLoadingMoreProgressStyle(ProgressStyle.BallRotate);
@@ -163,12 +168,8 @@ public class MenuFragment extends Fragment {
             public void onClick(View v) {
                 switch (v.getId()){
                     case R.id.et_searchshop:
-                        et_searchshop.setCursorVisible(true);
-                        String searchstr = et_searchshop.getText().toString().trim();
-                        Log.e(TAG,searchstr);
                         Intent intent = new Intent(getActivity(), KeySearchShopActivity.class);
                         startActivity(intent);
-                      //  getSearchShopInfo(searchstr);
                 }
             }
         });
@@ -180,15 +181,16 @@ public class MenuFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = (String) parent.getAdapter().getItem(position);
                 Toast.makeText(getContext(),item,Toast.LENGTH_SHORT).show();
-                getShopforType(item);
-
+                Intent intent = new Intent(getContext(),KeySearchShopActivity.class);
+                intent.putExtra("key",item);
+                startActivity(intent);
             }
         });
 
 
 
 
-           mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
+        mRecyclerView.setLoadingListener(new XRecyclerView.LoadingListener() {
             @Override
 
             //下拉刷新宣传图
@@ -252,74 +254,8 @@ public class MenuFragment extends Fragment {
 
 
 
-
-
     }
 
-
-    //根据分类获取商品
-    private void getShopforType(String item) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }).start();
-    }
-
-    //根据输入的关键字查询商品
-    private void getSearchShopInfo(final String searchstr) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                OkHttpUtils.get()
-                        .addParams("pro_key",searchstr)
-                        .url("http://106.14.145.208/ShopMall/BackAppQueryProduct")
-                        .build()
-                        .execute(new StringCallback() {
-
-                            @Override
-                            public void onError(com.squareup.okhttp.Request request, Exception e) {
-                                getActivity().runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        // tv_test.setText("未知错误无数据");
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onResponse(final String response) {
-                                if("error".equals(response.toString())){
-                                    getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                         //   tv_test.setText("未知错误无数据");
-                                        }
-                                    });
-                                }else if("[]".equals(response.toString())){
-                                    getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                          //  tv_test.setText("无此相关商品");
-                                        }
-                                    });
-                                }else{
-                                    getActivity().runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                          //  tv_test.setText(response.toString());
-                                        }
-                                    });
-
-                                }
-
-                            }
-                        });
-
-            }
-        }).start();
-    }
 
     //同步堵塞方法返回获得商品分类
     public List<String> getTypedata() {
@@ -334,10 +270,10 @@ public class MenuFragment extends Fragment {
                             .build()
                             .execute();
                     String str = response.body().string();
-                        String[] data = str.split(",");
-                        for(int i =0;i<data.length;i++){
-                            typedata.add(data[i]);
-                            Log.e(TAG,data[i]);
+                    String[] data = str.split(",");
+                    for(int i =0;i<data.length;i++){
+                        typedata.add(data[i]);
+                        Log.e(TAG,data[i]);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -403,12 +339,12 @@ public class MenuFragment extends Fragment {
                             @Override
                             public void onResponse(String response) {
                                 if("error".equals(response.toString())){
-                                  getActivity().runOnUiThread(new Runnable() {
-                                      @Override
-                                      public void run() {
-                                          Toast.makeText(getActivity(),"获取数据失败",Toast.LENGTH_SHORT).show();
-                                      }
-                                  });
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(getActivity(),"获取数据失败",Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }else{
                                     getJsonData(response);
                                 }

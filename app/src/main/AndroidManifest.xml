@@ -161,6 +161,18 @@
             android:screenOrientation="portrait"
             android:name=".activity.DownLoadActivity"
             android:theme="@style/BaseThemes"/>
+        <activity android:name=".activity.ShopManagerActivity"/>
+        <activity android:name=".activity.XcMenuActivity"/>
+        <activity android:name=".activity.ShopDynamicActivity"/>
+        <activity android:name=".activity.OrderActivity"/>
+        <activity android:name=".activity.SendMsgActivity"/>
+        <activity android:name=".activity.ChangeGetTypeActivity"/>
+        <activity android:name=".activity.ChangeShopListActivity"/>
+        <activity android:name=".activity.ChangeInfoActivity"/>
+        <activity android:name=".activity.ChangeColSizeActivity"/>
+        <activity android:name=".activity.ChangePhotoActivity"/>
+        <activity android:name=".activity.ShopManagerOrderActivity"/>
+        <activity android:name=".activity.ShowSeeaddrActivity"/>
 
     </application>
 

@@ -3,16 +3,17 @@ package com.example.chen.wsscapp.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,13 +21,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.bumptech.glide.Glide;
 import com.example.chen.wsscapp.Bean.GetProduct;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.BaseActivity;
 import com.example.chen.wsscapp.Util.GetTel;
 import com.example.chen.wsscapp.Util.GlideImageLoader;
+import com.example.chen.wsscapp.Util.MyApplication;
 import com.example.chen.wsscapp.Util.SelectColorSizeDialog;
 import com.example.chen.wsscapp.Util.ShowShopinfoDialog;
+import com.github.chrisbanes.photoview.PhotoView;
 import com.hankkin.library.GradationScrollView;
 import com.hankkin.library.MyImageLoader;
 import com.hankkin.library.NoScrollListView;
@@ -34,7 +38,6 @@ import com.hankkin.library.ScrollViewContainer;
 import com.hankkin.library.StatusBarUtil;
 import com.joanzapata.android.BaseAdapterHelper;
 import com.joanzapata.android.QuickAdapter;
-import com.lybeat.multiselector.BaseOption;
 import com.lybeat.multiselector.MultiSelector;
 import com.squareup.okhttp.Request;
 import com.youth.banner.Banner;
@@ -48,7 +51,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
  * Created by chen on 2018/4/18.
  * 点击商品展示详细页
@@ -56,15 +58,15 @@ import java.util.List;
 
 public class ShowshopInfoActivity extends BaseActivity implements View.OnClickListener,GradationScrollView.ScrollViewListener {
 
-    private  GradationScrollView scrollView;  //滑动布局
+    private GradationScrollView scrollView;  //滑动布局
     private  RelativeLayout llTitle;   //顶端布局
     private  ImageView iv_good_detai_back;  //返回图片
     private  LinearLayout llOffset;    //商品信息布局
-    private  ScrollViewContainer container;
+    private ScrollViewContainer container;
     private  TextView tvGoodTitle;   //顶端商品详情字
-    private  NoScrollListView nlvImgs;//图片详情
+    private NoScrollListView nlvImgs;//图片详情
 
-    private  Banner banner;  //轮播图
+    private Banner banner;  //轮播图
     private  TextView tv_addcar;  //加入购物车
     private  TextView tv_shopbuy;  //立即购买
     private  TextView tv_itemshopname;  //商品品牌名称
@@ -72,6 +74,7 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
     private  TextView tv_itemshopoldprice; //商品原价
     private  TextView tv_shoptypecolor;  //商品分类
     private  TextView tv_shopcanshu;  //商品介绍参数
+    private ImageView iv_chat;
     private SelectColorSizeDialog selectColorSizeDialog;
     private ShowShopinfoDialog showShopinfoDialog;
 
@@ -90,6 +93,15 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
     Boolean size = false;
     private String value ; //购物数量
 
+    private LinearLayout ll_good_detail_bottom;
+
+    private PhotoView photoView,photoView2;
+    private FrameLayout parent,parent2;
+    private ImageView mbg,mbg2;
+    AlphaAnimation in = new AlphaAnimation(0, 1);
+    AlphaAnimation out = new AlphaAnimation(1, 0);
+
+
 
 
     @Override
@@ -98,7 +110,7 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_showshop);
         initView();
         getShopInfo();
-        initListeners();
+       // initListeners();
     }
 
 
@@ -119,6 +131,8 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
         tv_itemshopoldprice = (TextView) findViewById(R.id.tv_itemshopoldprice);
         tv_shoptypecolor = (TextView) findViewById(R.id.tv_shoptypecolor);
         tv_shopcanshu = (TextView) findViewById(R.id.tv_shopcanshu);
+        iv_chat = (ImageView) findViewById(R.id.iv_chat);
+        ll_good_detail_bottom = (LinearLayout) findViewById(R.id.ll_good_detail_bottom);
        // selectColorSizeDialog = new SelectColorSizeDialog(this,R.style.Dialog_Common,colorSelect,sizeSelect,addcar,shopbuy);
         banner = (Banner) findViewById(R.id.banner);
         //透明状态栏
@@ -130,12 +144,47 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
         params.height = getScreenHeight(this)*2/3;
         banner.setLayoutParams(params);
         banner.setImageLoader(new GlideImageLoader());
-        //设置banner动画效果
+
+
+        photoView = (PhotoView) findViewById(R.id.img);
+        photoView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        parent = (FrameLayout) findViewById(R.id.parent);
+        mbg = (ImageView) findViewById(R.id.bg);
+
+        photoView2 = (PhotoView) findViewById(R.id.img2);
+        photoView2.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        parent2 = (FrameLayout) findViewById(R.id.parent2);
+        mbg2 = (ImageView) findViewById(R.id.bg2);
+
+        in.setDuration(300);
+        out.setDuration(300);
+        out.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mbg2.setVisibility(View.INVISIBLE);
+                mbg.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
 
 
 
 
+
+
+
+
+        iv_chat.setOnClickListener(this);
         iv_good_detai_back.setOnClickListener(this);
         tv_addcar.setOnClickListener(this);
         tv_shopbuy.setOnClickListener(this);
@@ -163,6 +212,10 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
             case R.id.tv_shopcanshu:
                 showShopInfo();
                 //showToast("商品参数");
+                break;
+            case R.id.iv_chat:
+                showToast("跳转商家聊天");
+
                 break;
         }
 
@@ -431,7 +484,7 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void getshopCanshu(GetProduct getProduct) {
-        showShopinfoDialog = new ShowShopinfoDialog(this,R.style.Dialog_Common,getProduct);
+        showShopinfoDialog = new ShowShopinfoDialog(this, R.style.Dialog_Common,getProduct);
     }
 
 
@@ -439,11 +492,11 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
     private void getshopColorSize(String pro_color,String pro_size) {
         String [] colors = pro_color.split(",");
         String [] sizes = pro_size.split(",");
-        selectColorSizeDialog = new SelectColorSizeDialog(this,R.style.Dialog_Common,colorSelect,sizeSelect,addcar,shopbuy,nums,colors,sizes);
+        selectColorSizeDialog = new SelectColorSizeDialog(this, R.style.Dialog_Common,colorSelect,sizeSelect,addcar,shopbuy,nums,colors,sizes);
     }
 
 
-    //介绍图片设置数据
+    //介绍图片设置数据以及图片的点击放大
     private void getDesPhotos(final String pro_describephoto) {
         runOnUiThread(new Runnable() {
             @Override
@@ -455,11 +508,11 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
                     imgsUrl.add(url+split[i]);
                 }
                 width = getScreenWidth(getApplicationContext());
-                imgAdapter = new QuickAdapter<String>(ShowshopInfoActivity.this,R.layout.adapter_good_detail_imgs) {
+                imgAdapter = new QuickAdapter<String>(ShowshopInfoActivity.this, R.layout.adapter_good_detail_imgs) {
                     @Override
                     protected void convert(final BaseAdapterHelper helper, String item) {
                         ImageView iv1 = helper.getView(R.id.iv_adapter_good_detail_img);
-                        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) iv1.getLayoutParams();
+                        final LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) iv1.getLayoutParams();
                         params.width = width;
                         params.height = width/2;
                         iv1.setLayoutParams(params);
@@ -467,13 +520,31 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
                             int pos = helper.getPosition();
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(ShowshopInfoActivity.this,"点击"+imgsUrl.get(pos),Toast.LENGTH_SHORT).show();
-
+                                mbg.startAnimation(in);
+                                mbg.setVisibility(View.VISIBLE);
+                                parent.setVisibility(View.VISIBLE);
+                                photoView.setVisibility(View.VISIBLE);
+                               // ll_good_detail_bottom.setVisibility(View.GONE);
+                                Glide.with(MyApplication.getContext()).load(imgsUrl.get(pos)).into(photoView);
+                                //Toast.makeText(ShowshopInfoActivity.this,"点击"+imgsUrl.get(pos),Toast.LENGTH_SHORT).show();
                             }
                         });
                         MyImageLoader.getInstance().displayImageCen(getApplicationContext(),item,iv1,width,width/2);
                     }
                 };
+
+                photoView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (photoView.getVisibility()==View.VISIBLE){
+                            photoView.setVisibility(View.GONE);
+                            mbg.setVisibility(View.GONE);
+                            parent.setVisibility(View.GONE);
+                          //  ll_good_detail_bottom.setVisibility(View.VISIBLE);
+                        }
+                    }
+                });
+
                 imgAdapter.addAll(imgsUrl);
                 nlvImgs.setAdapter(imgAdapter);
             }
@@ -482,7 +553,7 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
     }
 
 
-    //轮播图设置数据
+    //轮播图设置数据以及图片的点击放大
     private void getPhotos(final String photo) {
         runOnUiThread(new Runnable() {
             @Override
@@ -498,7 +569,7 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
                 //设置自动轮播，默认为true
                 banner.isAutoPlay(true);
                 //设置轮播时间
-                banner.setDelayTime(3000);
+                banner.setDelayTime(2000);
                 //设置指示器位置（当banner模式中有指示器时）
                 banner.setIndicatorGravity(BannerConfig.CENTER);
                 //banner设置方法全部调用完毕时最后调用
@@ -507,7 +578,25 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
                 banner.setOnBannerListener(new OnBannerListener() {
                     @Override
                     public void OnBannerClick(int position) {
+                        mbg2.startAnimation(in);
+                        mbg2.setVisibility(View.VISIBLE);
+                        parent2.setVisibility(View.VISIBLE);
+                        photoView2.setVisibility(View.VISIBLE);
+                        // ll_good_detail_bottom.setVisibility(View.GONE);
+                        Glide.with(MyApplication.getContext()).load(imgs.get(position).toString()).into(photoView2);
                         Log.e(TAG,imgs.get(position).toString());
+                    }
+                });
+
+               photoView2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (photoView2.getVisibility()==View.VISIBLE){
+                            photoView2.setVisibility(View.GONE);
+                            mbg2.setVisibility(View.GONE);
+                            parent2.setVisibility(View.GONE);
+                            //  ll_good_detail_bottom.setVisibility(View.VISIBLE);
+                        }
                     }
                 });
 

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -106,6 +107,45 @@ public class WeiTaoFragment extends Fragment {
             @Override
             public void onLoadMore() {
                 Log.d("上拉加载","开始加载");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        OkHttpUtils.get()
+                                .url("http://106.14.145.208/ShopMall/BackAppShopDynamic")
+                                .addParams("lastime",list.get(list.size()-1).getUptime())
+                                .build()
+                                .execute(new StringCallback() {
+                                    @Override
+                                    public void onError(Request request, Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    @Override
+                                    public void onResponse(String response) {
+                                       if (TextUtils.isEmpty(response)){
+                                           weitaolist.setNoMore(true);
+                                       }else {
+                                           Log.d("微淘信息",response);
+                                           Type type=new TypeToken<List<WeiTaoBean>>(){}.getType();
+                                           List<WeiTaoBean> newlist;
+                                           newlist=new Gson().fromJson(response,type);
+                                           if (newlist.size()==0){
+                                               weitaolist.setNoMore(true);
+                                           }else {
+                                               for (int i=0;i<newlist.size();i++){
+                                                   list.add(newlist.get(i));
+                                               }
+                                               adapter.setdate(list);
+                                               adapter.notifyDataSetChanged();
+                                           }
+                                       }
+                                    }
+                                });
+                        if (weitaolist!=null)
+                            weitaolist.refreshComplete();
+                    }
+                },2000 );
+
 
 
             }

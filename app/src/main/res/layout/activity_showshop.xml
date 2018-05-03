@@ -64,7 +64,7 @@
             android:paddingBottom="@dimen/spacing_tinyer"
             android:paddingTop="@dimen/spacing_tinyer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/white"
             android:orientation="horizontal">
 
@@ -76,6 +76,13 @@
                 android:layout_marginLeft="@dimen/spacing_smallest"
                 android:layout_marginRight="@dimen/spacing_smallest"
                 android:layout_weight="1"
+                />
+            <ImageView
+                android:id="@+id/iv_chat"
+                android:background="@drawable/chat"
+                android:layout_width="44dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="20dp"
                 />
         </LinearLayout>
 

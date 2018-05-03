@@ -10,16 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.chen.wsscapp.Bean.TalentShow;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.GetTel;
-import com.example.chen.wsscapp.activity.MainActivity;
 import com.example.chen.wsscapp.activity.ShowshopInfoActivity;
 
 import java.util.List;
+
 /**
  * create by chen
  * 主页显示的商品item adapter

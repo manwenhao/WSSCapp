@@ -1,7 +1,5 @@
 package com.example.chen.wsscapp.Bean;
 
-import java.io.Serializable;
-
 /**
  * Created by chen on 2018/4/13.
  * pro_id  商品id

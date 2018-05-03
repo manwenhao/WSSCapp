@@ -25,6 +25,8 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 
+import cn.jpush.im.android.api.JMessageClient;
+import cn.jpush.im.api.BasicCallback;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
 
@@ -252,6 +254,12 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                                 if(response.toString().equals("ok")){
                                     Log.e(TAG,"okokokokokoko++++++++++++++++++++++++++");
                                     toast("注册成功");
+                                    JMessageClient.register(phone, phone, new BasicCallback() {
+                                        @Override
+                                        public void gotResult(int i, String s) {
+                                            Log.d("注册jmsg",s);
+                                        }
+                                    });
                                     Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
                                     startActivity(intent);
                                 }
