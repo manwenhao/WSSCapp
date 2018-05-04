@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.ACache;
 import com.example.chen.wsscapp.Util.BaseActivity;
+import com.example.chen.wsscapp.Util.GetTel;
 import com.example.chen.wsscapp.Util.MyApplication;
 import com.example.chen.wsscapp.Util.TopUi;
 
@@ -58,7 +59,7 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initView() {
-        ACache aCache = ACache.get(MyApplication.getContext(),"userdata");
+        ACache aCache = ACache.get(MyApplication.getContext(), GetTel.gettel());
         SharedPreferences pref = getSharedPreferences("user_data",MODE_PRIVATE);
         tv_newnickname = (TextView) findViewById(R.id.tv_newnickname);
         tv_newnickname.setText(aCache.getAsString("user_name"));

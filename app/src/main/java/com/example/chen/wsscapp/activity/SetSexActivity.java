@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.ACache;
 import com.example.chen.wsscapp.Util.BaseActivity;
+import com.example.chen.wsscapp.Util.GetTel;
 import com.example.chen.wsscapp.Util.MyApplication;
 import com.example.chen.wsscapp.Util.TopUi;
 import com.squareup.okhttp.Request;
@@ -34,7 +35,7 @@ public class SetSexActivity extends BaseActivity implements View.OnClickListener
     private RadioButton rb_man,rb_woman,radioButton;
     private Button bt_setting;
     String selectText;
-    final ACache mAcache = ACache.get(MyApplication.getContext(),"userdata");
+    final ACache mAcache = ACache.get(MyApplication.getContext(), GetTel.gettel());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

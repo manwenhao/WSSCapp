@@ -30,6 +30,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.StringSignature;
 import com.example.chen.wsscapp.Bean.User;
 import com.example.chen.wsscapp.Util.ACache;
+import com.example.chen.wsscapp.Util.GetTel;
 import com.example.chen.wsscapp.Util.MyApplication;
 import com.example.chen.wsscapp.activity.BecomeShopActivity;
 import com.example.chen.wsscapp.activity.OrderActivity;
@@ -70,7 +71,7 @@ public class MeFragment extends Fragment {
     private Button bt_setting;
     private SuperSwipeRefreshLayout swipeRefreshLayout;
     //从缓存中取值
-    ACache aCache = ACache.get(MyApplication.getContext(),"userdata");
+    ACache aCache = ACache.get(MyApplication.getContext(), GetTel.gettel());
     User userdata = new User();
     final String url = "http://106.14.145.208";
 
@@ -96,7 +97,6 @@ public class MeFragment extends Fragment {
 
     //初始化控件以及json数据的解析
     private void initView(View view) {
-
         tv_nickname = (TextView) view.findViewById(R.id.tv_nickname);
         tv_jifen = (TextView) view.findViewById(R.id.tv_jifen);
         iv_touxiang = (CircleImageView) view.findViewById(R.id.iv_metouxiang);
@@ -108,14 +108,12 @@ public class MeFragment extends Fragment {
                     @Override
                     public void onRefresh() {
                         tv_nickname.setText(aCache.getAsString("user_name"));
-                        if(TextUtils.isEmpty(userdata.getUser_touxiang())){
-                            iv_touxiang.setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(),R.drawable.defalutuser));
+                        Log.e(TAG,"me tou "+aCache.getAsString("user_touxiang"));
+                        if(TextUtils.isEmpty(aCache.getAsString("user_touxiang"))){
+                            iv_touxiang.setImageResource(R.drawable.defalutuser);
                         }else{
-                            SharedPreferences p = getActivity().getSharedPreferences("time",MODE_PRIVATE);
                             Glide.with(getContext())
-                                    .load(url+userdata.getUser_touxiang())
-                                    .signature(new StringSignature(p.getString("icontime","").toString()))
-                                    .error(R.drawable.defalutuser)
+                                    .load(url+aCache.getAsString("user_touxiang"))
                                     .into(iv_touxiang);
                         }
 
@@ -156,18 +154,18 @@ public class MeFragment extends Fragment {
         }
 
         //初始化控件数据
-
+        Log.e(TAG,"icon "+aCache.getAsString("user_touxiang"));
         if(TextUtils.isEmpty(userdata.getUser_touxiang())){
-            iv_touxiang.setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(),R.drawable.defalutuser));
+            iv_touxiang.setImageResource(R.drawable.defalutuser);
         }else{
             SharedPreferences p = getActivity().getSharedPreferences("time",MODE_PRIVATE);
-            Glide.with(this)
+            Glide.with(getContext())
                     .load(url+userdata.getUser_touxiang())
-                    .signature(new StringSignature(p.getString("icontime","").toString()))
                     .error(R.drawable.defalutuser)
+                    .signature(new StringSignature(p.getString("icontime","").toString()))
                     .into(iv_touxiang);
         }
-        Log.e(TAG,userdata.getUser_touxiang()+"");
+        Log.e(TAG,"touxiang "+userdata.getUser_touxiang()+"");
         Log.e(TAG+" acache name",aCache.getAsString("user_name")+"");
         Log.e(TAG,userdata.getUser_name()+"");
         Log.e(TAG,userdata.getUser_jifen()+"");
@@ -386,12 +384,12 @@ public class MeFragment extends Fragment {
 
 
     private void refreshIcon() {
-        if(TextUtils.isEmpty(userdata.getUser_touxiang())){
+        if(TextUtils.isEmpty(aCache.getAsString("user_touxiang"))){
             iv_touxiang.setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(),R.drawable.defalutuser));
         }else{
             SharedPreferences p = getActivity().getSharedPreferences("time",MODE_PRIVATE);
             Glide.with(this)
-                    .load(url+userdata.getUser_touxiang())
+                    .load(url+aCache.getAsString("user_touxiang"))
                     .signature(new StringSignature(p.getString("icontime","").toString()))
                     .error(R.drawable.defalutuser)
                     .into(iv_touxiang);

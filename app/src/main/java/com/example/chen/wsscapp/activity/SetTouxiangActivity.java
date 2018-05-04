@@ -20,6 +20,7 @@ import com.bumptech.glide.signature.StringSignature;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.ACache;
 import com.example.chen.wsscapp.Util.BaseActivity;
+import com.example.chen.wsscapp.Util.GetTel;
 import com.example.chen.wsscapp.Util.MyApplication;
 
 import com.example.chen.wsscapp.Util.TopUi;
@@ -56,8 +57,7 @@ public class SetTouxiangActivity extends BaseActivity implements View.OnClickLis
     private static final int REQUEST_LIST_CODE = 0;
     private static final String TAG = "SetTouxiangActivity";
     private static String time; //修改头像的时间
-    final ACache mAcache = ACache.get(MyApplication.getContext(),"userdata");
-    final ACache aCache = ACache.get(MyApplication.getContext(),"icondata");
+    final ACache mAcache = ACache.get(MyApplication.getContext(), GetTel.gettel());
     public static final String action = "jason.broadcast.action";
     String url = "http://106.14.145.208";
 
@@ -169,7 +169,7 @@ public class SetTouxiangActivity extends BaseActivity implements View.OnClickLis
                         .build();
                 Log.e(TAG,file.getName());
                 Log.e(TAG,"path "+path);
-                aCache.put("icon",path);
+                mAcache.put("icon",path);
                 Call call = mOkHttpClent.newCall(request);
                 call.enqueue(new Callback() {
                     @Override
@@ -187,8 +187,8 @@ public class SetTouxiangActivity extends BaseActivity implements View.OnClickLis
                     @Override
                     public void onResponse(Call call, final Response response) throws IOException {
                         final String respdata = response.body().string();
-                        Log.e(TAG,respdata);
-                        if (respdata.equals("ok")){
+                        Log.e(TAG,"set tou "+respdata);
+                        if (!respdata.equals("error")){
                             JMessageClient.updateUserAvatar(file, new BasicCallback() {
                                 @Override
                                 public void gotResult(int i, String s) {
@@ -199,9 +199,10 @@ public class SetTouxiangActivity extends BaseActivity implements View.OnClickLis
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if("ok".equals(respdata)){
+                                if(!"error".equals(respdata)){
                                     //保存头像路径到本地
-                                    mAcache.put("user_touxiang",path);
+                                    Log.e(TAG,"set tou!"+respdata.toString());
+                                    mAcache.put("user_touxiang",respdata.toString());
                                     Toast.makeText(SetTouxiangActivity.this,"修改照片成功",Toast.LENGTH_SHORT).show();
                                     //保存更改时间作为签名
                                     Calendar calendar = Calendar.getInstance();
@@ -218,8 +219,7 @@ public class SetTouxiangActivity extends BaseActivity implements View.OnClickLis
                                         @Override
                                         public void run() {
                                             Glide.with(MyApplication.getContext())
-                                                    .load(url)
-                                                    .error(R.drawable.ic_default_image)
+                                                    .load(url+mAcache.getAsString("user_touxiang"))
                                                     .signature(new StringSignature(time))
                                                     .into(iv_icon);
                                         }
@@ -248,14 +248,14 @@ public class SetTouxiangActivity extends BaseActivity implements View.OnClickLis
 
         //读取存放的头像路径
         String iconaddr = mAcache.getAsString("user_touxiang");
-        Log.d(TAG,"iconaddr "+iconaddr);
+        Log.e(TAG,"iconaddr "+iconaddr);
         SharedPreferences pref = getSharedPreferences("time",MODE_PRIVATE);
         String qm = pref.getString("icontime","");
         if (TextUtils.isEmpty(iconaddr)){
             iv_icon.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.ic_default_image));
         }else {
             Glide.with(this)
-                    .load(aCache.getAsString("icon"))
+                    .load(url+iconaddr)
                     .error(R.drawable.ic_default_image)
                     .signature(new StringSignature(qm))
                     .into(iv_icon);

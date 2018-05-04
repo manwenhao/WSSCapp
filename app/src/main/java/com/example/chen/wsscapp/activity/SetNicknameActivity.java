@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.ACache;
 import com.example.chen.wsscapp.Util.BaseActivity;
+import com.example.chen.wsscapp.Util.GetTel;
 import com.example.chen.wsscapp.Util.MyApplication;
 import com.example.chen.wsscapp.Util.TopUi;
 import com.squareup.okhttp.Request;
@@ -37,7 +38,7 @@ public class SetNicknameActivity extends BaseActivity implements View.OnClickLis
     private static final String TAG = "setNicknameActivity";
     private Button bt_setnickname;
     private EditText et_setnickname;
-    final ACache mAcahe = ACache.get(MyApplication.getContext(),"userdata");
+    final ACache mAcahe = ACache.get(MyApplication.getContext(), GetTel.gettel());
     public static final String action = "jason.broadcast.action";
 
 

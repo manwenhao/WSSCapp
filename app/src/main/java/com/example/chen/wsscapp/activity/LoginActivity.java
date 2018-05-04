@@ -207,7 +207,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                    List<User> list = new ArrayList<User>();
                                     Type listType = new TypeToken<List<User>>() {}.getType();
                                     list = gson.fromJson(data, listType);
-                                     ACache mAcache = ACache.get(MyApplication.getContext(),"userdata");
+                                     ACache mAcache = ACache.get(MyApplication.getContext(),account);
                                         for(User user :list){
                                             if("".equals(user.getUser_name())||user.getUser_name()==null){
                                              return ;

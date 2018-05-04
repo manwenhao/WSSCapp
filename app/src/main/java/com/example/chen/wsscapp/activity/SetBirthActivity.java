@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.chen.wsscapp.Bean.User;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.ACache;
+import com.example.chen.wsscapp.Util.GetTel;
 import com.example.chen.wsscapp.Util.MyApplication;
 import com.example.chen.wsscapp.Util.TopUi;
 import com.squareup.okhttp.Request;
@@ -44,7 +45,7 @@ public class SetBirthActivity extends Activity implements View.OnClickListener {
     private Button bt_setbirth;
     private static final int START_DATE = 1;
     private static final int END_DATE = 2;
-    final ACache mAcahe = ACache.get(MyApplication.getContext(),"userdata");
+    final ACache mAcahe = ACache.get(MyApplication.getContext(), GetTel.gettel());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

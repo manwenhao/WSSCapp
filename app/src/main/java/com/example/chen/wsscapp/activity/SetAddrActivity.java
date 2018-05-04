@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.ACache;
 import com.example.chen.wsscapp.Util.BaseActivity;
+import com.example.chen.wsscapp.Util.GetTel;
 import com.example.chen.wsscapp.Util.MyApplication;
 import com.example.chen.wsscapp.Util.TopUi;
 import com.squareup.okhttp.Request;
@@ -31,7 +32,7 @@ public class SetAddrActivity extends BaseActivity implements View.OnClickListene
     private static final String TAG = "setAddrActivity";
     private Button bt_setaddr;
     private EditText et_setaddr;
-    final ACache mAcahe = ACache.get(MyApplication.getContext(),"userdata");
+    final ACache mAcahe = ACache.get(MyApplication.getContext(), GetTel.gettel());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
