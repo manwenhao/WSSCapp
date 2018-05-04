@@ -97,6 +97,7 @@ public class PushFragment extends Fragment {
         if (datastring==null){
             nopush.setVisibility(View.VISIBLE);
             listView.setVisibility(View.INVISIBLE);
+            list=new ArrayList<PushMsg>();
         }else {
             nopush.setVisibility(View.INVISIBLE);
             listView.setVisibility(View.VISIBLE);
