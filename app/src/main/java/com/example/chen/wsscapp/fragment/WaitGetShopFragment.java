@@ -41,6 +41,7 @@ public class WaitGetShopFragment extends Fragment {
     private OrderAdapter adapter;
     private SuperSwipeRefreshLayout swipeRefreshLayout;
     private List<String> mlist ;
+    private int pos;
 
     public WaitGetShopFragment() {
         super();
@@ -74,8 +75,67 @@ public class WaitGetShopFragment extends Fragment {
                             @Override
                             public void run() {
                                 list.clear();
-                                GetData();
-                                adapter.notifyDataSetChanged();
+                                mlist.clear();
+                                OkHttpUtils.get()
+                                        .addParams("user_phone", GetTel.gettel())
+                                        .addParams("que","1")
+                                        .url("http://106.14.145.208/ShopMall/BackUserOrders")
+                                        .build()
+                                        .execute(new StringCallback() {
+                                            @Override
+                                            public void onError(Request request, Exception e) {
+                                                getActivity().runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Toast.makeText(getContext(),"获取订单失败",Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
+
+                                            @Override
+                                            public void onResponse(String response) {
+                                                if(TextUtils.isEmpty(response.toString())){
+                                                    getActivity().runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                        }
+                                                    });
+                                                }else if("error".equals(response.toString())){
+                                                    getActivity().runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Toast.makeText(getContext(),"获取订单失败",Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }else
+                                                {
+                                                    List<Order> orders = JSON.parseArray(response.toString(), Order.class);
+                                                    Log.e(TAG,"??"+orders.size());
+                                                    Log.e(TAG,response);
+                                                    for(Order od :orders){
+                                                        Log.e(TAG,od.getOrd_id());
+                                                        //type,ord_id,ord_time,ord_money,ord_products,ord_status,ord_expressname,
+                                                        // ord_expressid,rev_name,rev_phone,rev_address,ord_gooid,ord_name,pro_price,
+                                                        // pro_discount,ord_photo,ord_size,ord_color,ord_num
+                                                        mlist.add(od.getOrd_time());
+                                                        list.add(new WaitOrder("1","",od.getOrd_time(),"","","","","","","","","","","","","","","",""));
+                                                        String product = od.getOrd_products();
+                                                        List<OrderItem> orderItems = JSON.parseArray(product.toString(),OrderItem.class);
+                                                        for(OrderItem oditem :orderItems){
+                                                            Log.e(TAG,oditem.getOrd_name());
+                                                            list.add(new WaitOrder("2","","","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
+                                                        }
+                                                        list.add(new WaitOrder("4","","",od.getOrd_money(),"","","","","","","","","","","","","","",""));
+                                                    }
+                                                    pos = list.size();
+                                                    adapter = new OrderAdapter(getContext(),list);
+                                                    rv_waitget.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                    rv_waitget.setAdapter(adapter);
+                                                    adapter.notifyDataSetChanged();
+                                                }
+
+                                            }
+                                        });
                                 swipeRefreshLayout.setRefreshing(false);
                             }
                         }, 1000);
@@ -142,7 +202,7 @@ public class WaitGetShopFragment extends Fragment {
         OkHttpUtils.get()
                 .addParams("user_phone", GetTel.gettel())
                 .addParams("que","1")
-                .addParams("lasttime",java.net.URLEncoder.encode(lasttime,"UTF-8"))
+                .addParams("lastime",java.net.URLEncoder.encode(lasttime,"UTF-8"))
                 .url("http://106.14.145.208/ShopMall/BackUserOrders")
                 .build()
                 .execute(new StringCallback() {
@@ -179,10 +239,11 @@ public class WaitGetShopFragment extends Fragment {
                             Log.e(TAG,response);
                             for(Order od :orders){
                                 Log.e(TAG,od.getOrd_id());
+                                Log.e(TAG,od.getOrd_time());
+                                mlist.add(od.getOrd_time());
                                 //type,ord_id,ord_time,ord_money,ord_products,ord_status,ord_expressname,
                                 // ord_expressid,rev_name,rev_phone,rev_address,ord_gooid,ord_name,pro_price,
                                 // pro_discount,ord_photo,ord_size,ord_color,ord_num
-
                                 list.add(new WaitOrder("1","",od.getOrd_time(),"","","","","","","","","","","","","","","",""));
                                 String product = od.getOrd_products();
                                 List<OrderItem> orderItems = JSON.parseArray(product.toString(),OrderItem.class);
@@ -195,10 +256,12 @@ public class WaitGetShopFragment extends Fragment {
                             }
                             adapter = new OrderAdapter(getContext(),list);
                             LinearLayoutManager manager = new LinearLayoutManager(getContext());
-                            manager.scrollToPositionWithOffset(adapter.getItemCount()-1,0);
+                            Log.e(TAG,"1p "+pos);
+                            manager.scrollToPositionWithOffset(pos-1,0);
                             rv_waitget.setLayoutManager(manager);
                             rv_waitget.setAdapter(adapter);
-
+                            pos = list.size();
+                            Log.e(TAG,"2p "+pos);
                         }
 
                     }
@@ -206,64 +269,71 @@ public class WaitGetShopFragment extends Fragment {
     }
 
     private void GetData() {
-        OkHttpUtils.get()
-                .addParams("user_phone", GetTel.gettel())
-                .addParams("que","1")
-                .url("http://106.14.145.208/ShopMall/BackUserOrders")
-                .build()
-                .execute(new StringCallback() {
-                    @Override
-                    public void onError(Request request, Exception e) {
-                        getActivity().runOnUiThread(new Runnable() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpUtils.get()
+                        .addParams("user_phone", GetTel.gettel())
+                        .addParams("que","1")
+                        .url("http://106.14.145.208/ShopMall/BackUserOrders")
+                        .build()
+                        .execute(new StringCallback() {
                             @Override
-                            public void run() {
-                                Toast.makeText(getContext(),"获取订单失败",Toast.LENGTH_SHORT).show();
+                            public void onError(Request request, Exception e) {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getContext(),"获取订单失败",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onResponse(String response) {
+                                if(TextUtils.isEmpty(response.toString())){
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                        }
+                                    });
+                                }else if("error".equals(response.toString())){
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(getContext(),"获取订单失败",Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }else
+                                {
+                                    List<Order> orders = JSON.parseArray(response.toString(), Order.class);
+                                    Log.e(TAG,"??"+orders.size());
+                                    Log.e(TAG,response);
+                                    for(Order od :orders){
+                                        Log.e(TAG,od.getOrd_id());
+                                        //type,ord_id,ord_time,ord_money,ord_products,ord_status,ord_expressname,
+                                        // ord_expressid,rev_name,rev_phone,rev_address,ord_gooid,ord_name,pro_price,
+                                        // pro_discount,ord_photo,ord_size,ord_color,ord_num
+                                        mlist.add(od.getOrd_time());
+                                        list.add(new WaitOrder("1","",od.getOrd_time(),"","","","","","","","","","","","","","","",""));
+                                        String product = od.getOrd_products();
+                                        List<OrderItem> orderItems = JSON.parseArray(product.toString(),OrderItem.class);
+                                        for(OrderItem oditem :orderItems){
+                                            Log.e(TAG,oditem.getOrd_name());
+                                            list.add(new WaitOrder("2","","","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
+                                        }
+                                        list.add(new WaitOrder("4","","",od.getOrd_money(),"","","","","","","","","","","","","","",""));
+                                    }
+                                    pos = list.size();
+                                    adapter = new OrderAdapter(getContext(),list);
+                                    rv_waitget.setLayoutManager(new LinearLayoutManager(getContext()));
+                                    rv_waitget.setAdapter(adapter);
+                                }
+
                             }
                         });
-                    }
 
-                    @Override
-                    public void onResponse(String response) {
-                        if(TextUtils.isEmpty(response.toString())){
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                }
-                            });
-                        }else if("error".equals(response.toString())){
-                            getActivity().runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(getContext(),"获取订单失败",Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }else
-                        {
-                            List<Order> orders = JSON.parseArray(response.toString(), Order.class);
-                            Log.e(TAG,"??"+orders.size());
-                            Log.e(TAG,response);
-                            for(Order od :orders){
-                                Log.e(TAG,od.getOrd_id());
-                                //type,ord_id,ord_time,ord_money,ord_products,ord_status,ord_expressname,
-                                // ord_expressid,rev_name,rev_phone,rev_address,ord_gooid,ord_name,pro_price,
-                                // pro_discount,ord_photo,ord_size,ord_color,ord_num
-                                mlist.add(od.getOrd_time());
-                                list.add(new WaitOrder("1","",od.getOrd_time(),"","","","","","","","","","","","","","","",""));
-                                String product = od.getOrd_products();
-                                List<OrderItem> orderItems = JSON.parseArray(product.toString(),OrderItem.class);
-                                for(OrderItem oditem :orderItems){
-                                    Log.e(TAG,oditem.getOrd_name());
-                                    list.add(new WaitOrder("2","","","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
-                                }
-                                list.add(new WaitOrder("4","","",od.getOrd_money(),"","","","","","","","","","","","","","",""));
-                            }
-                            adapter = new OrderAdapter(getContext(),list);
+            }
+        }).start();
 
-                            rv_waitget.setLayoutManager(new LinearLayoutManager(getContext()));
-                            rv_waitget.setAdapter(adapter);
-                        }
-
-                    }
-                });
     }
 }

@@ -1,6 +1,8 @@
 package com.example.chen.wsscapp.activity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,6 +27,8 @@ import com.example.chen.wsscapp.fragment.MenuFragment;
 import com.example.chen.wsscapp.fragment.ShoppingCarFragment;
 import com.example.chen.wsscapp.fragment.WeiTaoFragment;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +49,26 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //判断是否为小米或魅族手机，如果是则将状态栏文字改为黑色
+            if (MIUISetStatusBarLightMode(this, true) || FlymeSetStatusBarLightMode(this, true)) {
+                //设置状态栏为指定颜色
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0
+                    this.getWindow().setStatusBarColor(getResources().getColor(R.color.topbackgroud));
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//4.4
+                    //调用修改状态栏颜色的方法
+                    this.getWindow().setStatusBarColor(getResources().getColor(R.color.topbackgroud));
+                }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                //如果是6.0以上将状态栏文字改为黑色，并设置状态栏颜色
+                this.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                this.getWindow().setStatusBarColor(getResources().getColor(R.color.topbackgroud));
+
+                }
+            }
+
+
       //  StatusBarCompat.translucentStatusBar(this);//透明 浸入式标题栏
         setContentView(R.layout.activity_main);
         //传登录时用户数据
@@ -147,5 +172,50 @@ public class MainActivity extends FragmentActivity {
             }
         });
     }
+
+    static boolean MIUISetStatusBarLightMode(Activity activity, boolean darkmode) {
+        boolean result = false;
+        Class<? extends Window> clazz = activity.getWindow().getClass();
+        try {
+            int darkModeFlag = 0;
+            Class<?> layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+            Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
+            darkModeFlag = field.getInt(layoutParams);
+            Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
+            extraFlagField.invoke(activity.getWindow(), darkmode ? darkModeFlag : 0, darkModeFlag);
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    static boolean FlymeSetStatusBarLightMode(Activity activity, boolean darkmode) {
+        boolean result = false;
+        try {
+            WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+            Field darkFlag = WindowManager.LayoutParams.class
+                    .getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON");
+            Field meizuFlags = WindowManager.LayoutParams.class
+                    .getDeclaredField("meizuFlags");
+            darkFlag.setAccessible(true);
+            meizuFlags.setAccessible(true);
+            int bit = darkFlag.getInt(null);
+            int value = meizuFlags.getInt(lp);
+            if (darkmode) {
+                value |= bit;
+            } else {
+                value &= ~bit;
+            }
+            meizuFlags.setInt(lp, value);
+            activity.getWindow().setAttributes(lp);
+            result = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+
 
 }

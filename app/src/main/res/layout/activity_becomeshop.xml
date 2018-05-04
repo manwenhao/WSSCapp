@@ -233,6 +233,30 @@
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="商品积分:"
+                android:textColor="@color/tv_Black"
+                />
+            <EditText
+                android:id="@+id/et_shopjifen"
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/tv_Black"
+                android:background="@drawable/shape_shop"
+                android:singleLine="true"
+                android:inputType="number|numberDecimal"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+            <TextView
+                android:layout_gravity="center"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="商品折扣:"
                 android:textColor="@color/tv_Black"
                 />

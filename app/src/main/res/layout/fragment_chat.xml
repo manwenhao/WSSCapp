@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:orientation="horizontal"
-        android:background="@color/priorgan">
+        android:background="@drawable/topbar_background">
         <RadioButton
             android:id="@+id/msg_rbt"
             android:layout_width="0dp"

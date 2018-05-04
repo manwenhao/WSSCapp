@@ -28,6 +28,7 @@ public class Product implements Serializable{
     private String pro_size;
     private String pro_color;
     private float pro_price;
+    private String pro_jfvalue;
     private String pro_discount;
     private String pro_describe;
     private String pro_photo;
@@ -37,7 +38,7 @@ public class Product implements Serializable{
         super();
     }
 
-    public Product(String pro_name, String pro_classify, String pro_suitperson, String pro_material, String pro_brand, String pro_size, String pro_color, float pro_price, String pro_discount, String pro_describe, String pro_photo, String pro_describephoto) {
+    public Product(String pro_name, String pro_classify, String pro_suitperson, String pro_material, String pro_brand, String pro_size, String pro_color, float pro_price, String pro_jfvalue, String pro_discount, String pro_describe, String pro_photo, String pro_describephoto) {
         this.pro_name = pro_name;
         this.pro_classify = pro_classify;
         this.pro_suitperson = pro_suitperson;
@@ -46,10 +47,19 @@ public class Product implements Serializable{
         this.pro_size = pro_size;
         this.pro_color = pro_color;
         this.pro_price = pro_price;
+        this.pro_jfvalue = pro_jfvalue;
         this.pro_discount = pro_discount;
         this.pro_describe = pro_describe;
         this.pro_photo = pro_photo;
         this.pro_describephoto = pro_describephoto;
+    }
+
+    public String getPro_jfvalue() {
+        return pro_jfvalue;
+    }
+
+    public void setPro_jfvalue(String pro_jfvalue) {
+        this.pro_jfvalue = pro_jfvalue;
     }
 
     public String getPro_name() {

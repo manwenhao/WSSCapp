@@ -9,7 +9,9 @@
     app:right_btn_visible="false"
     app:right_tv_visible="false"
     app:title_visible="true"
-    app:title_text="订单管理">
+    app:title_text="订单管理"
+    android:fitsSystemWindows="true"
+    >
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:background="@color/white"
         android:orientation="vertical"

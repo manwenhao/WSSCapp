@@ -9,7 +9,9 @@
     app:right_btn_visible="false"
     app:right_tv_visible="false"
     app:title_visible="true"
-    app:title_text="修改商品信息">
+    app:title_text="修改商品信息"
+    android:fitsSystemWindows="true"
+    >
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="match_parent"

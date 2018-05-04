@@ -37,6 +37,9 @@ public class CompleteManagerShopFragment extends Fragment {
     private List<ShopOrder> list;
     private ManagerOrderAdapter adapter;
     private SuperSwipeRefreshLayout swipeRefreshLayout;
+    private List<String> mlist;
+    private int pos;
+
 
     public CompleteManagerShopFragment() {
         super();
@@ -53,9 +56,11 @@ public class CompleteManagerShopFragment extends Fragment {
     private void initView(View view) {
         rv_completeshop = (RecyclerView) view.findViewById(R.id.rv_completeshop);
         list = new ArrayList<>();
+        mlist = new ArrayList<>();
         GetData();
         swipeRefreshLayout = (SuperSwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setHeaderViewBackgroundColor(0xffcccccc);
+        swipeRefreshLayout.setFooterView(createView());
         swipeRefreshLayout
                 .setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
                     @Override
@@ -66,8 +71,67 @@ public class CompleteManagerShopFragment extends Fragment {
                             @Override
                             public void run() {
                                 list.clear();
-                                GetData();
-                                adapter.notifyDataSetChanged();
+                                mlist.clear();
+                                OkHttpUtils.get()
+                                        .addParams("que","2")
+                                        .url("http://106.14.145.208/ShopMall/BackShopOrders")
+                                        .build()
+                                        .execute(new StringCallback() {
+                                            @Override
+                                            public void onError(Request request, Exception e) {
+                                                getActivity().runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        Toast.makeText(getContext(),"获取订单失败",Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
+
+                                            @Override
+                                            public void onResponse(String response) {
+                                                if(TextUtils.isEmpty(response.toString())){
+                                                    getActivity().runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                        }
+                                                    });
+                                                }else if("error".equals(response.toString())){
+                                                    getActivity().runOnUiThread(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            Toast.makeText(getContext(),"获取订单失败",Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+                                                }else
+                                                {
+                                                    List<ManagerOrder> orders = JSON.parseArray(response.toString(), ManagerOrder.class);
+
+                                                    for(ManagerOrder od :orders){
+                                                        mlist.add(od.getOrd_time());
+                                                        // type,  ord_id,  user_name,  user_phone,  user_touxiang,  ord_time,
+                                                        //  ord_money,  ord_products,  ord_status,  ord_expressname,  ord_expressid
+                                                        //   rev_name,  rev_phone, rev_address,  ord_gooid,  ord_name
+                                                        //  pro_price,  pro_discount,  ord_photo, ord_size,  ord_color, String ord_num
+                                                        list.add(new ShopOrder("1",od.getOrd_id(),od.getUser_name(),od.getUser_phone(),od.getUser_touxiang(),"","","","","","","","","","","","","","","","",""));
+                                                        String product = od.getOrd_products();
+                                                        List<OrderItem> orderItems = JSON.parseArray(product.toString(),OrderItem.class);
+                                                        for(OrderItem oditem :orderItems){
+
+                                                            list.add(new ShopOrder("2","","","","","","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
+                                                        }
+                                                        list.add(new ShopOrder("5","","","","","",od.getOrd_money(),"",od.getOrd_status(),"","",od.getRev_name(),od.getRev_phone(),od.getRev_address(),"","","","","","","",""));                            }
+
+                                                }
+                                                pos = list.size();
+                                                adapter = new ManagerOrderAdapter(list,getContext());
+                                                rv_completeshop.setLayoutManager(new LinearLayoutManager(getContext()));
+                                                rv_completeshop.setAdapter(adapter);
+                                                adapter.notifyDataSetChanged();
+
+                                            }
+                                        });
+
+
                                 swipeRefreshLayout.setRefreshing(false);
                             }
                         }, 1000);
@@ -83,11 +147,36 @@ public class CompleteManagerShopFragment extends Fragment {
                         //TODO 下拉过程中，下拉的距离是否足够出发刷新
                     }
                 });
+
+        swipeRefreshLayout.setOnPushLoadMoreListener(new SuperSwipeRefreshLayout.OnPushLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        String lasttime = list.get(list.size()-1).getOrd_time();
+                        getMoreData(lasttime);
+                        swipeRefreshLayout.setLoadMore(false);
+                    }
+                },1000);
+            }
+
+            @Override
+            public void onPushDistance(int i) {
+
+            }
+
+            @Override
+            public void onPushEnable(boolean b) {
+
+            }
+        });
     }
 
-    private void GetData() {
+    private void getMoreData(String lasttime) {
         OkHttpUtils.get()
                 .addParams("que","2")
+                .addParams("lastime",lasttime)
                 .url("http://106.14.145.208/ShopMall/BackShopOrders")
                 .build()
                 .execute(new StringCallback() {
@@ -107,6 +196,7 @@ public class CompleteManagerShopFragment extends Fragment {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+                                    Toast.makeText(getContext(),"无订单",Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }else if("error".equals(response.toString())){
@@ -119,9 +209,8 @@ public class CompleteManagerShopFragment extends Fragment {
                         }else
                         {
                             List<ManagerOrder> orders = JSON.parseArray(response.toString(), ManagerOrder.class);
-
                             for(ManagerOrder od :orders){
-
+                                mlist.add(od.getOrd_time());
                                 // type,  ord_id,  user_name,  user_phone,  user_touxiang,  ord_time,
                                 //  ord_money,  ord_products,  ord_status,  ord_expressname,  ord_expressid
                                 //   rev_name,  rev_phone, rev_address,  ord_gooid,  ord_name
@@ -130,18 +219,93 @@ public class CompleteManagerShopFragment extends Fragment {
                                 String product = od.getOrd_products();
                                 List<OrderItem> orderItems = JSON.parseArray(product.toString(),OrderItem.class);
                                 for(OrderItem oditem :orderItems){
-
                                     list.add(new ShopOrder("2","","","","","","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
                                 }
-                                list.add(new ShopOrder("5","","","","","",od.getOrd_money(),"",od.getOrd_status(),"","",od.getRev_name(),od.getRev_phone(),od.getRev_address(),"","","","","","","",""));                            }
-                            adapter = new ManagerOrderAdapter(list,getContext());
+                                list.add(new ShopOrder("5","","","","","",od.getOrd_money(),"",od.getOrd_status(),"","",od.getRev_name(),od.getRev_phone(),od.getRev_address(),"","","","","","","",""));
 
-                            rv_completeshop.setLayoutManager(new LinearLayoutManager(getContext()));
+                            }
+                            adapter = new ManagerOrderAdapter(list,getContext());
+                            LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                            manager.scrollToPositionWithOffset(pos-1,0);
+                            rv_completeshop.setLayoutManager(manager);
                             rv_completeshop.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                            pos = list.size();
                         }
 
                     }
                 });
+    }
+
+    private View createView() {
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.layout_moredata,null);
+        return view;
+    }
+
+    private void GetData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpUtils.get()
+                        .addParams("que","2")
+                        .url("http://106.14.145.208/ShopMall/BackShopOrders")
+                        .build()
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onError(Request request, Exception e) {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getContext(),"获取订单失败",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onResponse(String response) {
+                                if(TextUtils.isEmpty(response.toString())){
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                        }
+                                    });
+                                }else if("error".equals(response.toString())){
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(getContext(),"获取订单失败",Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }else
+                                {
+                                    List<ManagerOrder> orders = JSON.parseArray(response.toString(), ManagerOrder.class);
+
+                                    for(ManagerOrder od :orders){
+                                        mlist.add(od.getOrd_time());
+                                        // type,  ord_id,  user_name,  user_phone,  user_touxiang,  ord_time,
+                                        //  ord_money,  ord_products,  ord_status,  ord_expressname,  ord_expressid
+                                        //   rev_name,  rev_phone, rev_address,  ord_gooid,  ord_name
+                                        //  pro_price,  pro_discount,  ord_photo, ord_size,  ord_color, String ord_num
+                                        list.add(new ShopOrder("1",od.getOrd_id(),od.getUser_name(),od.getUser_phone(),od.getUser_touxiang(),"","","","","","","","","","","","","","","","",""));
+                                        String product = od.getOrd_products();
+                                        List<OrderItem> orderItems = JSON.parseArray(product.toString(),OrderItem.class);
+                                        for(OrderItem oditem :orderItems){
+
+                                            list.add(new ShopOrder("2","","","","","","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
+                                        }
+                                        list.add(new ShopOrder("5","","","","","",od.getOrd_money(),"",od.getOrd_status(),"","",od.getRev_name(),od.getRev_phone(),od.getRev_address(),"","","","","","","",""));                            }
+                                    adapter = new ManagerOrderAdapter(list,getContext());
+                                    pos = list.size();
+                                    rv_completeshop.setLayoutManager(new LinearLayoutManager(getContext()));
+                                    rv_completeshop.setAdapter(adapter);
+                                }
+
+                            }
+                        });
+
+            }
+        }).start();
+
     }
 }
 
