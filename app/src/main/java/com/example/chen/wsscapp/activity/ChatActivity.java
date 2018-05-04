@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -145,6 +146,7 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
         super.onCreate(savedInstanceState);
         mContext = this;
         setContentView(R.layout.activity_chat);
+        getroot();
         mChatView = (ChatView) findViewById(R.id.chat_view);
         ekBar=(XhsEmoticonsKeyBoard)findViewById(R.id.ek_bar);
         lvChat=(DropDownListView)findViewById(R.id.lv_chat);
@@ -160,6 +162,15 @@ public class ChatActivity extends BaseActivity implements FuncLayout.OnFuncKeyBo
         initData();
         initView();
 
+    }
+    public void getroot(){
+        if ((PackageManager.PERMISSION_GRANTED != ContextCompat.
+                checkSelfPermission(MyApplication.getContext(), android.Manifest.permission.RECORD_AUDIO))){
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.RECORD_AUDIO},
+                    1);
+
+        }
     }
 
     private void initData() {
