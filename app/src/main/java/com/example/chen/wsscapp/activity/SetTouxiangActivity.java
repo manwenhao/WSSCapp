@@ -168,11 +168,11 @@ public class SetTouxiangActivity extends BaseActivity implements View.OnClickLis
                     public void onResponse(Call call, final Response response) throws IOException {
                         final String respdata = response.body().string();
                         Log.e(TAG,respdata);
-                        if (respdata.equals("ok")){
+                        if (!respdata.equals("error")){
                             JMessageClient.updateUserAvatar(file, new BasicCallback() {
                                 @Override
                                 public void gotResult(int i, String s) {
-                                    Log.d("修改头像",s);
+                                    Log.d("修改头像",i+";"+s);
                                 }
                             });
                         }

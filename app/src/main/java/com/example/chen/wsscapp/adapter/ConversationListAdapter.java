@@ -403,8 +403,12 @@ public class ConversationListAdapter extends BaseAdapter {
 
         if (convItem.getType().equals(ConversationType.single)) {
             groupBlocked.setVisibility(View.GONE);
-            convName.setText(convItem.getTitle());
+
             mUserInfo = (UserInfo) convItem.getTargetInfo();
+            if (mUserInfo.getNickname()!=null)
+            convName.setText(mUserInfo.getNickname());
+            else
+                convName.setText(convItem.getTitle());
             if (mUserInfo != null) {
                 mUserInfo.getAvatarBitmap(new GetAvatarBitmapCallback() {
                     @Override
