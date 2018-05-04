@@ -42,7 +42,7 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
     private Spinner sp_shoptype,sp_shopdiscount;
     //定义一个String类型的List数组作为数据源
     private List<String> typedataList,discountdataList;
-    private EditText et_shopname,et_shoplogo,et_shopuser,et_shopmake,et_shopprice,et_shopinfoshow;
+    private EditText et_shopname,et_shoplogo,et_shopuser,et_shopmake,et_shopprice,et_shopinfoshow,et_shopjifen;
     private TextView tv_shoptypecreate,tv_shopcolor,tv_shopsize;
     private  MultiSelector multiSelector;
     private Button bt_next;
@@ -75,6 +75,7 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
         et_shopuser = (EditText) findViewById(R.id.et_shopuser);
         et_shopmake = (EditText) findViewById(R.id.et_shopmake);
         et_shopprice = (EditText) findViewById(R.id.et_shopprice);
+        et_shopjifen = (EditText) findViewById(R.id.et_shopprice);
         tv_shopcolor = (TextView) findViewById(R.id.tv_shopcolor);
         tv_shopsize = (TextView) findViewById(R.id.tv_shopsize);
         sp_shopdiscount = (Spinner) findViewById(R.id.sp_shopdiscount);
@@ -199,6 +200,10 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
                 }
                 if("".equals(et_shopprice.getText().toString())||null==et_shopprice.getText().toString()){
                     showToast("商品价格不能为空");
+                    return;
+                }
+                if("".equals(et_shopjifen.getText().toString())||null==et_shopjifen.getText().toString()){
+                    showToast("商品积分不能为空");
                     return;
                 }
                 if("".equals(et_shopinfoshow.getText().toString())||null==et_shopinfoshow.getText().toString()){
@@ -377,6 +382,7 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
         product.setPro_material(et_shopmake.getText().toString().trim());
         product.setPro_price(Float.parseFloat(et_shopprice.getText().toString().trim()));
         product.setPro_describe(et_shopinfoshow.getText().toString().trim());
+        product.setPro_jfvalue(et_shopjifen.getText().toString().trim());
         Log.d(TAG,"INFO "+product.toString());
         return product;
     }

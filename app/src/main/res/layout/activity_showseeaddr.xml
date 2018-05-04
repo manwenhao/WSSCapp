@@ -10,6 +10,7 @@
     app:right_tv_visible="false"
     app:title_visible="true"
     app:title_text="收货地址"
+    android:fitsSystemWindows="true"
     >
 <LinearLayout
     android:background="@color/white"

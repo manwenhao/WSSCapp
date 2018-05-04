@@ -11,6 +11,7 @@
     app:right_tv_text="确认"
     app:title_visible="true"
     app:title_text="生日"
+    android:fitsSystemWindows="true"
     >
     <LinearLayout
         android:orientation="vertical"

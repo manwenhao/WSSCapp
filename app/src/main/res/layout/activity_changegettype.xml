@@ -9,7 +9,9 @@
     app:right_btn_visible="false"
     app:right_tv_visible="false"
     app:title_visible="true"
-    app:title_text="商品分类">
+    app:title_text="商品分类"
+    android:fitsSystemWindows="true"
+    >
     <LinearLayout
         android:background="@color/bg_Gray"
         android:layout_width="match_parent"

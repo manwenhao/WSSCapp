@@ -10,7 +10,7 @@
         android:layout_height="50dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:background="@drawable/shape_gradient">
+        android:background="@drawable/topbar_background">
 
         <Button
             android:id="@+id/toolbar_left_btn"
@@ -29,7 +29,7 @@
             android:layout_alignParentLeft="true"
             android:gravity="center"
             android:layout_centerVertical="true"
-            android:textColor="#fff"
+            android:textColor="@color/black"
             android:textSize="15sp"
             android:text="返回"
             android:visibility="gone"
@@ -44,7 +44,7 @@
             android:singleLine="true"
             android:text="标题"
             android:textSize="20sp"
-            android:textColor="#fff"
+            android:textColor="@color/black"
             android:maxEms="10"
             android:visibility="invisible"/>
 
@@ -58,7 +58,7 @@
             android:visibility="invisible"
             android:textSize="15sp"
             android:background="#00000000"
-            android:textColor="#fff"/>
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/toolbar_right_tv"
@@ -67,7 +67,7 @@
             android:layout_alignParentRight="true"
             android:gravity="center"
             android:layout_centerVertical="true"
-            android:textColor="#fff"
+            android:textColor="@color/black"
             android:textSize="15sp"
             android:text="更多"
             android:visibility="gone"/>

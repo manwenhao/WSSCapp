@@ -31,10 +31,19 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     Context context;
     LayoutInflater mlayt;
 
+    public OrderAdapter(){
+
+    }
+
+
     public OrderAdapter(Context context,List<WaitOrder> list){
         this.context = context;
-        mlist = list;
-        mlayt = LayoutInflater.from(context);
+        this.mlist = list;
+        this.mlayt = LayoutInflater.from(context);
+    }
+
+    public void setData(List<WaitOrder> list){
+        this.mlist = list;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.chen.wsscapp.fragment;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -79,6 +80,7 @@ public class MenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         if (null == rootView) {
             rootView = inflater.inflate(R.layout.fragment_menu, container,
                     false);

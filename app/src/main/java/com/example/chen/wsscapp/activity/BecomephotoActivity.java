@@ -140,6 +140,7 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
                         .addFormDataPart("pro_price", String.valueOf(product.getPro_price()))
                         .addFormDataPart("pro_discount",product.getPro_discount())
                         .addFormDataPart("pro_describephoto",product.getPro_describe())
+                        .addFormDataPart("pro_jfvalue",product.getPro_jfvalue())
                         .setType(MultipartBody.FORM);
                 if (files != null){
                     for (File file : files) {

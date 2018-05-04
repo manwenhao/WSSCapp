@@ -35,7 +35,7 @@
                 android:id="@+id/me"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="@drawable/shape_gradient"
+                android:background="@color/topbackgroud"
                 >
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="100dp"
@@ -43,7 +43,7 @@
                     android:layout_margin="6dp"
                     android:padding="10dp"
                     android:id="@+id/iv_metouxiang"
-                    app:civ_border_color="@color/white"
+                    app:civ_border_color="@color/bg_Gray"
                     app:civ_border_overlay="false"
                     app:civ_border_width="2dp"
                     app:civ_fill_color="@color/white"
@@ -53,31 +53,32 @@
                     android:layout_height="match_parent">
                     <TextView
                         android:id="@+id/tv_nickname"
-                        android:layout_width="160dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="80dp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         android:textSize="30sp"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         />
 
                     <TextView
+                        android:layout_marginLeft="10dp"
                         android:id="@+id/jifenname"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         android:text="会员积分："
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         />
 
                     <TextView
                         android:id="@+id/tv_jifen"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="70dp"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
-                        android:textColor="@color/white"
+                        android:textColor="@color/black"
                         />
                 </LinearLayout>
 
