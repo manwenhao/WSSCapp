@@ -131,7 +131,7 @@ public class XhsEmoticonsKeyBoard extends AutoHeightLayout implements View.OnCli
                     mBtnMultimedia.setVisibility(GONE);
                     mBtnSend.setBackgroundResource(R.drawable.btn_send_bg);
                 } else {
-                    mBtnMultimedia.setVisibility(VISIBLE);
+                    mBtnMultimedia.setVisibility(GONE);
                     mBtnSend.setVisibility(GONE);
                 }
             }
