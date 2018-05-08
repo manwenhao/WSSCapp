@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.chen.wsscapp.Util.CustomToolBar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:left_tv_visible="false"
+    app:right_btn_visible="false"
+    app:right_tv_visible="false"
+    app:title_visible="true"
+    app:title_text="明细"
+    android:fitsSystemWindows="true"
+    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="20dp"
+    android:layout_weight="1"
+    >
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="收货方式:"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_sendtype"
+            android:text="1232555665"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="        共计:"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_allmoney"
+            android:text="25.00"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_marginLeft="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/orangered"
+            android:text="提示：付款使用积分，积分1元=2元哦`"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+       <LinearLayout
+           android:layout_marginTop="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <TextView
+               android:gravity="center"
+               android:textSize="16sp"
+               android:textColor="@color/gray"
+               android:text="使用积分付款"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content" />
+           <CheckBox
+               android:layout_marginLeft="10dp"
+               android:id="@+id/cb_usejifen"
+               android:layout_width="30dp"
+               android:layout_height="30dp"
+               android:background="@drawable/shape_shop"
+               />
+       </LinearLayout>
+        <TextView
+            android:visibility="invisible"
+            android:id="@+id/tv_jifencost"
+            android:textSize="18sp"
+            android:textColor="@color/red"
+            android:text="-123"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>
+    <RelativeLayout
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/tv_jisuan"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:text="结 算"
+            android:background="@color/button_no_click"
+            android:layout_alignParentEnd="true"
+            android:layout_width="100dp"
+            android:layout_height="40dp" />
+    </RelativeLayout>
+    </com.example.chen.wsscapp.Util.CustomToolBar>

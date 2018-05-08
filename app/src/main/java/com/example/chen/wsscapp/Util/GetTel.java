@@ -24,4 +24,5 @@ public class GetTel {
         String p=decimalFormat.format(price);//format 返回的是字符串
         return p;
     }
+    
 }

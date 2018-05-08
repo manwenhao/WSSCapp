@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.chen.wsscapp.Util.CustomToolBar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:left_tv_visible="false"
+    app:right_btn_visible="false"
+    app:right_tv_visible="false"
+    app:title_visible="true"
+    app:title_text="选择收货地址"
+    android:fitsSystemWindows="true"
+    >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+    <com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout
+        android:id="@+id/swipe_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+    <com.baoyz.swipemenulistview.SwipeMenuListView
+        android:id="@+id/exListView"
+        android:background="@color/grey_line_bg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:childIndicator="@null"
+        android:groupIndicator="@null" >
+    </com.baoyz.swipemenulistview.SwipeMenuListView>
+    </com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout>
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/tv_addnewaddr"
+            android:textSize="18sp"
+            android:text="添加新的地址"
+            android:gravity="center"
+            android:background="@drawable/shap_bt"
+            android:layout_width="300dp"
+            android:layout_height="40dp" />
+    </LinearLayout>
+</LinearLayout>
+    </com.example.chen.wsscapp.Util.CustomToolBar>

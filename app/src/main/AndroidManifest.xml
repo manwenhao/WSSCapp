@@ -178,6 +178,12 @@
         <activity android:name=".activity.ChangePhotoActivity"/>
         <activity android:name=".activity.ShopManagerOrderActivity"/>
         <activity android:name=".activity.ShowSeeaddrActivity"/>
+        <activity android:name=".activity.ShowJiFenActivity"/>
+        <activity android:name=".activity.ShowJifenInfo"/>
+        <activity android:name=".activity.ShowTiXianListActicity"/>
+        <activity android:name=".activity.DetailActivity"/>
+        <activity android:name=".activity.ChooseAddrActivity"/>
+        <activity android:name=".activity.AddneAddrActivity"/>
 
     </application>
 

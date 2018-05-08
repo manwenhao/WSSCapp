@@ -2,6 +2,7 @@ package com.example.chen.wsscapp.fragment;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -27,12 +28,19 @@ import com.example.chen.wsscapp.Bean.ShopCarProduct;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.GetTel;
 import com.example.chen.wsscapp.Util.MyApplication;
+import com.example.chen.wsscapp.Util.UserChooseSendDialog;
+import com.example.chen.wsscapp.activity.SetOtherInfoActivity;
+import com.example.chen.wsscapp.activity.ShowshopInfoActivity;
 import com.example.chen.wsscapp.adapter.ShopCartAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -43,6 +51,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class ShoppingCarFragment extends Fragment implements ShopCartAdapter.CheckInterface,ShopCartAdapter.ModifyCountInterface{
+    private static final String TAG = "ShoppingCarFragment";
     private TextView title,subtitle,totalprice,gotopay,tvdelete;
     private SwipeMenuListView swipeMenuListView;
     private CheckBox allcheckBox;
@@ -53,6 +62,7 @@ public class ShoppingCarFragment extends Fragment implements ShopCartAdapter.Che
     private ShopCartAdapter adapter;
     private List<ShopCarProduct> list=new ArrayList<>();
     private int flag=0;
+    private JSONArray jsonlist;
     final String tel= GetTel.gettel();
 
     public ShoppingCarFragment() {
@@ -149,8 +159,13 @@ public class ShoppingCarFragment extends Fragment implements ShopCartAdapter.Che
                                             swipeMenuListView.setAdapter(adapter);
                                             swipeMenuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                                 @Override
-                                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+                                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                                    ShopCarProduct shopCarProduct = list.get(position);
+                                                    Log.e(TAG,"pos "+position);
+                                                    Log.e(TAG,shopCarProduct.getPro_id());
+                                                    Intent intent = new Intent(getActivity(),ShowshopInfoActivity.class);
+                                                    intent.putExtra("shopid",shopCarProduct.getPro_id());
+                                                    getActivity().startActivity(intent);
                                                 }
                                             });
                                             swipeMenuListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
@@ -193,14 +208,32 @@ public class ShoppingCarFragment extends Fragment implements ShopCartAdapter.Che
                                                 public void onClick(View view) {
                                                     int totalCount1 = 0;
                                                     float totalPrice1 = 0;
+                                                    List<ShopCarProduct> carlist = new ArrayList<ShopCarProduct>();
                                                     for (ShopCarProduct e:list){
                                                         if (e.isIschoose()){
+                                                            carlist.add(e);
                                                             totalCount1++;
                                                             totalPrice1+=Integer.valueOf(e.getPro_num()) *Float.valueOf(e.getPro_price())*Float.valueOf(e.getPro_discount());
                                                         }
                                                     }
+                                                    jsonlist = new JSONArray();
+                                                    for(int i=0;i<carlist.size();i++){
+                                                        try {
+                                                            JSONObject shopobj = new JSONObject();
+                                                            shopobj.put("ord_gooid", carlist.get(i).getPro_id());
+                                                            shopobj.put("ord_size", carlist.get(i).getPro_size());
+                                                            shopobj.put("ord_color", carlist.get(i).getPro_color());
+                                                            shopobj.put("ord_num", carlist.get(i).getPro_num());
+                                                            jsonlist.put(shopobj);
+                                                        } catch (JSONException e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                                                    String Products = jsonlist.toString();
+                                                    Log.e(TAG,Products);
                                                     String allPrice = GetTel.getFloat(totalPrice1);
-                                                    Toast.makeText(MyApplication.getContext(), "商品数："+totalCount1+" 商品总价："+allPrice, Toast.LENGTH_SHORT).show();
+                                                    UserChooseSendDialog d =new UserChooseSendDialog(getActivity(),Products,allPrice);
+                                                    d.show();
                                                 }
                                             });
                                         }

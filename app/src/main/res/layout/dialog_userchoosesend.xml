@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@drawable/shape_shop"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <TextView
+        android:text="选择配送方式"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <View
+        android:layout_marginTop="10dp"
+        android:background="@color/bg_Gray"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_kdsend"
+            android:layout_marginRight="6dp"
+            android:background="@color/white"
+            android:text="快 递 配 送"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="80dp"
+            android:layout_height="44dp"
+            />
+        <View
+            android:background="@color/bg_Gray"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"/>
+
+        <TextView
+            android:id="@+id/tv_zqsned"
+            android:layout_marginLeft="6dp"
+            android:background="@color/white"
+            android:text="商 铺 自 提"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:layout_width="80dp"
+            android:layout_height="44dp"
+            />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

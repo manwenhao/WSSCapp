@@ -23,11 +23,14 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.StringSignature;
+import com.example.chen.wsscapp.Bean.JiFen;
 import com.example.chen.wsscapp.Bean.User;
 import com.example.chen.wsscapp.Util.ACache;
 import com.example.chen.wsscapp.Util.GetTel;
@@ -39,12 +42,14 @@ import com.example.chen.wsscapp.activity.SetNicknameActivity;
 import com.example.chen.wsscapp.activity.SetTouxiangActivity;
 import com.example.chen.wsscapp.activity.SetUserInfoActivity;
 import com.example.chen.wsscapp.activity.ShopManagerActivity;
+import com.example.chen.wsscapp.activity.ShowJiFenActivity;
 import com.example.chen.wsscapp.adapter.GridViewAdapter;
 import com.example.chen.wsscapp.Bean.Items;
 import com.example.chen.wsscapp.R;
 import com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.nostra13.universalimageloader.utils.L;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -62,7 +67,7 @@ public class MeFragment extends Fragment {
 
     private View rootView;
     private String TAG = "MEfragment";
-    private TextView tv_nickname, tv_phone, tv_jifen;
+    private TextView tv_nickname, tv_phone, tv_whitejifen,tv_redjifen;
     private CircleImageView iv_touxiang;
     private GridView gridView,gridView2; //布局1为订单 布局2为工具
     private List<Items> itemList= new ArrayList<>();
@@ -70,6 +75,7 @@ public class MeFragment extends Fragment {
     private BaseAdapter itemAdapter;
     private Button bt_setting;
     private SuperSwipeRefreshLayout swipeRefreshLayout;
+    private LinearLayout ll_jifen;
     //从缓存中取值
     ACache aCache = ACache.get(MyApplication.getContext(), GetTel.gettel());
     User userdata = new User();
@@ -96,9 +102,9 @@ public class MeFragment extends Fragment {
 
 
     //初始化控件以及json数据的解析
-    private void initView(View view) {
+    private void initView(final View view) {
+        ll_jifen = (LinearLayout) view.findViewById(R.id.ll_jifen);
         tv_nickname = (TextView) view.findViewById(R.id.tv_nickname);
-        tv_jifen = (TextView) view.findViewById(R.id.tv_jifen);
         iv_touxiang = (CircleImageView) view.findViewById(R.id.iv_metouxiang);
         swipeRefreshLayout = (SuperSwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
         bt_setting = (Button) view.findViewById(R.id.toolbar_right_btn);
@@ -107,6 +113,7 @@ public class MeFragment extends Fragment {
                 .setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
                     @Override
                     public void onRefresh() {
+                        initJifen(view);
                         tv_nickname.setText(aCache.getAsString("user_name"));
                         Log.e(TAG,"me tou "+aCache.getAsString("user_touxiang"));
                         if(TextUtils.isEmpty(aCache.getAsString("user_touxiang"))){
@@ -114,6 +121,7 @@ public class MeFragment extends Fragment {
                         }else{
                             Glide.with(getContext())
                                     .load(url+aCache.getAsString("user_touxiang"))
+                                    .placeholder(R.drawable.defalutuser)
                                     .into(iv_touxiang);
                         }
 
@@ -154,15 +162,13 @@ public class MeFragment extends Fragment {
         }
 
         //初始化控件数据
-        Log.e(TAG,"icon "+aCache.getAsString("user_touxiang"));
+        Log.e(TAG,"icon "+userdata.getUser_touxiang());
         if(TextUtils.isEmpty(userdata.getUser_touxiang())){
             iv_touxiang.setImageResource(R.drawable.defalutuser);
         }else{
             SharedPreferences p = getActivity().getSharedPreferences("time",MODE_PRIVATE);
             Glide.with(getContext())
                     .load(url+userdata.getUser_touxiang())
-                    .error(R.drawable.defalutuser)
-                    .signature(new StringSignature(p.getString("icontime","").toString()))
                     .into(iv_touxiang);
         }
         Log.e(TAG,"touxiang "+userdata.getUser_touxiang()+"");
@@ -170,7 +176,7 @@ public class MeFragment extends Fragment {
         Log.e(TAG,userdata.getUser_name()+"");
         Log.e(TAG,userdata.getUser_jifen()+"");
         tv_nickname.setText(aCache.getAsString("user_name")+"");
-        tv_jifen.setText(userdata.getUser_jifen()+"");
+        initJifen(view);
 
         IntentFilter filter = new IntentFilter(SetTouxiangActivity.action);
 
@@ -188,7 +194,72 @@ public class MeFragment extends Fragment {
 
     }
 
+    private void initJifen(View view) {
+        tv_whitejifen = (TextView) view.findViewById(R.id.tv_whitejifen);
+        tv_redjifen = (TextView) view.findViewById(R.id.tv_redjifen);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                OkHttpUtils.get()
+                        .addParams("user_phone",GetTel.gettel())
+                        .url("http://106.14.145.208/ShopMall/BackAppUserJF")
+                        .build()
+                        .execute(new StringCallback() {
+                            @Override
+                            public void onError(Request request, Exception e) {
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(getContext(),"积分获取失败", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
 
+                            @Override
+                            public void onResponse(String response) {
+                                if("error".equals(response.toString())){
+                                    getActivity().runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(getContext(),"积分获取失败", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }else{
+                                    List<JiFen> jiFens = JSON.parseArray(response.toString(), JiFen.class);
+                                    for(final JiFen e:jiFens){
+                                        getActivity().runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Float whitestr = Float.valueOf(e.getWhitejf());
+                                                Float redstr = Float.valueOf(e.getRedjf());
+                                                String wstr = null;
+                                                String rstr = null;
+                                                if (whitestr / 100000 >= 1) {
+                                                    wstr = GetTel.getFloat(whitestr / 10000)+"W+";
+                                                } else {
+                                                    wstr = e.getWhitejf();
+                                                }
+
+
+                                                if (redstr / 100000 >= 1) {
+                                                    rstr = GetTel.getFloat(redstr / 10000)+"W+";
+                                                } else {
+                                                    rstr = e.getRedjf();
+                                                    }
+
+                                                tv_redjifen.setText(rstr);
+                                                tv_whitejifen.setText(wstr);
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        });
+
+
+            }
+        }).start();
+    }
 
 
     //自定义界面数据的初始化
@@ -343,6 +414,14 @@ public class MeFragment extends Fragment {
                         startActivity(intent1);
                         break;
                 }
+            }
+        });
+
+        ll_jifen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),ShowJiFenActivity.class);
+                startActivity(intent);
             }
         });
 

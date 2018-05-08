@@ -75,6 +75,10 @@ public class SetNicknameActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.toolbar_right_btn:
                 String user_name = et_setnickname.getText().toString();
+                if(user_name.length()>6){
+                    showToast("昵称长度过长(不大于6个字符)");
+                    return ;
+                }
                 SharedPreferences pref = getSharedPreferences("user_data",MODE_PRIVATE);
                 String idphone = pref.getString("phone","");
                 setNickname(idphone,user_name);
