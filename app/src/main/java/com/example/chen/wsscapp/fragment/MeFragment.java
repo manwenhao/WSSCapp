@@ -72,8 +72,10 @@ public class MeFragment extends Fragment {
     private GridView gridView,gridView2; //布局1为订单 布局2为工具
     private List<Items> itemList= new ArrayList<>();
     private List<Items> item= new ArrayList<>();
+    private LinearLayout ll_meorder;
     private BaseAdapter itemAdapter;
-    private Button bt_setting;
+    private Button bt_setting,bt_tuiguang;
+    private TextView tv_tuiguang;
     private SuperSwipeRefreshLayout swipeRefreshLayout;
     private LinearLayout ll_jifen;
     //从缓存中取值
@@ -108,6 +110,10 @@ public class MeFragment extends Fragment {
         iv_touxiang = (CircleImageView) view.findViewById(R.id.iv_metouxiang);
         swipeRefreshLayout = (SuperSwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
         bt_setting = (Button) view.findViewById(R.id.toolbar_right_btn);
+        bt_tuiguang = (Button) view.findViewById(R.id.toolbar_left_btn);
+        tv_tuiguang = (TextView) view.findViewById(R.id.toolbar_left_tv);
+        tv_tuiguang.setTextColor(getResources().getColor(R.color.text_blue));
+
         swipeRefreshLayout.setHeaderViewBackgroundColor(0xffcccccc);
         swipeRefreshLayout
                 .setOnPullRefreshListener(new SuperSwipeRefreshLayout.OnPullRefreshListener() {
@@ -265,19 +271,10 @@ public class MeFragment extends Fragment {
     //自定义界面数据的初始化
     private void init(View view) {
 
-        gridView = (GridView) rootView.findViewById(R.id.gridview);
-        // 数据源
-        initData();
-        // 适配器
-        itemAdapter = new GridViewAdapter(getActivity(),R.layout.item,itemList);
-        // 添加控件适配器
-        gridView.setAdapter(itemAdapter);
-        // 添加GridView的监听事件
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
+        ll_meorder = (LinearLayout) rootView.findViewById(R.id.ll_myorder);
+        ll_meorder.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onClick(View v) {
                 Intent intent = new Intent(getContext(), OrderActivity.class);
                 getActivity().startActivity(intent);
             }
@@ -301,6 +298,9 @@ public class MeFragment extends Fragment {
                 switch (position) {
                     case 0:
                         IsShop();
+                        break;
+                    case 1:
+                        Toast.makeText(getContext(),"我要开店",Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;
@@ -367,23 +367,13 @@ public class MeFragment extends Fragment {
     private void initDataUtil() {
         Items item1 = new Items("商家管理",R.mipmap.becomeshop);
         item.add(item1);
+        Items item2 = new Items("我要开店",R.mipmap.becomeshop);
+        item.add(item2);
 
     }
 
 
-    //我的订单自定义界面
-    private void initData() {
-        Items item1 = new Items("待付款",R.mipmap.waitpay);
-        itemList.add(item1);
-        Items item2 = new Items("待发货",R.mipmap.waitsendshop);
-        itemList.add(item2);
-        Items item3 = new Items("待收货",R.mipmap.waitgetshop);
-        itemList.add(item3);
-        Items item4 = new Items("待评价",R.mipmap.waitwrite);
-        itemList.add(item4);
-        Items item5 = new Items("退款/售后",R.mipmap.payback);
-        itemList.add(item5);
-    }
+
 
 
 
@@ -402,6 +392,13 @@ public class MeFragment extends Fragment {
                     default:
                         break;
                 }
+            }
+        });
+
+        bt_tuiguang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"推广",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -424,14 +421,7 @@ public class MeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
-
-
     }
-
-
-
-
 
 
     //广播刷新头像和昵称

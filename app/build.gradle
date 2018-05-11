@@ -127,6 +127,12 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:+'
 }
 
+dependencies {
+    compile files('libs/alipaySdk-20180403.jar')
+}
+
+
+
 
 
 

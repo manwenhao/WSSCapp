@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    app:left_tv_visible="false"
-    app:left_btn_visible="false"
+    app:left_tv_visible="true"
+    app:left_btn_visible="true"
     app:right_btn_visible="true"
     app:right_tv_visible="true"
     app:right_tv_text="设置"
+    app:left_tv_text="推 广"
     app:title_visible="true"
     app:title_text="会员中心"
     >
@@ -31,11 +32,11 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/me"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:background="@color/topbackgroud"
+                android:background="@drawable/mebg"
                 >
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="100dp"
@@ -49,6 +50,8 @@
                     app:civ_fill_color="@color/white"
                     />
                 <LinearLayout
+                    android:id="@+id/ll_name"
+                    android:layout_toRightOf="@+id/iv_metouxiang"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
                     <TextView
@@ -63,6 +66,7 @@
 
                 </LinearLayout>
                 <LinearLayout
+                    android:layout_toRightOf="@+id/ll_name"
                     android:id="@+id/ll_jifen"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -122,13 +126,14 @@
                 </LinearLayout>
 
 
-            </LinearLayout>
+            </RelativeLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="10dp"
                     android:background="@color/bg_Gray_light"/>
 
             <LinearLayout
+                android:id="@+id/ll_myorder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -163,19 +168,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/bg_Gray" />
-
-                <com.example.chen.wsscapp.Util.MyGridView
-                    android:id="@+id/gridview"
+                <ImageView
+                    android:id="@+id/iv_showshop"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:gravity="center"
-                    android:numColumns="5"
-                    android:stretchMode="columnWidth"
-                    android:verticalSpacing="0dp"
-                    android:horizontalSpacing="0dp"
-                    android:listSelector="@null"
-                    android:scrollbars="none">
-                </com.example.chen.wsscapp.Util.MyGridView>
+                    android:layout_height="160dp"
+                    android:src="@drawable/timg"
+                    android:scaleType="fitXY"
+                    />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="16dp"
@@ -205,7 +205,7 @@
                 <com.example.chen.wsscapp.Util.MyGridView
                     android:id="@+id/gridview2"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="100dp"
                     android:gravity="center"
                     android:numColumns="4"
                     android:stretchMode="columnWidth"
@@ -214,18 +214,6 @@
                     android:listSelector="@null"
                     android:scrollbars="none">
                 </com.example.chen.wsscapp.Util.MyGridView>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp"
-                    android:background="@color/bg_Gray_light"/>
-                <ImageView
-                    android:id="@+id/iv_showshop"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:src="@mipmap/showshop"
-                    android:scaleType="fitXY"
-                    />
-
             </LinearLayout>
         </ScrollView>
     </com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout>
