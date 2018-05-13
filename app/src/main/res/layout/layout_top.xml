@@ -21,27 +21,6 @@
             android:background="@color/black"
             />
 
-        <FrameLayout
-            android:id="@+id/parent2"
-            android:layout_marginTop="-300dp"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:visibility="gone"
-            >
-            <ImageView
-                android:id="@+id/bg2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#ff000000" />
-            <com.github.chrisbanes.photoview.PhotoView
-                android:id="@+id/img2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-        </FrameLayout>
-
-
-
         <LinearLayout
             android:id="@+id/ll_offset"
             android:layout_width="match_parent"

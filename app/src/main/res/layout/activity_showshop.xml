@@ -5,6 +5,9 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <com.hankkin.library.ScrollViewContainer
         android:id="@+id/sv_container"
@@ -78,11 +81,12 @@
                 android:layout_weight="1"
                 />
             <ImageView
+                android:layout_gravity="center"
                 android:id="@+id/iv_chat"
                 android:background="@drawable/chat"
-                android:layout_width="44dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="20dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
                 />
         </LinearLayout>
 
@@ -119,4 +123,40 @@
         </LinearLayout>
 
     </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/parent2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        >
+        <ImageView
+            android:id="@+id/bg2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ff000000" />
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/img2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <ImageView
+            android:id="@+id/bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ff000000" />
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </FrameLayout>
 </FrameLayout>

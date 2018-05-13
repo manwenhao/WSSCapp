@@ -21,6 +21,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
 import com.example.chen.wsscapp.Bean.GetProduct;
 import com.example.chen.wsscapp.R;
@@ -30,6 +32,7 @@ import com.example.chen.wsscapp.Util.GlideImageLoader;
 import com.example.chen.wsscapp.Util.MyApplication;
 import com.example.chen.wsscapp.Util.SelectColorSizeDialog;
 import com.example.chen.wsscapp.Util.ShowShopinfoDialog;
+import com.example.chen.wsscapp.Util.UserChooseSendDialog;
 import com.github.chrisbanes.photoview.PhotoView;
 import com.hankkin.library.GradationScrollView;
 import com.hankkin.library.MyImageLoader;
@@ -360,8 +363,20 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
                 showToast("请选择商品数量");
                 return;
             }
-
-            showToast(sbcolor.toString()+sbsize.toString()+value+"付款去了拉拉拉拉");
+            Intent intent = getIntent();
+            String pro_id =  intent.getStringExtra("shopid");
+            selectColorSizeDialog.dismiss();
+            String allPrice = intent.getStringExtra("money");
+            JSONArray Products = new JSONArray();
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("ord_gooid",pro_id);
+            jsonObject.put("ord_size",sbsize.toString());
+            jsonObject.put("ord_color",sbcolor.toString());
+            jsonObject.put("ord_num",value);
+            Products.add(jsonObject);
+            Log.e(TAG,Products.toString());
+            UserChooseSendDialog d =new UserChooseSendDialog(ShowshopInfoActivity.this,Products.toString(),allPrice);
+            d.show();
         }
     };
 

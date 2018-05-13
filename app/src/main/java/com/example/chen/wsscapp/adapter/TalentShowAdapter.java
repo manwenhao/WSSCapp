@@ -71,6 +71,7 @@ public class TalentShowAdapter extends RecyclerView.Adapter<TalentShowAdapter.Ta
                // Toast.makeText(v.getContext(),"点击的是："+talentShow.getPro_id()+talentShow.getPro_name(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context,ShowshopInfoActivity.class);
                 intent.putExtra("shopid",talentShow.getPro_id());
+                intent.putExtra("money",GetTel.getFloat(talentShow.getPro_discount()*talentShow.getPro_price()));
                 context.startActivity(intent);
 
             }

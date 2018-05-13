@@ -1,7 +1,11 @@
 package com.example.chen.wsscapp.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +18,9 @@ import com.bumptech.glide.Glide;
 import com.example.chen.wsscapp.Bean.WaitOrder;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.GetTel;
+import com.squareup.okhttp.Request;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.List;
 
@@ -27,9 +34,24 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     private static final int BOTTOM = 3;
     private static final int BOTTOM2 = 4;
     private static final int BOTTOM3 = 5;
+    private static final String TAG = "OrderAdapter";
     List<WaitOrder> mlist;
     Context context;
     LayoutInflater mlayt;
+
+    private Handler mhandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 1:
+                    Toast.makeText(context,"确认失败",Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
+            }
+
+        }
+    };
 
     public OrderAdapter(){
 
@@ -108,9 +130,48 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 }
             });
             ((BottomViewHolder2) holder).bt_suregetshop.setOnClickListener(new View.OnClickListener() {
+                String ord_id = mlist.get(position).getOrd_id();
                 @Override
-                public void onClick(View v) {
-                    Toast.makeText(v.getContext(),"确认收货",Toast.LENGTH_SHORT).show();
+                public void onClick(final View v) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            OkHttpUtils.get()
+                                    .addParams("ord_id",ord_id)
+                                    .addParams("ord_phone",GetTel.gettel())
+                                    .url("http://106.14.145.208/ShopMall/OrderWC")
+                                    .build()
+                                    .execute(new StringCallback() {
+                                        @Override
+                                        public void onError(Request request, Exception e) {
+
+                                        }
+
+                                        @Override
+                                        public void onResponse(String response) {
+                                            if("ok".equals(response)){
+                                                for(int i = mlist.size()-1;i>=0;i--){
+                                                    if(mlist.get(i).getOrd_id().equals(ord_id)){
+                                                        mlist.remove(i);
+                                                        notifyDataSetChanged();
+                                                    }
+                                                }
+                                                Log.e(TAG,"确认收货");
+
+                                            }else{
+                                                Message msg = new Message();
+                                                msg.what = 1;
+                                                mhandler.sendMessage(msg);
+                                            }
+
+                                        }
+                                    });
+
+
+                        }
+                    }).start();
+
+
                 }
             });
             ((BottomViewHolder2) holder).tv_summoney.setText("总计:￥"+mlist.get(position).getOrd_money());

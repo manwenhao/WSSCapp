@@ -204,7 +204,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                                     Gson gson = new Gson();
                                     String data = response.toString();
-                                   List<User> list = new ArrayList<User>();
+                                    List<User> list = new ArrayList<User>();
                                     Type listType = new TypeToken<List<User>>() {}.getType();
                                     list = gson.fromJson(data, listType);
                                      ACache mAcache = ACache.get(MyApplication.getContext(),account);

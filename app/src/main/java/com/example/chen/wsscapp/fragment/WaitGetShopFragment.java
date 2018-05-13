@@ -118,14 +118,14 @@ public class WaitGetShopFragment extends Fragment {
                                                         // ord_expressid,rev_name,rev_phone,rev_address,ord_gooid,ord_name,pro_price,
                                                         // pro_discount,ord_photo,ord_size,ord_color,ord_num
                                                         mlist.add(od.getOrd_time());
-                                                        list.add(new WaitOrder("1","",od.getOrd_time(),"","","","","","","","","","","","","","","",""));
+                                                        list.add(new WaitOrder("1",od.getOrd_id(),od.getOrd_time(),"","","","","","","","","","","","","","","",""));
                                                         String product = od.getOrd_products();
                                                         List<OrderItem> orderItems = JSON.parseArray(product.toString(),OrderItem.class);
                                                         for(OrderItem oditem :orderItems){
                                                             Log.e(TAG,oditem.getOrd_name());
-                                                            list.add(new WaitOrder("2","","","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
+                                                            list.add(new WaitOrder("2",od.getOrd_id(),"","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
                                                         }
-                                                        list.add(new WaitOrder("4","","",od.getOrd_money(),"","","","","","","","","","","","","","",""));
+                                                        list.add(new WaitOrder("4",od.getOrd_id(),"",od.getOrd_money(),"","","","","","","","","","","","","","",""));
                                                     }
                                                     pos = list.size();
                                                     adapter = new OrderAdapter(getContext(),list);
@@ -244,14 +244,14 @@ public class WaitGetShopFragment extends Fragment {
                                 //type,ord_id,ord_time,ord_money,ord_products,ord_status,ord_expressname,
                                 // ord_expressid,rev_name,rev_phone,rev_address,ord_gooid,ord_name,pro_price,
                                 // pro_discount,ord_photo,ord_size,ord_color,ord_num
-                                list.add(new WaitOrder("1","",od.getOrd_time(),"","","","","","","","","","","","","","","",""));
+                                list.add(new WaitOrder("1",od.getOrd_id(),od.getOrd_time(),"","","","","","","","","","","","","","","",""));
                                 String product = od.getOrd_products();
                                 List<OrderItem> orderItems = JSON.parseArray(product.toString(),OrderItem.class);
                                 for(OrderItem oditem :orderItems){
                                     Log.e(TAG,oditem.getOrd_name());
-                                    list.add(new WaitOrder("2","","","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
+                                    list.add(new WaitOrder("2",od.getOrd_id(),"","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
                                 }
-                                list.add(new WaitOrder("4","","",od.getOrd_money(),"","","","","","","","","","","","","","",""));
+                                list.add(new WaitOrder("4",od.getOrd_id(),"",od.getOrd_money(),"","","","","","","","","","","","","","",""));
 
                             }
                             adapter = new OrderAdapter(getContext(),list);
@@ -314,14 +314,14 @@ public class WaitGetShopFragment extends Fragment {
                                         // ord_expressid,rev_name,rev_phone,rev_address,ord_gooid,ord_name,pro_price,
                                         // pro_discount,ord_photo,ord_size,ord_color,ord_num
                                         mlist.add(od.getOrd_time());
-                                        list.add(new WaitOrder("1","",od.getOrd_time(),"","","","","","","","","","","","","","","",""));
+                                        list.add(new WaitOrder("1",od.getOrd_id(),od.getOrd_time(),"","","","","","","","","","","","","","","",""));
                                         String product = od.getOrd_products();
                                         List<OrderItem> orderItems = JSON.parseArray(product.toString(),OrderItem.class);
                                         for(OrderItem oditem :orderItems){
                                             Log.e(TAG,oditem.getOrd_name());
-                                            list.add(new WaitOrder("2","","","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
+                                            list.add(new WaitOrder("2",od.getOrd_id(),"","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
                                         }
-                                        list.add(new WaitOrder("4","","",od.getOrd_money(),"","","","","","","","","","","","","","",""));
+                                        list.add(new WaitOrder("4",od.getOrd_id(),"",od.getOrd_money(),"","","","","","","","","","","","","","",""));
                                     }
                                     pos = list.size();
                                     adapter = new OrderAdapter(getContext(),list);

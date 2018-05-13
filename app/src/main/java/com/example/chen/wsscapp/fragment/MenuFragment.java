@@ -182,7 +182,6 @@ public class MenuFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = (String) parent.getAdapter().getItem(position);
-                Toast.makeText(getContext(),item,Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getContext(),KeySearchShopActivity.class);
                 intent.putExtra("key",item);
                 startActivity(intent);
