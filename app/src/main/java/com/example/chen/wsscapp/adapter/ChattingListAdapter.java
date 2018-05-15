@@ -652,7 +652,7 @@ public class ChattingListAdapter extends BaseAdapter {
                 if (msg.getTargetType() == ConversationType.group) {
                     holder.text_receipt.setText("全部已读");
                 } else if (!((UserInfo) msg.getTargetInfo()).getUserName().equals(JMessageClient.getMyInfo().getUserName())) {
-                    holder.text_receipt.setText("已读");
+                    //holder.text_receipt.setText("已读");
                 }
                 holder.text_receipt.setTextColor(mContext.getResources().getColor(R.color.message_already_receipt));
             } else {
@@ -686,7 +686,7 @@ public class ChattingListAdapter extends BaseAdapter {
 //                        }
 //                    });
                 } else if (!((UserInfo) msg.getTargetInfo()).getUserName().equals(JMessageClient.getMyInfo().getUserName())) {
-                    holder.text_receipt.setText("未读");
+                    //holder.text_receipt.setText("未读");
                 }
             }
         }

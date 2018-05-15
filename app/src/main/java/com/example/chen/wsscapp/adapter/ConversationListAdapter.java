@@ -361,7 +361,7 @@ public class ConversationListAdapter extends BaseAdapter {
                                         !lastMsg.getContentType().equals(ContentType.prompt) &&
                                         //排除自己给自己发送消息
                                         !((UserInfo) lastMsg.getTargetInfo()).getUserName().equals(JMessageClient.getMyInfo().getUserName())) {
-                                    content.setText("[已读]" + contentStr);
+                                    content.setText( contentStr);
                                 } else {
                                     content.setText(contentStr);
                                 }
@@ -370,7 +370,7 @@ public class ConversationListAdapter extends BaseAdapter {
                                         lastMsg.getDirect().equals(MessageDirect.send) &&
                                         !lastMsg.getContentType().equals(ContentType.prompt) &&
                                         !((UserInfo) lastMsg.getTargetInfo()).getUserName().equals(JMessageClient.getMyInfo().getUserName())) {
-                                    contentStr = "[未读]" + contentStr;
+
                                     SpannableStringBuilder builder = new SpannableStringBuilder(contentStr);
                                     builder.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.line_normal)),
                                             0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
