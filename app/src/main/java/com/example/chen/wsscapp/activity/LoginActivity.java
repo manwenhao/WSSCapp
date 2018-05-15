@@ -44,7 +44,7 @@ import cn.jpush.im.api.BasicCallback;
  */
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
-    String TAG = "LoginActivity";
+    private String TAG = "LoginActivity";
     private EditText et_account,et_password;
     private TextView tv_register,tv_rempwd;
     private Button bt_login;
@@ -134,7 +134,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     //忘记密码
     private void lossPwd() {
-        showToast("尚未开发");
+       Intent intent = new Intent(this,LossPwdActivity.class);
+        startActivity(intent);
     }
 
 
