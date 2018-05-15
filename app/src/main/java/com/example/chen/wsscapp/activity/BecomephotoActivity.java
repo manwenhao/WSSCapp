@@ -63,6 +63,8 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
     private LoadingDailog dialog = null;
     private LinkedList<Runnable> taskList = new LinkedList<>();
     private LinkedList<Runnable> taskList2 = new LinkedList<>();
+    private String color;
+    private String size;
 
 
 
@@ -73,6 +75,9 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         product = (Product) extras.getSerializable("data");
+        color = extras.getString("color");
+        size = extras.getString("size");
+
         Log.e(TAG,product.toString());
         initView();
     }
@@ -86,6 +91,7 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
         bt_xcphoto.setOnClickListener(this);
         bt_photo.setOnClickListener(this);
         bt_uploadinfo.setOnClickListener(this);
+        bt_uploadinfo.setVisibility(View.INVISIBLE);
 
         ISNav.getInstance().init(new ImageLoader() {
             @Override
@@ -114,6 +120,7 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void uploadShopInfo(final Product product, final List<File> files,final List<File> xcfiles) {
+        Log.e(TAG,color+size+product.toString());
         LoadingDailog.Builder loadBuilder=new LoadingDailog.Builder(this)
                 .setMessage("上传中...")
                 .setCancelable(false)
@@ -135,8 +142,8 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
                         .addFormDataPart("pro_suitperson",product.getPro_suitperson())
                         .addFormDataPart("pro_material",product.getPro_material())
                         .addFormDataPart("pro_brand",product.getPro_brand())
-                        .addFormDataPart("pro_size",product.getPro_size())
-                        .addFormDataPart("pro_color",product.getPro_color())
+                        .addFormDataPart("pro_size",size)
+                        .addFormDataPart("pro_color",color)
                         .addFormDataPart("pro_price", String.valueOf(product.getPro_price()))
                         .addFormDataPart("pro_discount",product.getPro_discount())
                         .addFormDataPart("pro_describephoto",product.getPro_describe())
@@ -335,6 +342,9 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
                                 if(!taskList.isEmpty()){
                                     Runnable runnable = taskList.pop();
                                     handler.post(runnable);
+                                    if(taskList.size()==0){
+                                        bt_uploadinfo.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
                             @Override
@@ -376,6 +386,9 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
                                 if(!taskList2.isEmpty()){
                                     Runnable runnable = taskList2.pop();
                                     handler.post(runnable);
+                                    if(taskList2.size()==0){
+                                        bt_uploadinfo.setVisibility(View.INVISIBLE);
+                                    }
                                 }
                             }
                             @Override

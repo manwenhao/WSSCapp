@@ -15,9 +15,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/bg_Gray_light"
+    >
 
     <EditText
+        android:textColor="@color/black"
         android:id="@+id/input_phone_new"
         android:layout_width="280dp"
         android:layout_height="wrap_content"
@@ -25,6 +28,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="107dp"
         android:ems="10"
+        android:textColorHint="@color/line"
         android:hint="请输入更换的手机号码"
        />
 

@@ -2,6 +2,8 @@ package com.example.chen.wsscapp.activity;
 
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,6 +27,9 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.api.BasicCallback;
 import cn.smssdk.EventHandler;
@@ -39,6 +44,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private Button bt_codesend;
     private EditText et_ensurecode;
     private EditText et_register_password;
+    private EditText et_yqcode;
     private Button bt_register;
     private int i = 60;//倒计时60s这里应该多设置些因为mob后台需要60s,我们前端会有差异的建议设置90，100或者120
     public String country="86";//这是中国区号，如果需要其他国家列表，可以使用getSupportedCountries();获得国家区号
@@ -48,6 +54,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(Build.VERSION.SDK_INT>=21){
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
         setContentView(R.layout.activity_register);
         MobSDK.init(this, "249251aec41f5", "35b52d95b70a8c7bd6fdfa262b2fedfc");
         initView();
@@ -61,6 +72,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         et_ensurecode = (EditText) findViewById(R.id.ed_ensurecode);
         et_register_password = (EditText) findViewById(R.id.et_register_password);
         bt_register = (Button) findViewById(R.id.bt_register);
+        et_yqcode = (EditText) findViewById(R.id.et_yqcode);
         bt_codesend.setOnClickListener(this);
         bt_register.setOnClickListener(this);
 
@@ -235,13 +247,20 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
 
     private void sendRequestPhone(final String phone,final String pwd) {
+        String code = et_yqcode.getText().toString();
+        final Map<String,String> map = new HashMap<>();
+        map.put("phone",phone);
+        map.put("password",pwd);
+        if(!TextUtils.isEmpty(code)){
+            map.put("extendcode",code);
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {
+                Log.e(TAG,map.toString());
                 OkHttpUtils.get()
                         .url("http://106.14.145.208/ShopMall/RegisterForSpeed")
-                        .addParams("phone",phone)
-                        .addParams("password",pwd)
+                        .params(map)
                         .build()
                         .execute(new StringCallback() {
                             @Override

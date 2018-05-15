@@ -85,6 +85,7 @@ public class XcMenuActivity extends BaseActivity implements View.OnClickListener
         bt_uploadinfo = (Button) findViewById(R.id.bt_uploadinfo);
         bt_photo.setOnClickListener(this);
         bt_uploadinfo.setOnClickListener(this);
+        bt_uploadinfo.setVisibility(View.INVISIBLE);
 
         ISNav.getInstance().init(new ImageLoader() {
             @Override
@@ -261,6 +262,9 @@ public class XcMenuActivity extends BaseActivity implements View.OnClickListener
                                 if(!taskList.isEmpty()){
                                     Runnable runnable = taskList.pop();
                                     handler.post(runnable);
+                                    if(taskList.size()==0){
+                                        bt_uploadinfo.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
                             @Override

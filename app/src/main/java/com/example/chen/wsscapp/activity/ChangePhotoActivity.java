@@ -95,7 +95,8 @@ public class ChangePhotoActivity extends BaseActivity implements View.OnClickLis
 
         Intent intent = getIntent();
         pro_id = intent.getStringExtra("proid");
-
+        bt_uploadchangephoto.setVisibility(View.INVISIBLE);
+        bt_uploadchangexcphoto.setVisibility(View.INVISIBLE);
         bt_uploadchangephoto.setOnClickListener(this);
         bt_uploadchangexcphoto.setOnClickListener(this);
         bt_changexcphoto.setOnClickListener(this);
@@ -116,17 +117,21 @@ public class ChangePhotoActivity extends BaseActivity implements View.OnClickLis
                 gv_photo.setVisibility(View.VISIBLE);
                 goselectphoto();
                 gv_xcphoto.setVisibility(View.GONE);
+                bt_uploadchangexcphoto.setVisibility(View.INVISIBLE);
                 break;
             case R.id.bt_uploadchangephoto:
                 upLoadChangephoto(files);
+                bt_uploadchangephoto.setVisibility(View.INVISIBLE);
                 break;
             case R.id.bt_changexcphoto:
                 gv_xcphoto.setVisibility(View.VISIBLE);
                 goselectxcphoto();
                 gv_photo.setVisibility(View.GONE);
+                bt_uploadchangephoto.setVisibility(View.INVISIBLE);
                 break;
             case R.id.bt_uploadchangexcphoto:
                 upLoadChangeXcphoto(xcfiles);
+                bt_uploadchangexcphoto.setVisibility(View.INVISIBLE);
                 break;
         }
 
@@ -231,8 +236,10 @@ public class ChangePhotoActivity extends BaseActivity implements View.OnClickLis
                         .addFormDataPart("type","0")
                         .setType(MultipartBody.FORM);
                 if (files != null){
+
                     for (File file : files) {
                         Log.e(TAG,"p "+file.getName());
+                        Log.e(TAG,files.size()+"");
                         builder.addFormDataPart("photos", file.getName(), RequestBody.create(MediaType.parse("image/jpg"), file));
                     }
                 }else{
@@ -410,6 +417,9 @@ public class ChangePhotoActivity extends BaseActivity implements View.OnClickLis
                                 if(!taskList.isEmpty()){
                                     Runnable runnable = taskList.pop();
                                     handler.post(runnable);
+                                    if(taskList.size()==0){
+                                        bt_uploadchangexcphoto.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
                             @Override
@@ -451,6 +461,10 @@ public class ChangePhotoActivity extends BaseActivity implements View.OnClickLis
                                 if(!taskList2.isEmpty()){
                                     Runnable runnable = taskList2.pop();
                                     handler.post(runnable);
+                                    Log.e(TAG,taskList2.size()+"");
+                                    if(taskList2.size()==0){
+                                        bt_uploadchangephoto.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
                             @Override

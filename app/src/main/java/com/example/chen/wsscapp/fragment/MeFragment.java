@@ -43,6 +43,7 @@ import com.example.chen.wsscapp.activity.SetTouxiangActivity;
 import com.example.chen.wsscapp.activity.SetUserInfoActivity;
 import com.example.chen.wsscapp.activity.ShopManagerActivity;
 import com.example.chen.wsscapp.activity.ShowJiFenActivity;
+import com.example.chen.wsscapp.activity.TuiGuangActivity;
 import com.example.chen.wsscapp.adapter.GridViewAdapter;
 import com.example.chen.wsscapp.Bean.Items;
 import com.example.chen.wsscapp.R;
@@ -172,7 +173,6 @@ public class MeFragment extends Fragment {
         if(TextUtils.isEmpty(userdata.getUser_touxiang())){
             iv_touxiang.setImageResource(R.drawable.defalutuser);
         }else{
-            SharedPreferences p = getActivity().getSharedPreferences("time",MODE_PRIVATE);
             Glide.with(getContext())
                     .load(url+userdata.getUser_touxiang())
                     .into(iv_touxiang);
@@ -300,7 +300,7 @@ public class MeFragment extends Fragment {
                         IsShop();
                         break;
                     case 1:
-                        Toast.makeText(getContext(),"我要开店",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"我要开店请联系******",Toast.LENGTH_SHORT).show();
                         break;
                     default:
                         break;
@@ -398,7 +398,8 @@ public class MeFragment extends Fragment {
         bt_tuiguang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"推广",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(),TuiGuangActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -454,7 +455,11 @@ public class MeFragment extends Fragment {
 
     private void refreshIcon() {
         if(TextUtils.isEmpty(aCache.getAsString("user_touxiang"))){
-            iv_touxiang.setImageDrawable(ContextCompat.getDrawable(getContext().getApplicationContext(),R.drawable.defalutuser));
+            SharedPreferences tou = getActivity().getSharedPreferences("share_touxiang",MODE_PRIVATE);
+           Glide.with(this)
+                   .load(url+tou.getString("tou","").toString())
+                   .error(R.drawable.defalutuser)
+                   .into(iv_touxiang);
         }else{
             SharedPreferences p = getActivity().getSharedPreferences("time",MODE_PRIVATE);
             Glide.with(this)

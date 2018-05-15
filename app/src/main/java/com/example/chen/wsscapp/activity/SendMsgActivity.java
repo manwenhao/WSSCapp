@@ -2,6 +2,7 @@ package com.example.chen.wsscapp.activity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -52,6 +53,10 @@ public class SendMsgActivity extends BaseActivity {
         bt_suresend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(TextUtils.isEmpty(et_sendmsg.getText().toString())){
+                    showToast("请输入你要群发的消息");
+                    return;
+                }
                 sendMsg();
             }
         });

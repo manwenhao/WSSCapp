@@ -3,13 +3,15 @@
     android:padding="24dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/background"
+    android:background="@drawable/mebg"
     >
     <LinearLayout
         android:id="@+id/ll_main"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        >
         <LinearLayout
             android:layout_marginTop="40dp"
             android:id="@+id/ll_first"

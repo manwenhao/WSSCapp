@@ -1,9 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="50dp">
 
     <LinearLayout
-        android:padding="50dp"
+        android:fitsSystemWindows="true"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -83,6 +84,33 @@
             <EditText
                 android:id="@+id/et_register_password"
                 android:hint="登陆密码"
+                android:textSize="16sp"
+                android:singleLine="true"
+                android:textColorHint="@color/hint_color"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_height="50dp" />
+        </LinearLayout>
+        <View
+            android:background="@color/hint_color"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"></View>
+
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:id="@+id/ll_yaoqingcode"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:text="密码             "
+                android:layout_width="wrap_content"
+                android:layout_height="50dp" />
+            <EditText
+                android:id="@+id/et_yqcode"
+                android:hint="邀请码（可不填）"
                 android:textSize="16sp"
                 android:singleLine="true"
                 android:textColorHint="@color/hint_color"

@@ -1,6 +1,7 @@
 package com.example.chen.wsscapp.activity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -20,6 +21,7 @@ import com.example.chen.wsscapp.Util.BaseActivity;
 import com.example.chen.wsscapp.Util.CreateColorDialog;
 import com.example.chen.wsscapp.Util.CreateSizeDialog;
 import com.example.chen.wsscapp.Util.CreateUserDialog;
+import com.example.chen.wsscapp.Util.TopUi;
 import com.lybeat.multiselector.BaseOption;
 import com.lybeat.multiselector.MultiSelector;
 import com.squareup.okhttp.Request;
@@ -43,7 +45,7 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
     //定义一个String类型的List数组作为数据源
     private List<String> typedataList,discountdataList;
     private EditText et_shopname,et_shoplogo,et_shopuser,et_shopmake,et_shopprice,et_shopinfoshow,et_shopjifen;
-    private TextView tv_shoptypecreate,tv_shopcolor,tv_shopsize;
+    private TextView tv_shoptypecreate;
     private  MultiSelector multiSelector;
     private Button bt_next;
     private CreateUserDialog createUserDialog;
@@ -57,6 +59,24 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            //判断是否为小米或魅族手机，如果是则将状态栏文字改为黑色
+            if (TopUi.MIUISetStatusBarLightMode(this, true) || TopUi.FlymeSetStatusBarLightMode(this, true)) {
+                //设置状态栏为指定颜色
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0
+                    this.getWindow().setStatusBarColor(getResources().getColor(R.color.topbackgroud));
+                } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {//4.4
+                    //调用修改状态栏颜色的方法
+                    this.getWindow().setStatusBarColor(getResources().getColor(R.color.topbackgroud));
+                }
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                //如果是6.0以上将状态栏文字改为黑色，并设置状态栏颜色
+                this.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                this.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                this.getWindow().setStatusBarColor(getResources().getColor(R.color.topbackgroud));
+
+            }
+        }
         setContentView(R.layout.activity_becomeshop);
         initView();
         initTypedata();
@@ -76,15 +96,11 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
         et_shopmake = (EditText) findViewById(R.id.et_shopmake);
         et_shopprice = (EditText) findViewById(R.id.et_shopprice);
         et_shopjifen = (EditText) findViewById(R.id.et_shopprice);
-        tv_shopcolor = (TextView) findViewById(R.id.tv_shopcolor);
-        tv_shopsize = (TextView) findViewById(R.id.tv_shopsize);
         sp_shopdiscount = (Spinner) findViewById(R.id.sp_shopdiscount);
         et_shopinfoshow = (EditText) findViewById(R.id.et_shopinfoshow);
         bt_next = (Button) findViewById(R.id.bt_next);
-        tv_shopcolor.setOnClickListener(this);
         tv_shoptypecreate.setOnClickListener(this);
         bt_next.setOnClickListener(this);
-        tv_shopsize.setOnClickListener(this);
     }
 
     private void initTypedata() {
@@ -190,14 +206,6 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
                     showToast("使用人群不能为空");
                     return;
                 }
-                if("".equals(tv_shopcolor.getText().toString().trim())||null==tv_shopcolor.getText().toString()){
-                    showToast("商品颜色不能为空");
-                    return;
-                }
-                if("".equals(tv_shopsize.getText().toString().trim())||null==tv_shopsize.getText().toString()){
-                    showToast("商品尺寸不能为空");
-                    return;
-                }
                 if("".equals(et_shopprice.getText().toString())||null==et_shopprice.getText().toString()){
                     showToast("商品价格不能为空");
                     return;
@@ -210,18 +218,13 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
                     showToast("描述信息不能为空");
                     return;
                 }
-                Intent intent = new Intent(this,BecomephotoActivity.class);
+                Intent intent = new Intent(this,BecomeColorSizeActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("data",getAllData());
                 intent.putExtras(bundle);
                 startActivity(intent);
                 break;
-            case R.id.tv_shopcolor:
-                showColorDialog(v);
-                break;
-            case R.id.tv_shopsize:
-                showSizeDialog(v);
-                break;
+
         }
 
     }
@@ -318,45 +321,10 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
 
 
 
-    //颜色选择
-    private MultiSelector.OnSelectListener vselect = new MultiSelector.OnSelectListener() {
-        @Override
-        public void onSelect(List<String> choices) {
-            StringBuilder sb = new StringBuilder();
-            for (String choice : choices) {
-                if("".equals(choice)) {
-                       continue;
-                }else {
-                    sb.append(choice);
-                    sb.append(",");
-                }
-            }
-
-
-               tv_shopcolor.setText(sb.toString().substring(0,sb.toString().length()-1));
-                product.setPro_color(sb.toString().substring(0,sb.toString().length()-1));
-        }
-    };
 
 
 
-    //尺寸选择
-    private MultiSelector.OnSelectListener cselect = new MultiSelector.OnSelectListener() {
-        @Override
-        public void onSelect(List<String> choices) {
-            StringBuilder sb = new StringBuilder();
-            for (String choice : choices) {
-                if("".equals(choice)) {
-                    continue;
-                }else {
-                    sb.append(choice);
-                    sb.append(",");
-                }
-            }
-                tv_shopsize.setText( sb.toString().substring(0,sb.toString().length()-1));
-                product.setPro_size( sb.toString().substring(0,sb.toString().length()-1));
-        }
-    };
+
 
 
     public void showEditDialog(View view) {
@@ -364,16 +332,6 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
         createUserDialog.show();
     }
 
-    public void showColorDialog(View view) {
-        createColorDialog = new CreateColorDialog(this,R.style.Dialog_Common,vselect);
-        createColorDialog.show();
-    }
-
-
-    private void showSizeDialog(View v) {
-        createSizeDialog = new CreateSizeDialog(this,R.style.Dialog_Common,cselect);
-        createSizeDialog.show();
-    }
 
     public Product getAllData() {
         product.setPro_name(et_shopname.getText().toString().trim());

@@ -1,11 +1,14 @@
 package com.example.chen.wsscapp.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +16,7 @@ import android.widget.Toast;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.ACache;
 import com.example.chen.wsscapp.Util.BaseActivity;
+import com.example.chen.wsscapp.Util.CommonAction;
 import com.example.chen.wsscapp.Util.GetTel;
 import com.example.chen.wsscapp.Util.MyApplication;
 import com.example.chen.wsscapp.Util.TopUi;
@@ -28,6 +32,7 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
     private RadioButton rb_man,rb_woman;*/
     private TextView tv_newnickname,tv_newsex,tv_newaddr,tv_newphone,tv_newbirth;
     private LinearLayout ll_nickname,ll_sex,ll_addr,ll_phone,ll_birth;
+    private Button bt_exitlogin;
 
     String user_sex,user_name,user_addr,user_phone,user_birth;   //传递的值
     String TAG = "SetUserInfoActivity";
@@ -36,6 +41,7 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CommonAction.getInstance().addActivity(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //判断是否为小米或魅族手机，如果是则将状态栏文字改为黑色
             if (TopUi.MIUISetStatusBarLightMode(this, true) || TopUi.FlymeSetStatusBarLightMode(this, true)) {
@@ -77,6 +83,8 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
         tv_newbirth = (TextView) findViewById(R.id.tv_newbirth);
         tv_newbirth.setText(aCache.getAsString("user_birth"));
         ll_birth = (LinearLayout) findViewById(R.id.ll_birth);
+        bt_exitlogin = (Button) findViewById(R.id.bt_exitlogin);
+        bt_exitlogin.setOnClickListener(this);
         ll_nickname.setOnClickListener(this);
         ll_sex.setOnClickListener(this);
         ll_addr.setOnClickListener(this);
@@ -103,7 +111,7 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.ll_phone:
-                showToast("电话设置");
+               // showToast("电话设置");
                 Intent intent3 = new Intent(this,SetPhoneActivity.class);
                 startActivity(intent3);
                 finish();
@@ -112,6 +120,15 @@ public class SetUserInfoActivity extends BaseActivity implements View.OnClickLis
                 Intent intent4 = new Intent(this,SetBirthActivity.class);
                 startActivity(intent4);
                 finish();
+                break;
+            case R.id.bt_exitlogin:
+                SharedPreferences sp = getSharedPreferences("user_data", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.clear();
+                editor.commit();
+                Intent intent5 = new Intent(this,LoginActivity.class);
+                startActivity(intent5);
+                CommonAction.getInstance().OutSign();
                 break;
             default: break;
 

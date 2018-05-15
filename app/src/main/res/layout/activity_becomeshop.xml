@@ -163,52 +163,6 @@
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="商品颜色:"
-                android:textColor="@color/tv_Black"
-                />
-            <TextView
-                android:id="@+id/tv_shopcolor"
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@color/tv_Black"
-                android:background="@drawable/shape_shop"
-                android:singleLine="true"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-            <TextView
-                android:layout_gravity="center"
-                android:textSize="20sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="商品尺寸:"
-                android:textColor="@color/tv_Black"
-                />
-            <TextView
-                android:id="@+id/tv_shopsize"
-                android:layout_marginLeft="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textColor="@color/tv_Black"
-                android:background="@drawable/shape_shop"
-                android:singleLine="true"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="40dp">
-            <TextView
-                android:layout_gravity="center"
-                android:textSize="20sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="商品价格:"
                 android:textColor="@color/tv_Black"
                 />

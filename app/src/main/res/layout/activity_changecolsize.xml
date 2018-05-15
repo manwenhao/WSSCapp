@@ -86,6 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
                 <Button
+                    android:layout_weight="1"
                     android:id="@+id/bt_addcolor"
                     android:layout_gravity="center"
                     android:background="@color/green"
@@ -96,6 +97,7 @@
                     android:textColor="@color/white"
                     />
                 <Button
+                    android:layout_weight="1"
                     android:id="@+id/bt_canlcecolor"
                     android:layout_marginLeft="10dp"
                     android:text="取 消"
@@ -106,6 +108,7 @@
                     />
 
                 <Button
+                    android:layout_weight="1"
                     android:id="@+id/bt_clearcolor"
                     android:layout_marginLeft="10dp"
                     android:text="清 空"
@@ -115,6 +118,7 @@
                     android:background="@color/green"
                     />
                 <Button
+                    android:layout_weight="1"
                     android:id="@+id/bt_surecolor"
                     android:layout_marginLeft="10dp"
                     android:text="确 认"
@@ -189,6 +193,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp">
                 <Button
+                    android:layout_weight="1"
                     android:id="@+id/bt_addsize"
                     android:layout_gravity="center"
                     android:background="@color/green"
@@ -199,6 +204,7 @@
                     android:textColor="@color/white"
                     />
                 <Button
+                    android:layout_weight="1"
                     android:id="@+id/bt_canlcesize"
                     android:layout_marginLeft="10dp"
                     android:text="取 消"
@@ -209,6 +215,7 @@
                     />
 
                 <Button
+                    android:layout_weight="1"
                     android:id="@+id/bt_clearsize"
                     android:layout_marginLeft="10dp"
                     android:text="清 空"
@@ -218,6 +225,7 @@
                     android:background="@color/green"
                     />
                 <Button
+                    android:layout_weight="1"
                     android:id="@+id/bt_suresize"
                     android:layout_marginLeft="10dp"
                     android:text="确 认"

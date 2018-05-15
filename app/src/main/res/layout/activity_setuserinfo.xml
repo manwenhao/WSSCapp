@@ -17,12 +17,15 @@
             android:orientation="vertical"
             android:padding="24dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/bg_Gray_light"
+            >
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="38dp">
         <TextView
+            android:textColor="@color/black"
             android:padding="6dp"
             android:layout_width="80dp"
             android:layout_height="match_parent"
@@ -43,6 +46,7 @@
             android:background="@null"
             android:singleLine="true"
             android:layout_marginTop="6dp"
+            android:textColor="@color/black"
             />
             <ImageView
                 android:src="@mipmap/arrow_expend_right"
@@ -62,6 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="36dp">
                 <TextView
+                    android:textColor="@color/black"
                     android:padding="6dp"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
@@ -74,6 +79,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <TextView
+                        android:textColor="@color/black"
                         android:id="@+id/tv_newsex"
                         android:textSize="20sp"
                         android:layout_width="220dp"
@@ -100,6 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="36dp">
                 <TextView
+                    android:textColor="@color/black"
                     android:padding="6dp"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
@@ -112,6 +119,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <TextView
+                        android:textColor="@color/black"
                         android:id="@+id/tv_newaddr"
                         android:textSize="20sp"
                         android:layout_width="220dp"
@@ -138,6 +146,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="36dp">
                 <TextView
+                    android:textColor="@color/black"
                     android:padding="6dp"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
@@ -150,6 +159,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <TextView
+                        android:textColor="@color/black"
                         android:id="@+id/tv_newphone"
                         android:textSize="20sp"
                         android:layout_width="220dp"
@@ -176,6 +186,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="36dp">
                 <TextView
+                    android:textColor="@color/black"
                     android:padding="8dp"
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
@@ -188,6 +199,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <TextView
+                        android:textColor="@color/black"
                         android:id="@+id/tv_newbirth"
                         android:textSize="20sp"
                         android:layout_width="220dp"
@@ -209,6 +221,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/line"/>
+            <Button
+                android:id="@+id/bt_exitlogin"
+                android:textSize="18sp"
+                android:text="退出登录"
+                android:layout_marginTop="40dp"
+                android:layout_gravity="center"
+                android:layout_width="200dp"
+                android:layout_height="50dp" />
 
         </LinearLayout>
 

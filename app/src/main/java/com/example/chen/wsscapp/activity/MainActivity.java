@@ -19,6 +19,7 @@ import android.widget.RadioGroup;
 
 
 import com.example.chen.wsscapp.R;
+import com.example.chen.wsscapp.Util.CommonAction;
 import com.example.chen.wsscapp.Util.CustomViewPager;
 import com.example.chen.wsscapp.adapter.MyFragmentPagerAdapter;
 import com.example.chen.wsscapp.fragment.ChatFragment;
@@ -49,6 +50,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        CommonAction.getInstance().addActivity(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //判断是否为小米或魅族手机，如果是则将状态栏文字改为黑色
             if (MIUISetStatusBarLightMode(this, true) || FlymeSetStatusBarLightMode(this, true)) {

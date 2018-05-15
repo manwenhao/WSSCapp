@@ -17,7 +17,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/bg_Gray_light"
+    >
+
 
     <EditText
         android:id="@+id/ed_oldphone"
@@ -27,11 +30,15 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="107dp"
         android:ems="10"
+        android:textColorHint="@color/line"
+        android:textColor="@color/black"
         android:hint="请输入手机号"
         android:inputType="phone" />
 
 
     <EditText
+        android:textColorHint="@color/line"
+        android:textColor="@color/black"
         android:id="@+id/ed_code"
         android:layout_width="170dp"
         android:layout_height="wrap_content"

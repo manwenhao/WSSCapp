@@ -104,6 +104,7 @@ public class ShopDynamicActivity extends BaseActivity implements View.OnClickLis
         switch (v.getId()) {
             case R.id.bt_photo:
                 goselectphoto();
+                bt_uploadinfo.setVisibility(View.INVISIBLE);
                 break;
             case R.id.bt_uploadinfo:
                 String dynamic = et_dynamic.getText().toString();
@@ -271,6 +272,9 @@ public class ShopDynamicActivity extends BaseActivity implements View.OnClickLis
                                 if(!taskList.isEmpty()){
                                     Runnable runnable = taskList.pop();
                                     handler.post(runnable);
+                                    if(taskList.size()==0){
+                                        bt_uploadinfo.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
                             @Override

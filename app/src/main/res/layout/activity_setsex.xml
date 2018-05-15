@@ -15,6 +15,7 @@
     >
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@color/bg_Gray_light"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
@@ -22,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp">
         <TextView
+            android:textColor="@color/black"
             android:layout_marginTop="10dp"
             android:textSize="20sp"
             android:padding="10dp"
@@ -41,6 +43,7 @@
                 android:layout_height="match_parent">
 
                 <RadioButton
+                    android:textColor="@color/black"
                     android:id="@+id/rb_man"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -49,6 +52,7 @@
                     android:checked="true"
                     />
                     <RadioButton
+                        android:textColor="@color/black"
                         android:id="@+id/rb_woman"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
