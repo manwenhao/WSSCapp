@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.chen.wsscapp.Bean.User;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.MyApplication;
 import com.example.chen.wsscapp.Util.TopUi;
@@ -113,42 +114,40 @@ public class SetNewphoneActivity extends AppCompatActivity {
                                         @Override
                                         public void run() {
                                             createProgressBar();
-                                            JMessageClient.getUserInfo(MyApplication.getUser_id(), new GetUserInfoCallback() {
+                                            UserInfo userInfo=JMessageClient.getMyInfo();
+                                            String nickname=userInfo.getNickname();
+                                            //File file=userInfo.getBigAvatarFile();
+                                            Log.d("change jmsg info","nickname: "+nickname);
+                                            //Log.d("change jmsg info","file: "+file);
+                                            JMessageClient.logout();
+                                            JMessageClient.register(new_number, new_number, new BasicCallback() {
                                                 @Override
-                                                public void gotResult(int i, String s, UserInfo userInfo) {
-                                                    String nickname=userInfo.getNickname();
-                                                    File file=userInfo.getAvatarFile();
-                                                    JMessageClient.logout();
-                                                    JMessageClient.register(new_number, new_number, new BasicCallback() {
-                                                        @Override
-                                                        public void gotResult(int i, String s) {
-
-                                                        }
-                                                    });
-                                                    JMessageClient.login(new_number, new_number, new BasicCallback() {
-                                                        @Override
-                                                        public void gotResult(int i, String s) {
-
-                                                        }
-                                                    });
-                                                    JMessageClient.updateUserAvatar(file, new BasicCallback() {
-                                                        @Override
-                                                        public void gotResult(int i, String s) {
-                                                            Log.d("修改头像",i+";"+s);
-                                                        }
-                                                    });
-                                                    UserInfo userInfo1=JMessageClient.getMyInfo();
-                                                    userInfo.setNickname(nickname);
-                                                    JMessageClient.updateMyInfo(UserInfo.Field.nickname, userInfo, new BasicCallback() {
-                                                        @Override
-                                                        public void gotResult(int i, String s) {
-                                                            Log.d("修改nickname",s);
-                                                        }
-                                                    });
-                                                    JMessageClient.logout();
-
+                                                public void gotResult(int i, String s) {
+                                                    Log.d("change jmsg info",s);
                                                 }
                                             });
+                                            JMessageClient.login(new_number, new_number, new BasicCallback() {
+                                                @Override
+                                                public void gotResult(int i, String s) {
+                                                    Log.d("change jmsg info",s);
+                                                }
+                                            });
+//                                            JMessageClient.updateUserAvatar(file, new BasicCallback() {
+//                                                @Override
+//                                                public void gotResult(int i, String s) {
+//                                                    Log.d("修改头像",i+";"+s);
+//                                                }
+//                                            });
+                                            UserInfo userInfo1=JMessageClient.getMyInfo();
+                                            userInfo.setNickname(nickname);
+                                            JMessageClient.updateMyInfo(UserInfo.Field.nickname, userInfo, new BasicCallback() {
+                                                @Override
+                                                public void gotResult(int i, String s) {
+                                                    Log.d("修改nickname",s);
+                                                }
+                                            });
+                                            JMessageClient.logout();
+
 
                                             toast("手机号码修改成功");
 
