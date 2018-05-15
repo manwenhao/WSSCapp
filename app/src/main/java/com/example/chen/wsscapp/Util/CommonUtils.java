@@ -163,6 +163,8 @@ public class CommonUtils {
 
     /**
      * 是否横屏
+     * 是否横屏
+     * 是否横屏
      * @param context
      * @return true为横屏，false为竖屏
      */

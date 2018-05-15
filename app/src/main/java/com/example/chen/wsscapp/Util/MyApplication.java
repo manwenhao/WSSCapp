@@ -2,12 +2,14 @@ package com.example.chen.wsscapp.Util;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.Notification;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.multidex.MultiDex;
 
 import com.activeandroid.ActiveAndroid;
 import com.example.chen.wsscapp.Bean.UserEntry;
+import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.imagepicker.GlideImageloader;
 import com.example.chen.wsscapp.Util.imagepicker.ImagePicker;
 import com.example.chen.wsscapp.Util.imagepicker.view.CropImageView;
@@ -19,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.jpush.android.api.BasicPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.im.android.api.JMessageClient;
 import cn.jpush.im.android.api.model.GroupInfo;
@@ -142,6 +145,7 @@ public class MyApplication extends Application {
         //注册Notification点击的接收器
         new NotificationClickEventReceiver(getApplicationContext());
         initImagePicker();
+
 
     }
     private void initImagePicker() {

@@ -2,12 +2,14 @@ package com.example.chen.wsscapp;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.NotificationCompat;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -29,8 +31,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
+import cn.jpush.android.api.BasicPushNotificationBuilder;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.data.JPushLocalNotification;
+import cn.jpush.android.service.JPushMessageReceiver;
 
 import static android.util.Log.d;
 import static android.util.Log.w;
@@ -57,12 +61,41 @@ public class MyOldJGReceuver extends BroadcastReceiver {
                 extra=bundle.getString(JPushInterface.EXTRA_EXTRA);
                 SimpleDateFormat sf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 datastring=sf.format(new Date());
-                JPushLocalNotification ln = new JPushLocalNotification();
-                ln.setBuilderId(0);
-                ln.setTitle(title);
-                ln.setContent(cont);
-                ln.setNotificationId(11111111) ;
-                JPushInterface.addLocalNotification(context, ln);
+                PushMsg e1=new PushMsg();
+                e1.setTitle(title);
+                e1.setContent(cont);
+                e1.setTime(datastring);
+                e1.setStatus("0");
+                int notifyid=(int)System.currentTimeMillis();
+                Intent intentClick = new Intent(MyApplication.getContext(), PushInfo.class);
+                intentClick.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intentClick.putExtra("bean", e1);
+                PendingIntent pendingIntentClick = PendingIntent.getActivity(MyApplication.getContext(), 0, intentClick, 0);
+                NotificationCompat.Builder notifyBuilder =
+                        new NotificationCompat.Builder(MyApplication.getContext())
+                                //设置可以显示多行文本
+                                .setStyle(new NotificationCompat.BigTextStyle().bigText(cont))
+                                .setContentTitle(title)
+                                .setContentText(cont)
+                                .setSmallIcon(R.drawable.ic_launcher)
+                                //设置大图标
+                                .setLargeIcon(BitmapFactory.decodeResource(MyApplication.getContext().getResources(), R.drawable.ic_launcher))
+                                // 点击消失
+                                .setAutoCancel(true)
+                                // 设置该通知优先级
+                                .setPriority(Notification.PRIORITY_MAX)
+                                .setTicker("悬浮通知")
+                                // 通知首次出现在通知栏，带上升动画效果的
+                                .setWhen(System.currentTimeMillis())
+                                // 通知产生的时间，会在通知信息里显示
+                                // 向通知添加声音、闪灯和振动效果的最简单、最一致的方式是使用当前的用户默认设置，使用defaults属性，可以组合：
+                                .setDefaults( Notification.DEFAULT_VIBRATE | Notification.DEFAULT_ALL | Notification.DEFAULT_SOUND )
+                                 .setContentIntent(pendingIntentClick);
+                NotificationManager mNotifyMgr = (NotificationManager) MyApplication.getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                Notification notification = notifyBuilder.build();
+
+                mNotifyMgr.notify( notifyid, notification);
+
                 ACache aCache=ACache.get(MyApplication.getContext(),MyApplication.getUser_id());
                 String pushdate=aCache.getAsString("pushinfo");
                 Type type=new TypeToken<List<PushMsg>>(){}.getType();

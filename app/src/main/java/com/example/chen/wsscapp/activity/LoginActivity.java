@@ -172,11 +172,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                                         }
                                     });
 
-                                }
-                                else{
+                                } else
+                                    {
                                     JMessageClient.login(account, account, new BasicCallback() {
                                         @Override
                                         public void gotResult(int i, String s) {
+                                            Log.d("登陆jmsg","account:"+" "+account);
+                                            Log.d("登陆jmsg","account: "+account);
                                             Log.d("登陆jmsg",i+"；"+s);
                                         }
                                     });

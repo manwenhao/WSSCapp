@@ -135,12 +135,23 @@
                 <category android:name="com.example.chen.wsscapp" />
             </intent-filter>
         </receiver>
+
+
         <provider
             android:authorities="com.example.chen.wsscapp.DataProvider"
             android:name="cn.jpush.android.service.DataProvider"
             android:exported="true"
             tools:replace="android:exported"
             />
+        <service
+            android:name="cn.jpush.android.service.DaemonService"
+            android:enabled="true"
+            android:exported="true">
+        <intent-filter>
+        <action android:name="cn.jpush.android.intent.DaemonService" />
+        <category android:name="com.example.chen.wsscapp"/>
+        </intent-filter>
+        </service>
 
         <activity
             android:name=".activity.PushInfo"
