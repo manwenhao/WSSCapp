@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingRight="4dp"
+    android:paddingLeft="4dp"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_txphone"
+            android:text="12323"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="2"
+            />
+        <TextView
+            android:id="@+id/tv_statue"
+            android:gravity="right"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:textColor="@color/green"
+            android:text="已完成"
+            android:layout_width="wrap_content"
+            android:layout_height= "wrap_content"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_txzfb"
+        android:text="12323"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <TextView
+        android:id="@+id/tv_txmoney"
+        android:text="12323"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_txtime"
+            android:text="12323"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_weight="5"
+            />
+        <Button
+            android:id="@+id/bt_tixian"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textSize="24sp"
+            android:background="@drawable/shap_bt"
+            android:textColor="@color/white"
+            android:text="确认"
+            android:layout_width="wrap_content"
+            android:layout_height= "wrap_content"/>
+    </LinearLayout>
+</LinearLayout>

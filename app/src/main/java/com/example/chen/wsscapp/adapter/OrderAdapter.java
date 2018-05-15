@@ -2,6 +2,7 @@ package com.example.chen.wsscapp.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.example.chen.wsscapp.Bean.WaitOrder;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.GetTel;
+import com.example.chen.wsscapp.activity.ShowKuaiDiActivity;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -126,7 +128,16 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((BottomViewHolder2) holder).bt_seewl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),"查看物流",Toast.LENGTH_SHORT).show();
+                    String com = mlist.get(position).getOrd_expressname();
+                    String nu = mlist.get(position).getOrd_expressid();
+                    if(!("".equals(com)||com==null) && !("".equals(nu)||nu==null)){
+                        Intent intent = new Intent(context,ShowKuaiDiActivity.class);
+                        intent.putExtra("com",com);
+                        intent.putExtra("nu",nu);
+                        context.startActivity(intent);
+                    }else{
+                        Toast.makeText(v.getContext(),"物流信息为空",Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             ((BottomViewHolder2) holder).bt_suregetshop.setOnClickListener(new View.OnClickListener() {
@@ -179,7 +190,16 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             ((BottomViewHolder3) holder).bt_seewl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),"查看物流",Toast.LENGTH_SHORT).show();
+                    String com = mlist.get(position).getOrd_expressname();
+                    String nu = mlist.get(position).getOrd_expressid();
+                    if(!("".equals(com)||com==null) && !("".equals(nu)||nu==null)){
+                        Intent intent = new Intent(context,ShowKuaiDiActivity.class);
+                        intent.putExtra("com",com);
+                        intent.putExtra("nu",nu);
+                        context.startActivity(intent);
+                    }else{
+                        Toast.makeText(v.getContext(),"物流信息为空",Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             ((BottomViewHolder3) holder).tv_summoney.setText("总计:￥"+mlist.get(position).getOrd_money());

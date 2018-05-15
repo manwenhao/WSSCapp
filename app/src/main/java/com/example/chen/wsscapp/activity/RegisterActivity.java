@@ -93,7 +93,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
                 // 3. 把按钮变成不可点击，并且显示倒计时（正在获取）
                 bt_codesend.setClickable(false);
-                bt_codesend.setText("重新发送(" + i + ")");
+                bt_codesend.setText("" + i + "");
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -128,7 +128,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
             if (msg.what == -9) {
-                bt_codesend.setText("重新发送(" + i + ")");
+                bt_codesend.setText("" + i + "");
             } else if (msg.what == -8) {
                 bt_codesend.setText("获取验证码");
                 bt_codesend.setClickable(true);

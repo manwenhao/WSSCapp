@@ -185,6 +185,8 @@
         <activity android:name=".activity.DetailActivity"/>
         <activity android:name=".activity.ChooseAddrActivity"/>
         <activity android:name=".activity.AddneAddrActivity"/>
+        <activity android:name=".activity.TiXianActivity"/>
+        <activity android:name=".activity.ShowKuaiDiActivity"/>
 
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"

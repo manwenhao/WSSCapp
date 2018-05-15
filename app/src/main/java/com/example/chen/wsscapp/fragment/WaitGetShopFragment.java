@@ -125,7 +125,7 @@ public class WaitGetShopFragment extends Fragment {
                                                             Log.e(TAG,oditem.getOrd_name());
                                                             list.add(new WaitOrder("2",od.getOrd_id(),"","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
                                                         }
-                                                        list.add(new WaitOrder("4",od.getOrd_id(),"",od.getOrd_money(),"","","","","","","","","","","","","","",""));
+                                                        list.add(new WaitOrder("4",od.getOrd_id(),"",od.getOrd_money(),"","",od.getOrd_expressname(),od.getOrd_expressid(),"","","","","","","","","","",""));
                                                     }
                                                     pos = list.size();
                                                     adapter = new OrderAdapter(getContext(),list);
@@ -251,7 +251,7 @@ public class WaitGetShopFragment extends Fragment {
                                     Log.e(TAG,oditem.getOrd_name());
                                     list.add(new WaitOrder("2",od.getOrd_id(),"","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
                                 }
-                                list.add(new WaitOrder("4",od.getOrd_id(),"",od.getOrd_money(),"","","","","","","","","","","","","","",""));
+                                list.add(new WaitOrder("4",od.getOrd_id(),"",od.getOrd_money(),"","",od.getOrd_expressname(),od.getOrd_expressid(),"","","","","","","","","","",""));
 
                             }
                             adapter = new OrderAdapter(getContext(),list);
@@ -321,7 +321,7 @@ public class WaitGetShopFragment extends Fragment {
                                             Log.e(TAG,oditem.getOrd_name());
                                             list.add(new WaitOrder("2",od.getOrd_id(),"","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
                                         }
-                                        list.add(new WaitOrder("4",od.getOrd_id(),"",od.getOrd_money(),"","","","","","","","","","","","","","",""));
+                                        list.add(new WaitOrder("4",od.getOrd_id(),"",od.getOrd_money(),"","",od.getOrd_expressname(),od.getOrd_expressid(),"","","","","","","","","","",""));
                                     }
                                     pos = list.size();
                                     adapter = new OrderAdapter(getContext(),list);

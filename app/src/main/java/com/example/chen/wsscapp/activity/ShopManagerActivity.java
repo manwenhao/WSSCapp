@@ -90,6 +90,10 @@ public class ShopManagerActivity extends BaseActivity {
                         Intent intent5 = new Intent(ShopManagerActivity.this,SendMsgActivity.class);
                         startActivity(intent5);
                         break;
+                    case 6:
+                        Intent intent6 = new Intent(ShopManagerActivity.this,TiXianActivity.class);
+                        startActivity(intent6);
+                        break;
                 }
             }
         });
@@ -114,5 +118,8 @@ public class ShopManagerActivity extends BaseActivity {
 
         Items item6 = new Items("短信公告", R.mipmap.becomeshop);
         item.add(item6);
+
+        Items item7 = new Items("提现管理", R.mipmap.becomeshop);
+        item.add(item7);
     }
 }

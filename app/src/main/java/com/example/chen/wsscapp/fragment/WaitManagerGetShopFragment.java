@@ -120,7 +120,7 @@ public class WaitManagerGetShopFragment extends Fragment {
                                                         for(OrderItem oditem :orderItems){
                                                             list.add(new ShopOrder("2","","","","","","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
                                                         }
-                                                        list.add(new ShopOrder("4","","","","","",od.getOrd_money(),"",od.getOrd_status(),"","",od.getRev_name(),od.getRev_phone(),od.getRev_address(),"","","","","","","",""));
+                                                        list.add(new ShopOrder("4","","","","","",od.getOrd_money(),"",od.getOrd_status(),od.getOrd_expressname(),od.getOrd_expressid(),od.getRev_name(),od.getRev_phone(),od.getRev_address(),"","","","","","","",""));
 
                                                     }
                                                     pos = list.size();
@@ -222,7 +222,7 @@ public class WaitManagerGetShopFragment extends Fragment {
                                 for(OrderItem oditem :orderItems){
                                     list.add(new ShopOrder("2","","","","","","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
                                 }
-                                list.add(new ShopOrder("3","","","","","",od.getOrd_money(),"",od.getOrd_status(),"","",od.getRev_name(),od.getRev_phone(),od.getRev_address(),"","","","","","","",""));
+                                list.add(new ShopOrder("3","","","","","",od.getOrd_money(),"",od.getOrd_status(),od.getOrd_expressname(),od.getOrd_expressid(),od.getRev_name(),od.getRev_phone(),od.getRev_address(),"","","","","","","",""));
 
                             }
                             adapter = new ManagerOrderAdapter(list,getContext());
@@ -294,7 +294,7 @@ public class WaitManagerGetShopFragment extends Fragment {
 
                                             list.add(new ShopOrder("2","","","","","","","","","","","","","","",oditem.getOrd_name(),oditem.getPro_price(),oditem.getPro_discount(),oditem.getOrd_photo(),oditem.getOrd_size(),oditem.getOrd_color(),oditem.getOrd_num()));
                                         }
-                                        list.add(new ShopOrder("4","","","","","",od.getOrd_money(),"",od.getOrd_status(),"","",od.getRev_name(),od.getRev_phone(),od.getRev_address(),"","","","","","","",""));
+                                        list.add(new ShopOrder("4","","","","","",od.getOrd_money(),"",od.getOrd_status(),od.getOrd_expressname(),od.getOrd_expressid(),od.getRev_name(),od.getRev_phone(),od.getRev_address(),"","","","","","","",""));
                                     }
                                     adapter = new ManagerOrderAdapter(list,getContext());
                                     pos = list.size();

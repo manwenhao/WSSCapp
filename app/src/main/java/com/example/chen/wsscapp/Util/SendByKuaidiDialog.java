@@ -3,14 +3,15 @@ package com.example.chen.wsscapp.Util;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.chen.wsscapp.R;
@@ -19,16 +20,17 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 /**
- * Created by chen on 2018/5/3.
+ * Created by chen on 2018/5/15.
  */
 
-public class ChooseSendDialog extends Dialog implements View.OnClickListener{
-    private Context context;
-    private TextView kdsend;
-    private TextView bt_zqsned;
-    private TextView bt_canclean;
+public class SendByKuaidiDialog extends Dialog implements View.OnClickListener {
+    private static final String TAG = "SendByKuaidiDialog";
+    private EditText et_expressname;
+    private EditText et_expressid;
+    private Button bt_sendsure;
     private String user_phone;
     private String ord_id;
+    private Context context;
 
     private Handler mhandler = new Handler(){
         @Override
@@ -47,7 +49,8 @@ public class ChooseSendDialog extends Dialog implements View.OnClickListener{
         }
     };
 
-    public ChooseSendDialog(Context context, String user_phone, String ord_id) {
+
+    public SendByKuaidiDialog(Context context, String user_phone, String ord_id) {
         super(context);
         this.context = context;
         this.user_phone = user_phone;
@@ -57,17 +60,11 @@ public class ChooseSendDialog extends Dialog implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.setContentView(R.layout.dialog_sendshop);
-        kdsend = (TextView) findViewById(R.id.kdsend);
-        kdsend.setOnClickListener(this);
-        bt_zqsned = (TextView) findViewById(R.id.bt_zqsned);
-        bt_zqsned.setOnClickListener(this);
-        bt_canclean = (TextView) findViewById(R.id.bt_canclean);
-        bt_canclean.setOnClickListener(this);
-        /*
-         * 获取圣诞框的窗口对象及参数对象以修改对话框的布局设置, 可以直接调用getWindow(),表示获得这个Activity的Window
-         * 对象,这样这可以以同样的方式改变这个Activity的属性.
-         */
+        setContentView(R.layout.activity_sendbykuaidi);
+        et_expressname = (EditText) findViewById(R.id.et_expressname);
+        et_expressid = (EditText) findViewById(R.id.et_expressid);
+        bt_sendsure = (Button) findViewById(R.id.bt_sendsure);
+        bt_sendsure.setOnClickListener(this);
         Window dialogWindow = this.getWindow();
         WindowManager.LayoutParams p = dialogWindow.getAttributes(); // 获取对话框当前的参数值
         dialogWindow.setAttributes(p);
@@ -76,24 +73,9 @@ public class ChooseSendDialog extends Dialog implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.kdsend:
-                this.dismiss();
-                SendByKuaidiDialog e = new SendByKuaidiDialog(context,user_phone,ord_id);
-                e.show();
-                break;
-            case R.id.bt_canclean:
-                dismiss();
-                break;
-            case R.id.bt_zqsned:
-                sendByShop(user_phone,ord_id);
-                break;
+        final String expressname = et_expressname.getText().toString();
+        final String expressid = et_expressid.getText().toString();
 
-        }
-
-    }
-
-    private void sendByShop(final String user_phone, final String ord_id) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -101,6 +83,8 @@ public class ChooseSendDialog extends Dialog implements View.OnClickListener{
                         .addParams("ord_user",user_phone)
                         .addParams("ord_id",ord_id)
                         .addParams("ord_status","1")
+                        .addParams("expressname",expressname)
+                        .addParams("expressid",expressid)
                         .url("http://106.14.145.208/ShopMall/UploadOrderStatus")
                         .build()
                         .execute(new StringCallback() {
@@ -128,5 +112,7 @@ public class ChooseSendDialog extends Dialog implements View.OnClickListener{
                         });
             }
         }).start();
+
+
     }
 }

@@ -16,6 +16,7 @@ import com.example.chen.wsscapp.Bean.ShopOrder;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.ChooseSendDialog;
 import com.example.chen.wsscapp.Util.GetTel;
+import com.example.chen.wsscapp.activity.ShowKuaiDiActivity;
 import com.example.chen.wsscapp.activity.ShowSeeaddrActivity;
 
 import java.util.List;
@@ -86,7 +87,7 @@ public class ManagerOrderAdapter extends RecyclerView.Adapter {
             ((BottomHolder) holder).bt_sendshop.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   ChooseSendDialog dialog = new ChooseSendDialog(context);
+                   ChooseSendDialog dialog = new ChooseSendDialog(context,list.get(position).getUser_phone(),list.get(position).getOrd_id());
                     dialog.show();
                 }
             });
@@ -95,7 +96,17 @@ public class ManagerOrderAdapter extends RecyclerView.Adapter {
             ((BottomHolder2) holder).bt_seewl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),"查看物流2",Toast.LENGTH_SHORT).show();
+                    String com = list.get(position).getOrd_expressname();
+                    String nu = list.get(position).getOrd_expressid();
+                    if(!("".equals(com)||com==null) && !("".equals(nu)||nu==null)){
+                        Intent intent = new Intent(context,ShowKuaiDiActivity.class);
+                        intent.putExtra("com",com);
+                        intent.putExtra("nu",nu);
+                        context.startActivity(intent);
+                    }else{
+                        Toast.makeText(v.getContext(),"物流信息为空",Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             });
 
@@ -116,7 +127,16 @@ public class ManagerOrderAdapter extends RecyclerView.Adapter {
             ((BottomHolder3) holder).bt_seewl.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(),"查看物流3",Toast.LENGTH_SHORT).show();
+                    String com = list.get(position).getOrd_expressname();
+                    String nu = list.get(position).getOrd_expressid();
+                    if(!("".equals(com)||com==null) && !("".equals(nu)||nu==null)){
+                        Intent intent = new Intent(context,ShowKuaiDiActivity.class);
+                        intent.putExtra("com",com);
+                        intent.putExtra("nu",nu);
+                        context.startActivity(intent);
+                    }else{
+                        Toast.makeText(v.getContext(),"物流信息为空",Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
