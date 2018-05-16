@@ -17,10 +17,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.BaseActivity;
+import com.example.chen.wsscapp.Util.GetTel;
 import com.example.chen.wsscapp.Util.MyApplication;
 import com.example.chen.wsscapp.Util.TopUi;
 import com.mob.MobSDK;
@@ -30,8 +32,7 @@ import cn.smssdk.SMSSDK;
 
 public class SetPhoneActivity extends BaseActivity implements View.OnClickListener {
 
-    private SharedPreferences pref;
-    private EditText et_oldphone;
+    private TextView et_oldphone;
     //旧电话输入框
 
     private Button bt_codesend;
@@ -77,8 +78,7 @@ public class SetPhoneActivity extends BaseActivity implements View.OnClickListen
 
 
     private void initView() {
-        pref = getSharedPreferences("user_data",MODE_PRIVATE);
-        et_oldphone = (EditText) findViewById(R.id.ed_oldphone);
+        et_oldphone = (TextView) findViewById(R.id.ed_oldphone);
         et_ensurecode = (EditText) findViewById(R.id.ed_code); //输入验证码
 
         bt_codesend = (Button) findViewById(R.id.bt_sendcode);//发送验证码
@@ -110,7 +110,9 @@ public class SetPhoneActivity extends BaseActivity implements View.OnClickListen
 
             }
         });
-         et_oldphone.setText(pref.getString("phone",""));
+        String phone = GetTel.gettel().substring(0,3);
+        String phone1 = GetTel.gettel().substring(7,11);
+         et_oldphone.setText("原绑定手机号：  "+phone+"****"+phone1);
 
         // 启动短信验证sdk
         EventHandler eventHandler = new EventHandler(){
@@ -130,7 +132,7 @@ public class SetPhoneActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        String phoneNums = et_oldphone.getText().toString();
+        String phoneNums = GetTel.gettel();
         switch (v.getId()) {
             case R.id.bt_sendcode:
                 // 1. 通过规则判断手机号
@@ -163,6 +165,11 @@ public class SetPhoneActivity extends BaseActivity implements View.OnClickListen
 
             case R.id.bt_next:
                 //将收到的验证码和手机号提交再次核对
+                if(TextUtils.isEmpty(et_ensurecode.getText().toString())){
+                    showToast("验证码不能为空");
+                    return;
+                }
+
                 SMSSDK.submitVerificationCode(country, phoneNums, et_ensurecode
                         .getText().toString());
 

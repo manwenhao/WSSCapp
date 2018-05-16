@@ -115,6 +115,18 @@ public class LossPwdActivity extends BaseActivity implements View.OnClickListene
                 break;
 
             case R.id.bt_register:
+                if(TextUtils.isEmpty(et_phone.getText().toString())){
+                    showToast("手机号不能为空");
+                    return;
+                }
+                if(TextUtils.isEmpty(et_ensurecode.getText().toString())){
+                    showToast("验证码不能为空");
+                    return;
+                }
+                if(TextUtils.isEmpty(et_register_password.getText().toString())){
+                    showToast("密码不能为空");
+                    return;
+                }
                 //将收到的验证码和手机号提交再次核对
                 SMSSDK.submitVerificationCode(country, phoneNums, et_ensurecode
                         .getText().toString());

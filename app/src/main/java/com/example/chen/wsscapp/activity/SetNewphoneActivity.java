@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.example.chen.wsscapp.Bean.User;
 import com.example.chen.wsscapp.R;
 import com.example.chen.wsscapp.Util.MyApplication;
 import com.example.chen.wsscapp.Util.TopUi;
+import com.nostra13.universalimageloader.utils.L;
 import com.squareup.okhttp.Request;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -68,7 +70,10 @@ public class SetNewphoneActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Log.d("===","click");
                 String newnumber = et_setnewphone.getText().toString();
-
+                if(TextUtils.isEmpty(newnumber)){
+                    Toast.makeText(SetNewphoneActivity.this,"手机号不能为空",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 pref = getSharedPreferences("user_data",MODE_PRIVATE);
                 String idphone = pref.getString("phone","");
                 setNewnumber(idphone,newnumber);

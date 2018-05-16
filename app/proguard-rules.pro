@@ -35,3 +35,18 @@
 -keep class com.alipay.tscenter.** { *; }
 -keep class com.ta.utdid2.** { *;}
 -keep class com.ut.device.** { *;}
+
+#okhttputils
+-dontwarn com.zhy.http.**
+-keep class com.zhy.http.**{*;}
+
+
+#okhttp
+-dontwarn okhttp3.**
+-keep class okhttp3.**{*;}
+
+
+#okio
+-dontwarn okio.**
+-keep class okio.**{*;}
+

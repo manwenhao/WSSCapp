@@ -105,7 +105,7 @@
             <TextView
                 android:textColor="@color/white"
                 android:textSize="16sp"
-                android:text="密码             "
+                android:text="邀请码             "
                 android:layout_width="wrap_content"
                 android:layout_height="50dp" />
             <EditText

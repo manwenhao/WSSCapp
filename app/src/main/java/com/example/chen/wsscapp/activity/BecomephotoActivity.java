@@ -78,7 +78,7 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
         color = extras.getString("color");
         size = extras.getString("size");
 
-        Log.e(TAG,product.toString());
+        Log.e(TAG,color+size);
         initView();
     }
 
