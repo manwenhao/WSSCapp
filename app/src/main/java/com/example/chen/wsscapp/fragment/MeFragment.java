@@ -78,7 +78,7 @@ public class MeFragment extends Fragment {
     private Button bt_setting,bt_tuiguang;
     private TextView tv_tuiguang;
     private SuperSwipeRefreshLayout swipeRefreshLayout;
-    private LinearLayout ll_jifen;
+    private LinearLayout ll_jifen,ll_jifen1;
     //从缓存中取值
     ACache aCache = ACache.get(MyApplication.getContext(), GetTel.gettel());
     User userdata = new User();
@@ -107,6 +107,7 @@ public class MeFragment extends Fragment {
     //初始化控件以及json数据的解析
     private void initView(final View view) {
         ll_jifen = (LinearLayout) view.findViewById(R.id.ll_jifen);
+        ll_jifen1 = (LinearLayout) view.findViewById(R.id.ll_jifen1);
         tv_nickname = (TextView) view.findViewById(R.id.tv_nickname);
         iv_touxiang = (CircleImageView) view.findViewById(R.id.iv_metouxiang);
         swipeRefreshLayout = (SuperSwipeRefreshLayout) view.findViewById(R.id.swipe_refresh);
@@ -416,6 +417,14 @@ public class MeFragment extends Fragment {
         });
 
         ll_jifen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(),ShowJiFenActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ll_jifen1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(),ShowJiFenActivity.class);

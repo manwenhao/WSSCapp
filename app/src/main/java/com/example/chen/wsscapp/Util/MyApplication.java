@@ -148,6 +148,7 @@ public class MyApplication extends Application {
 
 
     }
+
     private void initImagePicker() {
         ImagePicker imagePicker = ImagePicker.getInstance();
         imagePicker.setImageLoader(new GlideImageloader());   //设置图片加载器
@@ -224,5 +225,6 @@ public class MyApplication extends Application {
         public void onActivityDestroyed(Activity activity) {
         }
     }
+
 
 }

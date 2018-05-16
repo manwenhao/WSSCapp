@@ -50,28 +50,66 @@
                     app:civ_fill_color="@color/white"
                     />
                 <LinearLayout
+                    android:orientation="horizontal"
                     android:id="@+id/ll_name"
                     android:layout_toRightOf="@+id/iv_metouxiang"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_height="50dp">
                     <TextView
                         android:id="@+id/tv_nickname"
                         android:layout_width="120dp"
-                        android:layout_height="80dp"
-                        android:textColor="@color/black"
+                        android:layout_height="50dp"
+                        android:textColor="@color/nickcolor"
                         android:textSize="20sp"
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         />
+                    <LinearLayout
+                        android:id="@+id/ll_jifen1"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="红积分:"
+                        android:textColor="@color/red"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_redjifen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:layout_gravity="left"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/red"
+                        android:singleLine="true"
+                        />
+                    </LinearLayout>
 
                 </LinearLayout>
+                <View
+                    android:id="@+id/v_line"
+                    android:layout_toRightOf="@+id/iv_metouxiang"
+                    android:layout_below="@+id/ll_name"
+                    android:layout_width="match_parent"
+                    android:layout_marginRight="20dp"
+                    android:layout_height="1dp"
+                    android:background="@drawable/whiteline"
+                    />
                 <LinearLayout
-                    android:layout_toRightOf="@+id/ll_name"
+                    android:layout_toRightOf="@+id/iv_metouxiang"
+                    android:layout_below="@+id/v_line"
                     android:id="@+id/ll_jifen"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="49dp">
                     <LinearLayout
+                        android:layout_marginLeft="110dp"
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -79,47 +117,23 @@
                             android:layout_marginLeft="10dp"
                             android:id="@+id/jifenname"
                             android:layout_width="wrap_content"
-                            android:layout_height="50dp"
+                            android:layout_height="49dp"
                             android:layout_gravity="center_vertical"
                             android:gravity="center_vertical"
                             android:text="白积分:"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             />
-
                         <TextView
                             android:id="@+id/tv_whitejifen"
                             android:layout_width="wrap_content"
-                            android:layout_height="50dp"
+                            android:layout_height="49dp"
                             android:text="1232"
                             android:layout_gravity="left"
                             android:gravity="center_vertical"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:singleLine="true"
-                            />
-                    </LinearLayout>
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <TextView
-                            android:layout_marginLeft="10dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center_vertical"
-                            android:gravity="center_vertical"
-                            android:text="红积分:"
-                            android:textColor="@color/red"
                             />
 
-                        <TextView
-                            android:id="@+id/tv_redjifen"
-                            android:layout_width="wrap_content"
-                            android:layout_height="50dp"
-                            android:layout_gravity="left"
-                            android:gravity="center_vertical"
-                            android:textColor="@color/red"
-                            android:singleLine="true"
-                            />
                     </LinearLayout>
 
 

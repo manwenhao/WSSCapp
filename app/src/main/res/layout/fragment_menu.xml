@@ -52,7 +52,7 @@
 
 
                 <ListView
-                    android:background="@color/gray"
+                    android:background="@color/bg_Gray"
                     android:id="@+id/ll_shoplist"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
