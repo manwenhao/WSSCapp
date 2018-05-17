@@ -107,7 +107,7 @@ public class ShowJiFenActivity extends BaseActivity implements View.OnClickListe
                                                tv_redshowjifen.setText(e.getRedjf());
                                                Float tx = Float.valueOf(e.getRedjf());
                                                if(tx/20000>=1){
-                                                   tv_tixian.setText(""+(int)(tx/20000));
+                                                   tv_tixian.setText(""+(int)(tx/20000)+"00");
                                                }else{
                                                    tv_tixian.setText("0");
                                                }
@@ -205,6 +205,12 @@ public class ShowJiFenActivity extends BaseActivity implements View.OnClickListe
                             @Override
                             public void onResponse(String response) {
                                 if("ok".equals(response)){
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            tv_tixian.setText("0");
+                                        }
+                                    });
                                     uitoast("提现申请成功,等待商家处理");
                                 }else if("error".equals(response)){
                                     uitoast("提现失败");

@@ -35,6 +35,7 @@ import com.example.chen.wsscapp.Bean.User;
 import com.example.chen.wsscapp.Util.ACache;
 import com.example.chen.wsscapp.Util.GetTel;
 import com.example.chen.wsscapp.Util.MyApplication;
+import com.example.chen.wsscapp.Util.WantShopDialog;
 import com.example.chen.wsscapp.activity.BecomeShopActivity;
 import com.example.chen.wsscapp.activity.OrderActivity;
 import com.example.chen.wsscapp.activity.SetBirthActivity;
@@ -301,7 +302,9 @@ public class MeFragment extends Fragment {
                         IsShop();
                         break;
                     case 1:
-                        Toast.makeText(getContext(),"我要开店请联系******",Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getContext(),"我要开店请联系******",Toast.LENGTH_SHORT).show();
+                        WantShopDialog dialog = new WantShopDialog(getActivity());
+                        dialog.show();
                         break;
                     default:
                         break;

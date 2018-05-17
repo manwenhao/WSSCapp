@@ -96,8 +96,8 @@ public class TixianManagerAdapter  extends RecyclerView.Adapter<TixianManagerAda
                                                 context.runOnUiThread(new Runnable() {
                                                     @Override
                                                     public void run() {
-                                                        holder.bt_tixian.setVisibility(View.INVISIBLE);
-                                                        holder.tv_statue.setVisibility(View.INVISIBLE);
+                                                        Toast.makeText(context,"确认成功",Toast.LENGTH_SHORT).show();
+                                                        holder.setVisible(true);
                                                         notifyDataSetChanged();
                                                     }
                                                 });
@@ -150,6 +150,16 @@ public class TixianManagerAdapter  extends RecyclerView.Adapter<TixianManagerAda
             tv_txtime = (TextView) itemView.findViewById(R.id.tv_txtime);
             tv_statue = (TextView) itemView.findViewById(R.id.tv_statue);
             bt_tixian = (Button) itemView.findViewById(R.id.bt_tixian);
+        }
+
+        public void setVisible(boolean isVisible){
+            if(isVisible){
+                bt_tixian.setVisibility(View.INVISIBLE);
+                tv_statue.setVisibility(View.VISIBLE);
+            }else{
+                bt_tixian.setVisibility(View.VISIBLE);
+                tv_statue.setVisibility(View.INVISIBLE);
+            }
         }
     }
 

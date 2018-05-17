@@ -14,6 +14,7 @@
     app:title_text="提现管理"
     android:fitsSystemWindows="true"
     >
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -22,12 +23,18 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout
+            android:id="@+id/ssr_tixianlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_tixianmanager"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
+        </com.github.nuptboyzhb.lib.SuperSwipeRefreshLayout>
     </RelativeLayout>
 
 </LinearLayout>
+
     </com.example.chen.wsscapp.Util.CustomToolBar>
