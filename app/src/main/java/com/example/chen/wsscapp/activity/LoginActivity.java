@@ -62,9 +62,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
+        autoLogin();
         setContentView(R.layout.activity_login);
         initView();
-        autoLogin();
+
     }
 
 

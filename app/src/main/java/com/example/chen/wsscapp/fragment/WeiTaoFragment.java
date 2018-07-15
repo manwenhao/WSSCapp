@@ -37,6 +37,7 @@ public class WeiTaoFragment extends Fragment {
     private XRecyclerView weitaolist;
     private WeiTaoRecycAdapter adapter;
     private List<WeiTaoBean> list;
+    private View view;
 
 
     public WeiTaoFragment() {
@@ -46,7 +47,18 @@ public class WeiTaoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.fragment_weitao, container, false);
+        if (null == view) {
+            view = inflater.inflate(R.layout.fragment_weitao, container, false);
+            initView(view);
+        }
+        ViewGroup parent = (ViewGroup) view.getParent();
+        if (null != parent) {
+            parent.removeView(view);
+        }
+        return view;
+    }
+
+    private void initView(View view) {
         weitaolist=(XRecyclerView) view.findViewById(R.id.weitao_recyc);
         LinearLayoutManager layoutManager = new LinearLayoutManager(MyApplication.getContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -61,7 +73,6 @@ public class WeiTaoFragment extends Fragment {
         weitaolist.getDefaultFootView().setNoMoreHint("加载完毕...");
         adapter=new WeiTaoRecycAdapter();
         list=new ArrayList<WeiTaoBean>();
-        return view;
     }
 
     @Override

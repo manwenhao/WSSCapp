@@ -90,12 +90,14 @@ public class ShowJiFenActivity extends BaseActivity implements View.OnClickListe
                         .execute(new StringCallback() {
                             @Override
                             public void onError(Request request, Exception e) {
+                                Log.e(TAG,e.getMessage());
                                 uitoast("获取积分数据失败");
                             }
 
                             @Override
                             public void onResponse(String response) {
                                 if("error".equals(response.toString())){
+                                    Log.e(TAG,response.toString());
                                     uitoast("获取积分数据失败");
                                 }else{
                                     List<JiFen> jiFens = JSON.parseArray(response.toString(), JiFen.class);
@@ -150,7 +152,7 @@ public class ShowJiFenActivity extends BaseActivity implements View.OnClickListe
             public void run() {
                 OkHttpUtils.get()
                         .addParams("user_phone",GetTel.gettel())
-                        .url("http://106.14.145.208/ShopMall/BackUserRedJF")
+                        .url("http://106.14.145.208/ShopMall/BackUserRealRedJF")
                         .build()
                         .execute(new StringCallback() {
                             @Override

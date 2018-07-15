@@ -245,58 +245,64 @@ public class DetailActivity extends BaseActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                OkHttpUtils.get()
-                        .addParams("user_phone", GetTel.gettel())
-                        .url("http://106.14.145.208/ShopMall/BackUserRedJF")
-                        .build()
-                        .execute(new StringCallback() {
-                            @Override
-                            public void onError(Request request, Exception e) {
-                                uitoast("查询积分失败，请稍后再试");
-                            }
-
-                            @Override
-                            public void onResponse(String response) {
-                                if("error".equals(response.toString())){
+                try {
+                    OkHttpUtils.get()
+                            .addParams("user_phone", GetTel.gettel())
+                            .addParams("products",URLEncoder.encode(products,"UTF-8"))
+                            .url("http://106.14.145.208/ShopMall/BackUserRedJF")
+                            .build()
+                            .execute(new StringCallback() {
+                                @Override
+                                public void onError(Request request, Exception e) {
+                                    Log.e(TAG,e.getMessage());
                                     uitoast("查询积分失败，请稍后再试");
-                                }else{
-                                    getJifen = Float.valueOf(response.toString());
-                                    cost = (int) (getJifen/100);
-                                    endmoney = GetTel.getFloat(Float.valueOf(allprice) - Float.valueOf(cost) );
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            if(Float.valueOf(allprice)>Float.valueOf(cost)){
-                                                tv_jifencost.setText("-"+cost);
-                                                if(Float.valueOf(endmoney)>1)
-                                                {
-                                                    tv_allmoney.setText(endmoney);
-                                                }else{
-                                                    endmoney="0"+endmoney;
-                                                    tv_allmoney.setText(endmoney);
-                                                }
-                                            }else if(Float.valueOf(allprice)<Float.valueOf(cost)){
-                                                cost = (int)Float.parseFloat(allprice);
-                                                endmoney =  GetTel.getFloat(Float.valueOf(allprice) - Float.valueOf(cost)) ;
-                                                tv_jifencost.setText("-"+cost);
-                                                if(".00".equals(endmoney)){
-                                                    endmoney = "0.01";
-                                                    tv_allmoney.setText(endmoney);
-                                                }else {
-                                                    endmoney="0"+endmoney;
-                                                    tv_allmoney.setText(endmoney);
-                                                }
-                                            }else{
-                                                endmoney = "0.01";
-                                                tv_allmoney.setText(endmoney);
-                                            }
-                                        }
-                                    });
-
                                 }
 
-                            }
-                        });
+                                @Override
+                                public void onResponse(String response) {
+                                    if("error".equals(response.toString())){
+                                        uitoast("查询积分失败，请稍后再试");
+                                    }else{
+                                        getJifen = Float.valueOf(response.toString());
+                                        cost = (int) (getJifen/100);
+                                        endmoney = GetTel.getFloat(Float.valueOf(allprice) - Float.valueOf(cost) );
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if(Float.valueOf(allprice)>Float.valueOf(cost)){
+                                                    tv_jifencost.setText("-"+cost);
+                                                    if(Float.valueOf(endmoney)>1)
+                                                    {
+                                                        tv_allmoney.setText(endmoney);
+                                                    }else{
+                                                        endmoney="0"+endmoney;
+                                                        tv_allmoney.setText(endmoney);
+                                                    }
+                                                }else if(Float.valueOf(allprice)<Float.valueOf(cost)){
+                                                    cost = (int)Float.parseFloat(allprice);
+                                                    endmoney =  GetTel.getFloat(Float.valueOf(allprice) - Float.valueOf(cost)) ;
+                                                    tv_jifencost.setText("-"+cost);
+                                                    if(".00".equals(endmoney)){
+                                                        endmoney = "0.01";
+                                                        tv_allmoney.setText(endmoney);
+                                                    }else {
+                                                        endmoney="0"+endmoney;
+                                                        tv_allmoney.setText(endmoney);
+                                                    }
+                                                }else{
+                                                    endmoney = "0.01";
+                                                    tv_allmoney.setText(endmoney);
+                                                }
+                                            }
+                                        });
+
+                                    }
+
+                                }
+                            });
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
 
             }
         }).start();

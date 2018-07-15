@@ -41,9 +41,9 @@ import java.util.List;
 public class BecomeShopActivity extends BaseActivity implements View.OnClickListener{
 
     private String TAG = "BecomeShopActivity";
-    private Spinner sp_shoptype,sp_shopdiscount;
+    private Spinner sp_shoptype,sp_shopdiscount,sp_shopexchagejf;
     //定义一个String类型的List数组作为数据源
-    private List<String> typedataList,discountdataList;
+    private List<String> typedataList,discountdataList,exchangejfList;
     private EditText et_shopname,et_shoplogo,et_shopuser,et_shopmake,et_shopprice,et_shopinfoshow,et_shopjifen;
     private TextView tv_shoptypecreate;
     private  MultiSelector multiSelector;
@@ -54,7 +54,7 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
     private String typedata;   //商品种类数据
     private String newType; //新商品种类
     //定义一个ArrayAdapter适配器作为spinner的数据适配器
-    private ArrayAdapter<String> adapter,adapter2;
+    private ArrayAdapter<String> adapter,adapter2,adapter3;
     Product product = new Product();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,6 +81,7 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
         initView();
         initTypedata();
         initDiscountdata();
+        initExchangejf();
 
     }
 
@@ -97,6 +98,7 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
         et_shopprice = (EditText) findViewById(R.id.et_shopprice);
         et_shopjifen = (EditText) findViewById(R.id.et_shopprice);
         sp_shopdiscount = (Spinner) findViewById(R.id.sp_shopdiscount);
+        sp_shopexchagejf = (Spinner) findViewById(R.id.sp_shopexchagejf);
         et_shopinfoshow = (EditText) findViewById(R.id.et_shopinfoshow);
         bt_next = (Button) findViewById(R.id.bt_next);
         tv_shoptypecreate.setOnClickListener(this);
@@ -174,6 +176,43 @@ public class BecomeShopActivity extends BaseActivity implements View.OnClickList
         });
 
 
+
+
+    }
+
+
+    private void initExchangejf() {
+        exchangejfList = new ArrayList<>();
+        exchangejfList.add("0");
+        exchangejfList.add("0.1");
+        exchangejfList.add("0.2");
+        exchangejfList.add("0.3");
+        exchangejfList.add("0.4");
+        exchangejfList.add("0.5");
+        exchangejfList.add("0.6");
+        exchangejfList.add("0.7");
+        exchangejfList.add("0.8");
+        exchangejfList.add("0.9");
+
+        adapter3 = new ArrayAdapter<String>(this,R.layout.simple_spinner_item_1,exchangejfList);
+        //为适配器设置下拉列表下拉时的菜单样式。
+        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //为spinner绑定我们定义好的数据适配器
+        sp_shopexchagejf.setAdapter(adapter3);
+
+        //为spinner绑定监听器，这里我们使用匿名内部类的方式实现监听器
+        sp_shopexchagejf.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                product.setPro_exchangejf(sp_shopexchagejf.getSelectedItem().toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
     }

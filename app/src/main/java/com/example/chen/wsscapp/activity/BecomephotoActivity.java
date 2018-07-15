@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -65,6 +66,10 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
     private LinkedList<Runnable> taskList2 = new LinkedList<>();
     private String color;
     private String size;
+    private int i=0;
+    private int j=0;
+    private List<String> fileList = new ArrayList<>();
+    private List<String> xcfileList = new ArrayList<>();
 
 
 
@@ -148,14 +153,17 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
                         .addFormDataPart("pro_discount",product.getPro_discount())
                         .addFormDataPart("pro_describephoto",product.getPro_describe())
                         .addFormDataPart("pro_jfvalue",product.getPro_jfvalue())
+                        .addFormDataPart("pro_exchangejf",product.getPro_exchangejf())
                         .setType(MultipartBody.FORM);
                 if (files != null){
                     for (File file : files) {
+                        Log.e(TAG,"file:-----"+files.size());
                         builder.addFormDataPart("upload", file.getName(), RequestBody.create(MediaType.parse("image/jpg"), file));
                     }
                 }
                 if (xcfiles != null){
                     for (File file : xcfiles) {
+                        Log.e(TAG,"xcfile:-----"+files.size());
                         builder.addFormDataPart("imgxc", file.getName(), RequestBody.create(MediaType.parse("image/jpg"), file));
                     }
                 }
@@ -223,6 +231,11 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
             Log.e(TAG,pathList.toString());
             mGridData = new ArrayList<GridItem>();
             files = new ArrayList<>();
+            if(i>0){
+                for(String path:fileList){
+                    pathList.add(path);
+                }
+            }
             compressMore(pathList);
             for (String path : pathList) {
                 Log.e(TAG,pathList.size()+"");
@@ -235,6 +248,10 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
             Log.e(TAG,"grid "+mGridData.size());
             mGridViewAdapter = new Myadapter(this, R.layout.itemtu, mGridData);
             gridView.setAdapter(mGridViewAdapter);
+            i++;
+            fileList = pathList;
+
+
         }
 
 
@@ -242,6 +259,11 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
             List<String> pathList = data.getStringArrayListExtra("result");
             ArrayList<GridItem> xcGridData = new ArrayList<GridItem>();
             xcfiles = new ArrayList<>();
+            if(j>0){
+                for(String path:xcfileList){
+                    pathList.add(path);
+                }
+            }
             compressxcMore(pathList);
             for (String path : pathList) {
                 Log.e(TAG,pathList.size()+"");
@@ -255,6 +277,8 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
             Log.e(TAG,"grid "+xcGridData.size());
             mGridViewAdapter = new Myadapter(this, R.layout.itemtu, xcGridData);
             xcgridView.setAdapter(mGridViewAdapter);
+            j++;
+            xcfileList = pathList;
         }
 
     }
@@ -279,9 +303,9 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
                 .cropSize(1, 1, 200, 200)
                 .needCrop(false)
                 // 第一个是否显示相机，默认true
-                .needCamera(false)
+                .needCamera(true)
                 // 最大选择图片数量，默认9
-                .maxNum(12)
+                .maxNum(9)
                 .build();
 
 // 跳转到图片选择器
@@ -308,9 +332,9 @@ public class BecomephotoActivity extends BaseActivity implements View.OnClickLis
                 .cropSize(1, 1, 200, 200)
                 .needCrop(false)
                 // 第一个是否显示相机，默认true
-                .needCamera(false)
+                .needCamera(true)
                 // 最大选择图片数量，默认9
-                .maxNum(12)
+                .maxNum(9)
                 .build();
 
 // 跳转到图片选择器

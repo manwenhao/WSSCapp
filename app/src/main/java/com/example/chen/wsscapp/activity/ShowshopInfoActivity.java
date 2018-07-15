@@ -367,6 +367,7 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
             String pro_id =  intent.getStringExtra("shopid");
             selectColorSizeDialog.dismiss();
             String allPrice = intent.getStringExtra("money");
+            Float money = Float.parseFloat(allPrice)*Float.parseFloat(value);
             JSONArray Products = new JSONArray();
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("ord_gooid",pro_id);
@@ -375,7 +376,7 @@ public class ShowshopInfoActivity extends BaseActivity implements View.OnClickLi
             jsonObject.put("ord_num",value);
             Products.add(jsonObject);
             Log.e(TAG,Products.toString());
-            UserChooseSendDialog d =new UserChooseSendDialog(ShowshopInfoActivity.this,Products.toString(),allPrice);
+            UserChooseSendDialog d =new UserChooseSendDialog(ShowshopInfoActivity.this,Products.toString(),String.valueOf(money));
             d.show();
         }
     };

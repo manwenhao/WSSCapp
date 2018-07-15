@@ -37,6 +37,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.im.android.api.JMessageClient;
 import qiu.niorgai.StatusBarCompat;
 
 
@@ -251,6 +252,7 @@ public class MainActivity extends FragmentActivity {
             mHandler.sendEmptyMessageDelayed(0, 2000);
         } else {
             finish();
+            JMessageClient.logout();
             CommonAction.getInstance().OutSign();
             System.exit(0);
         }

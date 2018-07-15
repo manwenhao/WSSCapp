@@ -44,6 +44,7 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Vi
                 Intent intent = new Intent(context,ShowshopInfoActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
                 intent.putExtra("shopid",getProduct.getPro_id());
+                intent.putExtra("money",getProduct.getPro_price());
                 context.startActivity(intent);
             }
         });

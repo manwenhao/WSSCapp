@@ -373,7 +373,7 @@ public class ConversationListAdapter extends BaseAdapter {
 
                                     SpannableStringBuilder builder = new SpannableStringBuilder(contentStr);
                                     builder.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.line_normal)),
-                                            0, 4, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                                            0, 3, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                                     content.setText(builder);
                                 } else {
                                     content.setText(contentStr);
